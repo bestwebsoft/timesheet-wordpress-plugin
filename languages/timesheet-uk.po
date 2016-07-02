@@ -1,0 +1,321 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Timesheet\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-06-17 13:00+0300\n"
+"PO-Revision-Date: 2016-06-17 13:02+0300\n"
+"Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
+"Language-Team: BestWebSoft Team <wp@bestwebsoft.com>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11) ? 3 : "
+"((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../timesheet.php:56 ../timesheet.php:58 ../timesheet.php:1127
+msgid "Report"
+msgstr "Звіт"
+
+#: ../timesheet.php:147
+msgid "Work In Office"
+msgstr "Робота в офісі"
+
+#: ../timesheet.php:153
+msgid "Work Remotely"
+msgstr "Віддалена робота"
+
+#: ../timesheet.php:159
+msgid "Will be absent"
+msgstr "Відсутність"
+
+#: ../timesheet.php:165
+msgid "Vacation"
+msgstr "Відпустка"
+
+#: ../timesheet.php:364
+msgid "Please, input legend name"
+msgstr "Будь ласка, введіть назву легенди"
+
+#: ../timesheet.php:369 ../timesheet.php:371
+msgid "Please, choose legend color"
+msgstr "Будь ласка, виберіть колір легенди"
+
+#: ../timesheet.php:376
+#, php-format
+msgid "Legend with name \"%s\" or with color %s already exists"
+msgstr "Легенда з назвою \"%s\" або кольором %s вже існує"
+
+#: ../timesheet.php:380
+#, php-format
+msgid ""
+"The legend with the color %s can not be saved. Please choose a different "
+"color."
+msgstr ""
+"Легенда з кольором %s не може бути збережена. Будь ласка виберіть інший "
+"колір."
+
+#: ../timesheet.php:393
+msgid "Legend has been successfully added"
+msgstr "Легенда успішно додана"
+
+#: ../timesheet.php:395 ../timesheet.php:398
+msgid "Legend has not been added"
+msgstr "Легенда не додана"
+
+#: ../timesheet.php:527
+msgid "Settings saved"
+msgstr "Налаштування збережені"
+
+#: ../timesheet.php:536
+msgid "All plugin settings were restored."
+msgstr "Всі настройки плагіна відновлені."
+
+#: ../timesheet.php:546
+msgid "Timesheet Settings"
+msgstr "Нлаштування Timesheet"
+
+#: ../timesheet.php:549 ../timesheet.php:832 ../timesheet.php:1130
+msgid "WARNING"
+msgstr "УВАГА"
+
+#: ../timesheet.php:549 ../timesheet.php:832 ../timesheet.php:1130
+msgid "The plugin works correctly only if JavaScript is enabled."
+msgstr "Плагін працює коректно тільки при включеному JavaScript."
+
+#: ../timesheet.php:561
+msgid "Timeline"
+msgstr "Час"
+
+#: ../timesheet.php:564
+msgctxt "timeline"
+msgid "from"
+msgstr "від"
+
+#: ../timesheet.php:564
+msgctxt "timeline"
+msgid "to"
+msgstr "до"
+
+#: ../timesheet.php:564
+msgctxt "timeline"
+msgid "hours"
+msgstr "годин"
+
+#: ../timesheet.php:572
+msgid "Weekends"
+msgstr "Вихідні"
+
+#: ../timesheet.php:585 ../timesheet.php:619
+msgid "Legends"
+msgstr "Легенди"
+
+#: ../timesheet.php:588
+msgid "Name"
+msgstr "Назва"
+
+#: ../timesheet.php:591
+msgid "Add Legend"
+msgstr "Додати Легенду"
+
+#: ../timesheet.php:596 ../timesheet.php:605 ../timesheet.php:625
+msgid "Enabled"
+msgstr "Включено"
+
+#: ../timesheet.php:597 ../timesheet.php:609 ../timesheet.php:626
+msgctxt "Settings legend table header"
+msgid "Name"
+msgstr "Назва"
+
+#: ../timesheet.php:598 ../timesheet.php:612 ../timesheet.php:627
+msgctxt "Settings legend table header"
+msgid "Color"
+msgstr "Колір"
+
+#: ../timesheet.php:619
+msgid "No legends"
+msgstr "Немає легенд"
+
+#: ../timesheet.php:635
+msgid "Date format"
+msgstr "Формат дати"
+
+#: ../timesheet.php:642
+msgid "WordPress Settings"
+msgstr "Налаштування WordPress"
+
+#: ../timesheet.php:654
+msgid "Custom"
+msgstr "Користувацький"
+
+#: ../timesheet.php:665
+msgid "Documentation on date and time formatting"
+msgstr "Документація щодо форматування часу і дати"
+
+#: ../timesheet.php:670
+msgid "Display TS user page for"
+msgstr "Відображати TS сторінку користувача для"
+
+#: ../timesheet.php:684
+msgid "Display TS report page for"
+msgstr "Відображати TS сторінку звітів для"
+
+#: ../timesheet.php:697
+msgid "Reminder on email"
+msgstr "Нагадування на емейл"
+
+#: ../timesheet.php:703
+msgid "Choose a day"
+msgstr "Виберіть день"
+
+#: ../timesheet.php:716
+msgid "Enter the time"
+msgstr "Введіть час"
+
+#: ../timesheet.php:726 ../timesheet.php:973
+msgid "Save Changes"
+msgstr "Зберегти зміни"
+
+#: ../timesheet.php:765 ../timesheet.php:1013
+msgid "Reset"
+msgstr "Скидання"
+
+#: ../timesheet.php:780 ../timesheet.php:800
+msgid "Data has not been saved"
+msgstr "Дані не були збережені"
+
+#: ../timesheet.php:808
+msgid "Data has been saved"
+msgstr "Дані були збережені"
+
+#: ../timesheet.php:811
+msgid "Data has not been saved, because there was no change"
+msgstr "Дані не були збережені, оскільки зміни не вносилися"
+
+#: ../timesheet.php:842 ../timesheet.php:1139
+msgid "Date from"
+msgstr "Дата від"
+
+#: ../timesheet.php:846 ../timesheet.php:1143
+msgid "Date to"
+msgstr "Дата до"
+
+#: ../timesheet.php:850
+msgid "Change date"
+msgstr "Змінити дату"
+
+#: ../timesheet.php:855 ../timesheet.php:1148
+msgid "Legend"
+msgstr "Легенда"
+
+#: ../timesheet.php:868
+msgid "Transposition table"
+msgstr "Транспонування таблиці"
+
+#: ../timesheet.php:1006
+msgctxt "Group by"
+msgid "Date"
+msgstr "Датою"
+
+#: ../timesheet.php:1007
+msgctxt "Group by"
+msgid "User"
+msgstr "Користувачом"
+
+#: ../timesheet.php:1014
+msgid "All Legends"
+msgstr "Всі легенди"
+
+#: ../timesheet.php:1124
+msgid "Select at least one user"
+msgstr "Виберіть хоча б одного користувача"
+
+#: ../timesheet.php:1160
+msgid "Users"
+msgstr "Користувачі"
+
+#: ../timesheet.php:1163
+msgid "Search user"
+msgstr "Пошук користувача"
+
+#: ../timesheet.php:1167
+msgctxt "All users"
+msgid "All users"
+msgstr "Всі користувачі"
+
+#: ../timesheet.php:1173
+msgctxt "Search user"
+msgid "No results"
+msgstr "За вашим запитом нічого не знайдено"
+
+#: ../timesheet.php:1180
+msgctxt "Search user"
+msgid "No users to select"
+msgstr "Немає доступних користувачів для вибору"
+
+#: ../timesheet.php:1198
+msgid "Group by"
+msgstr "Сортувати за"
+
+#: ../timesheet.php:1207
+msgctxt "Apply ts report"
+msgid "Apply"
+msgstr "Застосувати"
+
+#: ../timesheet.php:1442
+msgid "No data to view"
+msgstr "Немає доступних даних для перегляду"
+
+#: ../timesheet.php:1566
+msgid "Reminder"
+msgstr "Нагадування"
+
+#: ../timesheet.php:1569
+msgid "Please fill out the schedule"
+msgstr "Будь ласка, заповніть графік"
+
+#: ../timesheet.php:1569
+msgid "on this page"
+msgstr "на цій сторінці"
+
+#: ../timesheet.php:1569
+msgid "for the following days"
+msgstr "для наступних днів"
+
+#: ../timesheet.php:1571
+msgid "Please do not reply to this message. This is an automatic mailing."
+msgstr ""
+"Будь ласка, не відповідайте на це повідомлення. Це автоматична розсилка."
+
+#: ../timesheet.php:1587 ../timesheet.php:1600
+msgid "Settings"
+msgstr "Налаштування"
+
+#: ../timesheet.php:1601
+msgid "FAQ"
+msgstr "FAQ"
+
+#: ../timesheet.php:1602
+msgid "Support"
+msgstr "Тех. Підтримка"
+
+#: ../timesheet.php:1626
+msgid "Once Weekly"
+msgstr "Один раз на тиждень"
+
+#~ msgid "Details"
+#~ msgstr "Деталі"
+
+#~ msgid "Advanced report"
+#~ msgstr "Розширений звіт"
+
+#~ msgid "Highlight current day"
+#~ msgstr "Виділити поточний день"
+
+#~ msgid "Highlight past days"
+#~ msgstr "Виділити попередні дні"
