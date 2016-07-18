@@ -90,7 +90,7 @@
 
 		$( '#tmsht_reminder_change_state' ).attr( 'disabled', true );
 
-		$( '#tmsht_reminder_on_email, .tmsht_day_reminder, #tmsht_time_reminder' ).on( 'change paste', function() {
+		$( '#tmsht_reminder_on_email, #tmsht_day_reminder, #tmsht_time_reminder' ).on( 'change paste', function() {
 			$( '#tmsht_reminder_change_state' ).attr( 'disabled', false );
 		});
 	});

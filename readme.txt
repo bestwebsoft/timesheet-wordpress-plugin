@@ -3,16 +3,18 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
 Requires at least: 3.8
-Tested up to: 4.5.2
+Tested up to: 4.5.3
 Stable tag: 0.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-This plugin allows you to fill out and view the work schedule of users.
+Best timesheet plugin for WordPress. Track employee time, streamline attendance and generate reports.
 
 == Description ==
 
 Timesheet plugin is a convenient tool which allows you to organise your work schedule in the easiest way. Also, you can view schedule of other users and stay up-to-date on all changes. This way, you can make the best use of your time!
+
+http://www.youtube.com/watch?v=zQZx06CDr1I
 
 <a href="http://wordpress.org/plugins/timesheet/faq/" target="_blank">Timesheet by BestWebSoft FAQ</a>
 
@@ -22,7 +24,7 @@ Timesheet plugin is a convenient tool which allows you to organise your work sch
 
 * Organise your work schedule easily
 * View work schedule of users
-* Automatic reminders on email
+* Automatic email reminders
 
 If you have a feature, suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">Suggest a Feature</a>
 
@@ -31,7 +33,7 @@ If you have a feature, suggestion or idea you'd like to see in the plugin, we'd 
 * Russian (ru_RU)
 * Ukrainian (uk)
 
-If you create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text in PO and MO files</a> to <a href="http://support.bestwebsoft.com" target="_blank">BestWebSoft</a>, and we'll add it to the plugin. You can download the latest version of the program for working with PO and MO files <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> for <a href="http://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
 
 = Technical support =
 
@@ -45,7 +47,7 @@ We can fix some things for free for the users who provide translation of our plu
 
 1. Upload the `timesheet` folder to `/wp-content/plugins/` directory.
 2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
-3. You can adjust the necessary settings using your WordPress admin panel in "BWS Plugins" > "Timesheet".
+3. You can adjust the necessary settings using your WordPress admin panel in "BWS Panel" > "Timesheet".
 
 == Frequently Asked Questions ==
 
@@ -78,8 +80,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 
 == Changelog ==
 
-= V0.1.1 - 17.06.2016 =
-* NEW : Automatic reminders on email was added.
+= V0.1.1 - 14.07.2016 =
+* NEW : Automatic email reminders was added.
+* NEW : Saving filters set by user on TS report page.
 * Bugfix : Bugs related to the generation of the TS report were fixed.
 
 = V0.1 - 10.06.2016 =
@@ -87,8 +90,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 
 == Upgrade Notice ==
 
-= V0.1.1 - 17.06.2016 =
-Automatic reminders on email was added. Bugs related to the generation of the TS report were fixed.
+= V0.1.1 =
+* New features added
+* Bugs fixed
 
 = V0.1 =
 The Timesheet by BestWebSoft plugin is ready for use.

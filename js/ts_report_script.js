@@ -27,17 +27,12 @@
 
 		$( ".tmsht_date_datepicker_input" ).datetimepicker( tmsht_datetime_options );
 
-
-
 		$( ".tmsht_date_datepicker_input" ).on( 'click touchstart', function(e) {
 			$( this ).datetimepicker('show');
 		}).on( 'keydown', function() {
 			return false;
 		});
 		/* Date picker */
-
-		/* Fake selector legends */
-		$( '.tmsht_ts_report_legend' ).tmsht_ts_report_select_legend();
 
 		/* start User selector */
 		$( 'noscript.tmsht_ts_report_user_list_container_noscript' ).before( $( 'noscript.tmsht_ts_report_user_list_container_noscript' ).text() );
@@ -137,107 +132,4 @@
 		});
 		/* end td helper */
 	});
-
-	/* start Legend selector */
-	$.fn.tmsht_ts_report_select_legend = function() {
-
-		$( document ).on( 'click', function( e ) {
-			if ( $( e.target ).closest( '.tmsht_select_legend' ).length ) {
-				return;
-			}
-
-			$( '.tmsht_select_legend' ).filter( '[data-status="open"]' ).trigger( 'select.close' );
-		});
-
-		return this.each( function( select_index ) {
-			if ( ! $( this ).is( 'select' ) ) {
-				return;
-			}
-
-			var $this_select = $( this );
-
-			$this_select.attr( 'data-target', 'tmsht_select_legend_' + select_index ).on( 'change', function() {
-				var index = $( this ).find( 'option:selected' ).index(),
-					color = $( this ).find( 'option:selected' ).data( 'color' ),
-					name = $( this ).find( 'option:selected' ).text(),
-					target = $( this ).data( 'target' ),
-					$target_select = $( '.' + target ),
-					$target_option = $target_select.find( '.tmsht_select_legend_option' ).eq( index );
-
-				$target_select.find( '.tmsht_select_legend_label_color' ).css( 'background-color', color );
-				$target_select.find( '.tmsht_select_legend_label_name' ).html( name );
-			});
-
-			var	$select = $( '<div/>', {
-					'class'       : 'tmsht_select_legend tmsht_select_legend_' + select_index + ' tmsht_select_legend_hidden tmsht_unselectable',
-					'data-status' : 'close'
-				}).bind( 'select.open', function () {
-					$( this ).trigger( 'select.close' );
-					$( this ).removeClass( 'tmsht_select_legend_hidden' ).addClass( 'tmsht_select_legend_visible' );
-					$( this ).find( '.tmsht_select_legend_arrow' ).removeClass( 'tmsht_select_legend_arrow_down' ).addClass( 'tmsht_select_legend_arrow_up' );
-					$( this ).attr( 'data-status', 'open' );
-				}).bind( 'select.close', function () {
-					$( '.tmsht_select_legend' ).filter( '[data-status="open"]' ).removeClass( 'tmsht_select_legend_visible' ).addClass( 'tmsht_select_legend_hidden' );
-					$( '.tmsht_select_legend' ).filter( '[data-status="open"]' ).find( '.tmsht_select_legend_arrow' ).removeClass( 'tmsht_select_legend_arrow_up' ).addClass( 'tmsht_select_legend_arrow_down' );
-					$( '.tmsht_select_legend' ).attr( 'data-status', 'close' );
-				}).on( 'click', function() {
-					if ( $( this ).attr( 'data-status' ) == 'close' ) {
-						$( this ).trigger( 'select.open' );
-					} else {
-						$( this ).trigger( 'select.close' );
-					}
-				}).data( 'status', 'close' );
-
-			var $display = $( '<div/>', {
-					'class' : 'tmsht_select_legend_display'
-				}).appendTo( $select );
-
-			var $label = $( '<div/>', {
-				'class' : 'tmsht_select_legend_label',
-			}).appendTo( $display );
-
-			var $label_name = $( '<div/>', {
-				'class' : 'tmsht_select_legend_label_name',
-				'html'  : $this_select.find( 'option:selected' ).text()
-			}).appendTo( $label );
-
-			var $label_color = $( '<div/>', {
-				'class' : 'tmsht_select_legend_label_color',
-				'style' : 'background-color: ' + $this_select.find( 'option:selected' ).data( 'color' )
-			}).appendTo( $label );
-
-			var $arrow = $( '<span/>', {
-				'class' : 'tmsht_select_legend_arrow ' + 'tmsht_select_legend_arrow_down',
-			}).insertAfter( $label );
-
-			var $options_wrap = $( '<ul/>', {
-				'class' : 'tmsht_select_legend_options_wrap'
-			}).insertAfter( $display );
-
-			$this_select.find( 'option' ).each( function( index_option ) {
-				var $this_option = $( this );
-
-				$( '<li/>', {
-					'class' 	 : 'tmsht_select_legend_option',
-					'data-index' : index_option,
-					'data-color' : $this_option.data( 'color' ),
-					'data-name'  : $this_option.text(),
-					'title'      : $this_option.text(),
-					'html'       : $( '<span class="tmsht_select_legend_option_label_color" style="background-color: ' + $this_option.data( 'color' ) + ';"></span><div class="tmsht_select_legend_option_label_name">' + $this_option.text() + '</div>' )
-				}).on( 'mouseenter', function() {
-					$( this ).addClass( 'tmsht_select_legend_option_hover' );
-				}).on( 'mouseleave', function() {
-					$( this ).removeClass( 'tmsht_select_legend_option_hover' );
-				}).on( 'click', function() {
-					var index = $( this ).data( 'index' );
-
-					$this_select.find( 'option' ).eq( index ).attr( 'selected', true ).trigger( 'change' );
-				}).appendTo( $options_wrap );
-			});
-
-			$this_select.hide();
-			$this_select.after( $select );
-		});
-	};
-	/* end Legend selector */
 })(jQuery);

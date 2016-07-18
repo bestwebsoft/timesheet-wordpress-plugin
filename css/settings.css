@@ -50,20 +50,16 @@
 	width: 100%;
 	margin: 0 0 3px;
 }
-.tmsht_format_i18n td,
-.tmsht_reminder_settings td {
+.tmsht_format_i18n td {
 	padding: 5px 40px 5px 0 !important;
 }
-.tmsht_format_i18n tr td:last-child,
-.tmsht_reminder_settings tr td:last-child {
+.tmsht_format_i18n tr td:last-child {
 	padding-right: 0 !important;
 }
-.rtl .tmsht_format_i18n td,
-.rtl .tmsht_reminder_settings td {
+.rtl .tmsht_format_i18n td {
 	padding: 5px 0 5px 40px !important;
 }
-.rtl .tmsht_format_i18n tr td:last-child,
-.rtl .tmsht_reminder_settings tr td:last-child {
+.rtl .tmsht_format_i18n tr td:last-child {
 	padding-left: 0 !important;
 }
 #tmsht_date_format_code {
@@ -110,9 +106,16 @@
 #tmsht_display_ts_report_page_for label:hover {
 	background: #f1f1f1;
 }
+.tmsht_reminder_settings {
+	margin: 20px 0 0;
+}
+.tmsht_reminder_settings span:first-child {
+	margin-left: 0;
+}
 #tmsht_time_reminder {
 	max-width: 80px;
 	width: 100%;
+	vertical-align: middle;
 }
 @media screen and (max-width: 782px) {
 	.tmsht_wrap input[type=radio],
@@ -134,12 +137,10 @@
 		min-width: 100px;
 		padding: 0 5px;
 	}
-	.tmsht_format_i18n,
-	.tmsht_reminder_settings {
+	.tmsht_format_i18n {
 		width: 100% !important;
 	}
-	.tmsht_format_i18n td,
-	.tmsht_reminder_settings td {
+	.tmsht_format_i18n td {
 		display: table-cell;
 	}
 	#tmsht_date_format_code {

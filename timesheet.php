@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Timesheet by BestWebSoft
-Plugin URI: http://bestwebsoft.com/products/
-Description: This plugin allows you to fill out and view the work schedule of users.
+Plugin URI: http://bestwebsoft.com/products/timesheet/
+Description: Best timesheet plugin for WordPress. Track employee time, streamline attendance and generate reports.
 Author: BestWebSoft
 Text Domain: timesheet
 Domain Path: /languages
@@ -33,7 +33,7 @@ if ( ! function_exists( 'tmsht_admin_menu' ) ) {
 
 		bws_general_menu();
 
-		$settings_page_hook = add_submenu_page( 'bws_plugins', 'Timesheet', 'Timesheet', 'manage_options', 'timesheet_settings', 'tmsht_settings_page' );
+		$settings_page_hook = add_submenu_page( 'bws_panel', 'Timesheet', 'Timesheet', 'manage_options', 'timesheet_settings', 'tmsht_settings_page' );
 		add_action( 'load-' . $settings_page_hook, 'tmsht_add_tabs' );
 
 		if ( ! $tmsht_options ) {
@@ -694,31 +694,20 @@ if ( ! function_exists( 'tmsht_settings_page' ) ) {
 							</td>
 						</tr>
 						<tr class="tmsht_settings_table_tr">
-							<th><?php _e( 'Reminder on email', 'timesheet' ); ?></th>
+							<th><?php _e( 'Email reminder', 'timesheet' ); ?></th>
 							<td>
-								<label><input id="tmsht_reminder_on_email" type="checkbox" name="tmsht_reminder_on_email" value="1" <?php if ( $tmsht_options['reminder_on_email'] == true ) echo 'checked="checked"'; ?>></label>
-								<table class="tmsht_reminder_settings">
-									<tbody>
-										<tr>
-											<td><?php _e( 'Choose a day', 'timesheet' ); ?></td>
-											<td>
-												<fieldset>
-													<?php foreach ( $tmsht_days_reminder_arr as $day_reminder ) { ?>
-														<label class="tmsht_label_day_reminder">
-															<input class="tmsht_day_reminder" type="radio" name="tmsht_day_reminder" value="<?php echo strtolower( $day_reminder ); ?>" <?php if ( strtolower( $day_reminder ) == $tmsht_options['day_reminder'] ) echo 'checked="checked"'; ?>>
-															<?php _e( $day_reminder ); ?>
-														</label>
-													<?php } ?>
-												</fieldset>
-											</td>
-										</tr>
-										<tr>
-											<td><?php _e( 'Enter the time', 'timesheet' ); ?></td>
-											<td><input id="tmsht_time_reminder" type="text" name="tmsht_time_reminder" maxlength="5" value="<?php echo $tmsht_options['time_reminder']; ?>"></td>
-										</tr>
-									</tbody>
-								</table>
-								<input id="tmsht_reminder_change_state" type="hidden" name="tmsht_reminder_change_state" value="1">
+								<label><input id="tmsht_reminder_on_email" type="checkbox" name="tmsht_reminder_on_email" value="1" <?php if ( $tmsht_options['reminder_on_email'] == true ) echo 'checked="checked"'; ?>></label><span class="bws_info"><?php _e( 'This option allows sending an email reminder to a user if his work schedule isn\'t filled out.', 'timesheet' ); ?></span>
+								<div class="tmsht_reminder_settings">
+									<span><?php _ex( 'every', 'email reminder', 'timesheet' ); ?>&nbsp;</span>
+									<select id="tmsht_day_reminder" name="tmsht_day_reminder">
+										<?php foreach ( $tmsht_days_reminder_arr as $day_reminder ) { ?>
+											<option value="<?php echo strtolower( $day_reminder ); ?>" <?php if ( strtolower( $day_reminder ) == $tmsht_options['day_reminder'] ) echo 'selected="selected"'; ?>><?php _e( $day_reminder ); ?></option>
+										<?php } ?>
+									</select>
+									<span>&nbsp;<?php _ex( 'in', 'email reminder', 'timesheet' ); ?>&nbsp;</span>
+									<input id="tmsht_time_reminder" type="text" name="tmsht_time_reminder" maxlength="5" value="<?php echo $tmsht_options['time_reminder']; ?>">
+									<input id="tmsht_reminder_change_state" type="hidden" name="tmsht_reminder_change_state" value="1">
+								</div>
 							</td>
 						</tr>
 					</table>
@@ -753,6 +742,7 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
 
 		$date_start = new DateTime( $date_from );
 		$date_end = new DateTime( $date_to );
+		$date_end = $date_end->modify( '+1 day' );
 		$date_interval = new DateInterval( 'P1D' );
 		$date_period = new DatePeriod( $date_start, $date_interval, $date_end );
 
@@ -991,31 +981,27 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 		$week_days_arr = array( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' );
 		$day_of_week_start = get_option( 'start_of_week' );
 
-		$date_from = ( isset( $_POST['tmsht_ts_report_date_from'] ) && strtotime( $_POST['tmsht_ts_report_date_from'] ) ) ? $_POST['tmsht_ts_report_date_from'] : date_i18n( $tmsht_date_format_default );
-		$date_to = ( isset( $_POST['tmsht_ts_report_date_to'] ) && strtotime( $_POST['tmsht_ts_report_date_to'] ) ) ? $_POST['tmsht_ts_report_date_to'] : date_i18n( $tmsht_date_format_default, strtotime( "next " . $week_days_arr[ $day_of_week_start ] . " +6 days" ) );
+		$date_preset_quantity_arr = array( 1, 2, 3 );
 
-		$date_start = new DateTime( $date_from );
-		$date_end = new DateTime( $date_to );
-		$date_interval = new DateInterval( 'P1D' );
-		$date_period = new DatePeriod( $date_start, $date_interval, $date_end );
-
-		$timeline_from = $tmsht_options['ts_timeline_from'];
-		$timeline_to = $tmsht_options['ts_timeline_to'] - 1;
+		$date_preset_units_arr = array(
+			'week'  => __( 'Week', 'timesheet' ),
+			'month' => __( 'Month', 'timesheet' )
+		);
 
 		$tmsht_ts_report_group_by_arr = array(
 			'date'   => _x( 'Date', 'Group by', 'timesheet' ),
 			'user'   => _x( 'User', 'Group by', 'timesheet' )
 		);
 
+		/* Get legends */
 		$tmsht_legends = $wpdb->get_results( "SELECT * FROM `{$tmsht_prefix}_legends`", OBJECT_K );
 		/* Convert stdClass items of array( $tmsht_legends ) to associative array */
 		$tmsht_legends = json_decode( json_encode( $tmsht_legends ), true );
 		$tmsht_legends[-1] = array( 'name' => __( 'Reset', 'timesheet' ), 'color' => 'transparent', 'disabled' => 1 );
-		$tmsht_legends[-2] = array( 'name' => __( 'All Legends', 'timesheet' ), 'color' => 'transparent', 'disabled' => 0 );
+		$tmsht_legends[-2] = array( 'name' => __( 'All Legends', 'timesheet' ), 'color' => '#444444', 'disabled' => 0 );
 		ksort( $tmsht_legends );
 
-		$tmsht_current_legend_id = ( isset( $_POST['tmsht_ts_report_legend'] ) && array_key_exists( $_POST['tmsht_ts_report_legend'], $tmsht_legends ) ) ? $_POST['tmsht_ts_report_legend'] : -2;
-
+		/* Get users */
 		$tmsht_users = array();
 		$tmsht_roles = $tmsht_options['display_pages']['ts_user'];
 		$tmsht_current_blog_id = get_current_blog_id();
@@ -1052,9 +1038,75 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 
 		ksort( $tmsht_users );
 
-		$tmsht_selected_users = ( isset( $_POST['tmsht_ts_report_user'] ) && is_array( $_POST['tmsht_ts_report_user'] ) ) ? $_POST['tmsht_ts_report_user'] : array_keys( $tmsht_users );
+		/* Get user meta */
+		$current_user = wp_get_current_user();
 
-		$tmsht_ts_report_group_by = ( isset( $_POST['tmsht_ts_report_group_by'] ) && array_key_exists( $_POST['tmsht_ts_report_group_by'], $tmsht_ts_report_group_by_arr ) ) ? $_POST['tmsht_ts_report_group_by'] : 'date';
+		$ts_report_filters_default = array(
+			'date' => array(
+				'type'   => 'period',
+				'preset' => array()
+			),
+			'group_by'  => 'date',
+			'legend'    => -2,
+			'users'     => array_keys( $tmsht_users )
+		);
+
+		if ( ! get_user_meta( $current_user->ID, '_tmsht_ts_report_filters' ) ) {
+			add_user_meta( $current_user->ID, '_tmsht_ts_report_filters', $ts_report_filters_default );
+		}
+
+		$ts_report_filters = get_user_meta( $current_user->ID, '_tmsht_ts_report_filters', true );
+
+		/* Apply filters */
+		if ( isset( $_POST['tmsht_generate_ts_report'] ) ) {
+			if (
+				( isset( $_POST['tmsht_date_filter_type'] ) && $_POST['tmsht_date_filter_type'] == 'preset' ) &&
+				( isset( $_POST['tmsht_date_preset_unit'] ) && array_key_exists( $_POST['tmsht_date_preset_unit'], $date_preset_units_arr ) ) &&
+				isset( $_POST['tmsht_date_preset_quantity'] )
+			) {
+				$ts_report_filters['date'] = array(
+					'type'   => 'preset',
+					'preset' => array(
+						'quantity' => intval( $_POST['tmsht_date_preset_quantity'] ),
+						'unit'  => $_POST['tmsht_date_preset_unit']
+					)
+				);
+			} else {
+				$ts_report_filters['date'] = array(
+					'type'   => 'period',
+					'preset' => array()
+				);
+			}
+
+			$ts_report_filters['group_by'] = ( isset( $_POST['tmsht_ts_report_group_by'] ) && array_key_exists( $_POST['tmsht_ts_report_group_by'], $tmsht_ts_report_group_by_arr ) ) ? $_POST['tmsht_ts_report_group_by'] : 'date';
+			$ts_report_filters['legend'] = ( isset( $_POST['tmsht_ts_report_legend'] ) && array_key_exists( $_POST['tmsht_ts_report_legend'], $tmsht_legends ) ) ? $_POST['tmsht_ts_report_legend'] : -2;
+			$ts_report_filters['users'] = ( isset( $_POST['tmsht_ts_report_user'] ) && is_array( $_POST['tmsht_ts_report_user'] ) ) ? $_POST['tmsht_ts_report_user'] : array_keys( $tmsht_users );
+
+			update_user_meta( $current_user->ID, '_tmsht_ts_report_filters', $ts_report_filters );
+		}
+
+		/* Report generation */
+		$date_from = ( isset( $_POST['tmsht_ts_report_date_from'] ) && strtotime( $_POST['tmsht_ts_report_date_from'] ) ) ? $_POST['tmsht_ts_report_date_from'] : date_i18n( $tmsht_date_format_default );
+		$date_to = ( isset( $_POST['tmsht_ts_report_date_to'] ) && strtotime( $_POST['tmsht_ts_report_date_to'] ) ) ? $_POST['tmsht_ts_report_date_to'] : date_i18n( $tmsht_date_format_default, strtotime( "next " . $week_days_arr[ $day_of_week_start ] . " +6 days" ) );
+
+		$date_start = new DateTime( $date_from );
+
+		if ( $ts_report_filters['date']['type'] == 'period' ) {
+			$date_end = new DateTime( $date_to );
+		} else {
+			$date_end = new DateTime( date_i18n( $tmsht_date_format_default, strtotime( "+" . $ts_report_filters['date']['preset']['quantity'] . " " . $ts_report_filters['date']['preset']['unit'] ) ) );
+		}
+
+		$date_end = $date_end->modify( '+1 day' );
+		$date_interval = new DateInterval( 'P1D' );
+		$date_period = new DatePeriod( $date_start, $date_interval, $date_end );
+
+		$timeline_from = $tmsht_options['ts_timeline_from'];
+		$timeline_to = $tmsht_options['ts_timeline_to'] - 1;
+
+		$tmsht_ts_report_group_by = $ts_report_filters['group_by'];
+		$tmsht_current_legend_id = $ts_report_filters['legend'];
+		$tmsht_selected_users = $ts_report_filters['users'];
 
 		$ts_data = array();
 
@@ -1076,7 +1128,6 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 					$key_user_id = $data[ 'user_id' ];
 					$ts_data[ $key_date ][ $key_user_id ][] = $data;
 				}
-
 
 				foreach( $date_period as $date ) {
 					$date_formated = $date->format( 'Y-m-d' );
@@ -1135,26 +1186,61 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 			<form method="post" action="">
 				<div class="tmsht_ts_report_filter">
 					<div class="tmsht_ts_report_filter_item tmsht_ts_report_filter_item_datepicker">
-						<div class="tmsht_ts_report_filter_block">
-							<div class="tmsht_ts_report_filter_title"><strong><?php _e( 'Date from', 'timesheet' ); ?></strong></div>
-							<input id="tmsht_ts_report_date_from" class="tmsht_date_datepicker_input" type="text" name="tmsht_ts_report_date_from" value="<?php echo $date_from; ?>" autocomplete="off">
-						</div>
-						<div class="tmsht_ts_report_filter_block">
-							<div class="tmsht_ts_report_filter_title"><strong><?php _e( 'Date to', 'timesheet' ); ?></strong></div>
-							<input id="tmsht_ts_report_date_to" class="tmsht_date_datepicker_input" type="text" name="tmsht_ts_report_date_to" value="<?php echo $date_to; ?>" autocomplete="off">
-						</div>
+					<div class="tmsht_ts_report_filter_title"><strong><?php _e( 'Date', 'timesheet' ); ?></strong></div>
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										<input type="radio" name="tmsht_date_filter_type" value="period" <?php if ( $ts_report_filters['date']['type'] == 'period' ) echo 'checked="checked"'; ?>>
+									</td>
+									<td>
+										<div class="tmsht_ts_report_filter_block">
+											<span><?php _ex( 'from', 'date', 'timesheet' ); ?><span>
+											<input id="tmsht_ts_report_date_from" class="tmsht_date_datepicker_input" type="text" name="tmsht_ts_report_date_from" value="<?php echo $date_from; ?>" autocomplete="off">
+										</div>
+										<div class="tmsht_ts_report_filter_block">
+											<span><?php _ex( 'to', 'date', 'timesheet' ); ?><span>
+											<input id="tmsht_ts_report_date_to" class="tmsht_date_datepicker_input" type="text" name="tmsht_ts_report_date_to" value="<?php echo $date_to; ?>" autocomplete="off">
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<input type="radio" name="tmsht_date_filter_type" value="preset" <?php if ( $ts_report_filters['date']['type'] == 'preset' ) echo 'checked="checked"'; ?>>
+									</td>
+									<td>
+										<select id="tmsht_date_preset_quantity" name="tmsht_date_preset_quantity">
+											<?php foreach ( $date_preset_quantity_arr as $date_preset_quantity ) { ?>
+												<option value="<?php echo $date_preset_quantity; ?>" <?php if ( $ts_report_filters['date']['type'] == 'preset' && $ts_report_filters['date']['preset']['quantity'] == $date_preset_quantity ) echo 'selected="selected"'; ?>><?php echo $date_preset_quantity; ?></option>
+											<?php } ?>
+										</select>
+										<select id="tmsht_date_preset_unit" name="tmsht_date_preset_unit">
+											<?php foreach ( $date_preset_units_arr as $date_preset_unit_key => $date_preset_unit_name ) { ?>
+												<option value="<?php echo $date_preset_unit_key; ?>" <?php if ( $ts_report_filters['date']['type'] == 'preset' && $ts_report_filters['date']['preset']['unit'] == $date_preset_unit_key ) echo 'selected="selected"'; ?>><?php echo $date_preset_unit_name; ?></option>
+											<?php } ?>
+										</select>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="tmsht_ts_report_filter_item tmsht_ts_report_filter_item_group_by">
+						<div class="tmsht_ts_report_filter_title"><strong><?php _e( 'Group by', 'timesheet' ); ?></strong></div>
+							<?php foreach( $tmsht_ts_report_group_by_arr as $tmsht_ts_report_group_by_id => $tmsht_ts_report_group_by_type ) { ?>
+								<label><input type="radio" name="tmsht_ts_report_group_by" value="<?php echo $tmsht_ts_report_group_by_id; ?>" <?php if ( $tmsht_ts_report_group_by_id == $tmsht_ts_report_group_by ) echo 'checked="checked"'; ?>><?php echo $tmsht_ts_report_group_by_type; ?></label><br>
+							<?php } ?>
 					</div>
 					<div class="tmsht_ts_report_filter_item tmsht_ts_report_filter_item_legend">
 						<div class="tmsht_ts_report_filter_title"><strong><?php _e( 'Legend', 'timesheet' ); ?></strong></div>
-						<select id="tmsht_ts_report_legend" class="tmsht_ts_report_legend" name="tmsht_ts_report_legend">
+							<fieldset>
 							<?php $legend_index = 0;
 							foreach ( $tmsht_legends as $id => $legend ) {
 								if ( $legend['disabled'] == 0 ) { ?>
-									<option value="<?php echo $id; ?>" data-color="<?php echo $legend['color']; ?>" <?php if ( $id == $tmsht_current_legend_id ) echo 'selected="selected"'; ?>><?php echo $legend['name']; ?></option>
+									<label><input class="tmsht_ts_report_legend" type="radio" name="tmsht_ts_report_legend" value="<?php echo $id; ?>" data-color="<?php echo $legend['color']; ?>" <?php if ( $id == $tmsht_current_legend_id ) echo 'checked="checked"'; ?>><span class="tmsht_ts_report_legend_color" style="background-color: <?php echo $legend['color']; ?>;"></span><?php echo $legend['name']; ?></label><br>
 									<?php $legend_index++;
 								}
 							} ?>
-						</select>
+							</fieldset>
 					</div>
 					<div class="tmsht_ts_report_filter_item tmsht_ts_report_filter_item_user">
 						<div class="tmsht_ts_report_filter_title"><strong><?php _e( 'Users', 'timesheet' ); ?></strong></div>
@@ -1194,14 +1280,6 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 							<div class="tmsht_clearfix"></div>
 						</div>
 					</div>
-					<div class="tmsht_ts_report_filter_item tmsht_ts_report_filter_item_group_by">
-						<div class="tmsht_ts_report_filter_title"><strong><?php _e( 'Group by', 'timesheet' ); ?></strong></div>
-						<select name="tmsht_ts_report_group_by">
-							<?php foreach( $tmsht_ts_report_group_by_arr as $tmsht_ts_report_group_by_id => $tmsht_ts_report_group_by_type ) { ?>
-								<option value="<?php echo $tmsht_ts_report_group_by_id; ?>" <?php if ( $tmsht_ts_report_group_by_id == $tmsht_ts_report_group_by ) echo 'selected="selected"'; ?>><?php echo $tmsht_ts_report_group_by_type; ?></option>
-							<?php } ?>
-						</select>
-					</div>
 					<br>
 					<div class="tmsht_ts_report_filter_item tmsht_ts_report_filter_item_generate">
 						<input class="button-primary" type="submit" name="tmsht_generate_ts_report" value="<?php _ex( 'Apply', 'Apply ts report', 'timesheet' ); ?>">
@@ -1236,10 +1314,14 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 								}
 								$tmsht_short_day_name = date_i18n( 'D', strtotime( $date ) );
 								$tmsht_is_today = ( date_i18n( $tmsht_date_format_default, strtotime( $date ) ) == date_i18n( $tmsht_date_format_default ) );
+								$prev_date = date_i18n( $tmsht_date_format_default, strtotime( $date . ' -1 day' ) );
+								$next_date = date_i18n( $tmsht_date_format_default, strtotime( $date . ' +1 day' ) );
 
-								$tmsht_tr_classes = 'tmsht_ts_report_table_tr';
-								$tmsht_tr_classes .= ( $tmsht_is_today ) ? ' tmsht_ts_report_table_tr_today_top tmsht_ts_report_table_tr_today_left tmsht_ts_report_table_tr_today_right' : '';
+								$tmsht_tr_classes = 'tmsht_ts_report_table_tr ';
+								$tmsht_tr_classes .= ( $tmsht_is_today ) ? ' tmsht_ts_report_table_tr_today_top' : '';
 								$tmsht_tr_classes .= ( $tmsht_is_today && count( $ts_data[ $date ] ) == 1 ) ? ' tmsht_ts_report_table_tr_today_bottom' : '';
+								$tmsht_tr_classes .= ( ! $tmsht_is_today && $prev_date != date_i18n( $tmsht_date_format_default ) ) ? ' tmsht_ts_report_table_tr_separate_top' : '';
+								$tmsht_tr_classes .= ( ! $tmsht_is_today && $next_date != date_i18n( $tmsht_date_format_default ) && count( $ts_data[ $date ] ) == 1 ) ? ' tmsht_ts_report_table_tr_separate_bottom' : '';
 
 								$tmsht_td_dateline_classes = 'tmsht_ts_report_table_td_dateline';
 								$tmsht_td_dateline_classes .= ( $tmsht_is_today ) ? ' tmsht_ts_report_table_highlight_today' : '';
@@ -1293,8 +1375,8 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 								$tmsht_last_user_id = key( $user_data_2_per_day );
 								foreach ( $user_data_2_per_day as $user_id => $user_data_2 ) {
 									$tmsht_tr_classes = 'tmsht_ts_report_table_tr';
-									$tmsht_tr_classes .= ( $tmsht_is_today ) ? ' tmsht_ts_report_table_tr_today_left tmsht_ts_report_table_tr_today_right' : '';
-									$tmsht_tr_classes .= ( $tmsht_is_today && $tmsht_last_user_id == $user_id ) ? ' tmsht_ts_report_table_tr_today_bottom' : ''; ?>
+									$tmsht_tr_classes .= ( $tmsht_is_today && $tmsht_last_user_id == $user_id ) ? ' tmsht_ts_report_table_tr_today_bottom' : '';
+									$tmsht_tr_classes .= ( ! $tmsht_is_today && $tmsht_last_user_id == $user_id && ! array_key_exists( $next_date, $ts_data ) ) ? ' tmsht_ts_report_table_tr_separate_bottom' : ''; ?>
 									<tr class="<?php echo $tmsht_tr_classes; ?>">
 										<td class="tmsht_ts_report_table_td_user">
 											<strong><?php echo $tmsht_users[ $user_id ]; ?></strong>
@@ -1332,6 +1414,8 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 								<?php }
 							}
 						} else if ( $tmsht_ts_report_group_by == 'user' ) {
+							end( $ts_data );
+							$last_user_id = key( $ts_data );
 							$pre_user_id = -1;
 							foreach ( $ts_data as $user_id => $user_data ) {
 									$user_data_1_per_day = $user_data_2_per_day = array();
@@ -1343,8 +1427,10 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 										$user_data_2_per_day[ $date ] = $user_data_per_day;
 									}
 									$i++;
-								} ?>
-								<tr class="tmsht_ts_report_table_tr">
+								}
+								$tmsht_tr_classes = 'tmsht_ts_report_table_tr tmsht_ts_report_table_tr_separate_top';
+								$tmsht_tr_classes .= ( count( $user_data ) == 1 ) ? ' tmsht_ts_report_table_tr_separate_bottom' : ''; ?>
+								<tr class="<?php echo $tmsht_tr_classes; ?>">
 									<?php if ( $pre_user_id != $user_id ) { ?>
 										<td class="tmsht_ts_report_table_td_user" rowspan="<?php echo count( $user_data ); ?>">
 											<strong><?php echo $tmsht_users[ $user_id ]; ?></strong>
@@ -1393,13 +1479,19 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 										</td>
 									<?php } ?>
 								</tr>
-								<?php foreach ( $user_data_2_per_day as $date => $user_data_2 ) {
+								<?php end( $user_data_2_per_day );
+								$last_date = key( $user_data_2_per_day );
+								foreach ( $user_data_2_per_day as $date => $user_data_2 ) {
 									$tmsht_short_day_name = date_i18n( 'D', strtotime( $date ) );
+
+									$tmsht_tr_dateline_classes = 'tmsht_ts_report_table_tr';
+									$tmsht_tr_dateline_classes .= ( $date == $last_date && $user_id == $last_user_id ) ? ' tmsht_ts_report_table_tr_separate_bottom' : '';
+
 									$tmsht_td_dateline_classes = 'tmsht_ts_report_table_td_dateline';
-									$tmsht_td_dateline_classes .= ( date_i18n( $tmsht_date_format_default, strtotime( $date ) ) == date_i18n( $tmsht_date_format_default ) ) ? ' tmsht_ts_report_table_highlight_today' : '';
+									$tmsht_td_dateline_classes .= ( date_i18n( $tmsht_date_format_default, strtotime( $date ) ) == date_i18n( $tmsht_date_format_default ) ) ? ' tmsht_ts_report_table_highlight_today  tmsht_ts_report_table_td_today' : '';
 									$tmsht_td_dateline_classes .= ( in_array( strtolower( $tmsht_short_day_name ), $tmsht_options['weekends'] ) ) ? ' tmsht_ts_report_table_highlight_weekdays' : '';
 									$tmsht_td_readonly = ( date_i18n( $tmsht_date_format_default, strtotime( $date ) ) < date_i18n( $tmsht_date_format_default ) ); ?>
-									<tr class="tmsht_ts_report_table_tr">
+									<tr class="<?php echo $tmsht_tr_dateline_classes; ?>">
 										<td class="<?php echo $tmsht_td_dateline_classes; ?>">
 											<div class="tmsht_ts_report_formatted_date"><?php echo date_i18n( $tmsht_date_format, strtotime( $date ) ); ?></div>
 											<div class="tmsht_ts_report_weekday"><?php _e( $tmsht_short_day_name ); ?></div>
