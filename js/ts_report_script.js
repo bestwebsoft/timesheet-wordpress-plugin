@@ -34,6 +34,12 @@
 		});
 		/* Date picker */
 
+		/* Date filter */
+		$( '.tmsht_ts_report_filter_item_datepicker input[type="text"], .tmsht_ts_report_filter_item_datepicker select' ).on( 'focus', function() {
+			var filter_type = $( this ).parents( 'td' ).attr( 'data-filter-type' );
+			$( '.tmsht_ts_report_filter_item_datepicker input[value="' + filter_type + '"]' ).attr( 'checked', true );
+		});
+
 		/* start User selector */
 		$( 'noscript.tmsht_ts_report_user_list_container_noscript' ).before( $( 'noscript.tmsht_ts_report_user_list_container_noscript' ).text() );
 
@@ -118,6 +124,10 @@
 			});
 		});
 		/* end User selector */
+
+		$( '.tmsht_hide_weekends' ).on( 'change', function() {
+			$( '.tmsht_hide_weekends' ).not( this ).attr( 'checked', false );
+		});
 
 		/* start td helper */
 		$( '.tmsht_ts_report_table_has_data td.tmsht_ts_report_table_td_time' ).on( 'mouseenter', function() {

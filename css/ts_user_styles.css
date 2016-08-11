@@ -35,6 +35,7 @@
 }
 #tmsht_ts_user_table_area {
 	position: relative;
+	margin: 0 0 20px;
 	float: left;
 	overflow: hidden;
 	-moz-user-select: none;
@@ -48,17 +49,9 @@
 .rtl #tmsht_ts_user_table_area {
 	float: right;
 }
-#tmsht_ts_user_select_area {
-	display: none;
-	position: absolute;
-	border: 1px solid #000000;
-	background-color: rgba( 0,0,0,0.1 );
-	z-index: 1;
-}
 /* TS table styles */
 #tmsht_ts_user_table {
 	width: auto;
-	margin: 0 0 20px;
 	border-spacing: 0;
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -109,6 +102,8 @@
 	padding: 0;
 	height: 38px;
 	width: 38px;
+	text-align: left;
+	vertical-align: top;
 }
 #tmsht_ts_user_table .tmsht_ts_user_table_td_fill {
 	position: absolute;
@@ -337,6 +332,12 @@
 }
 .tmsht_clearfix {
 	clear:both;
+}
+#tmsht_ts_user_table_area .ui-selectable-helper {
+	position:absolute;
+	z-index:100;
+	background: rgba( 0, 0, 0, 0.1 );
+	border: 1px dashed rgba( 0, 0, 0, 0.3 );
 }
 @media screen and (max-width: 782px) {
 	.tmsht_wrap input[type=radio],

@@ -1,12 +1,18 @@
 .tmsht_wrap * {
 	box-sizing: border-box;
 }
+.tmsht_container {
+	display: inline-block;
+}
 .tmsht_ts_report_filter {
+	position: relative;
+/*	max-width: 1073px;
+	width: 100%;*/
 	margin: 0 0 30px;
 }
 .tmsht_ts_report_filter_item {
-	display: inline-block;
-	padding: 10px 20px 0 0;
+	padding: 0 20px 10px 0;
+	float: left;
 	vertical-align: top;
 }
 .tmsht_ts_report_filter_block {
@@ -14,20 +20,27 @@
 }
 .tmsht_ts_report_filter_item_datepicker #tmsht_ts_report_date_from,
 .tmsht_ts_report_filter_item_datepicker #tmsht_ts_report_date_to {
-	max-width: 100px;
+	max-width: 110px;
 	width: 100%;
 }
+/*.tmsht_ts_report_filter_item_legend {
+	min-width: 220px;
+	max-width: 220px;
+	width: 100%;
+}*/
 .tmsht_ts_report_filter_item_legend .tmsht_ts_report_legend_color {
 	display: inline-block;
 	width: 16px;
 	height: 16px;
-	margin: 0 5px 0 0;
+	margin: -4px 5px 0 0;
 	background: #ffffff;
-	vertical-align: bottom;
+	vertical-align: middle;
 }
 .tmsht_ts_report_filter_item_user {
 	max-width: 360px;
 	width: 100%;
+	padding-right: 0;
+	float: right;
 }
 .tmsht_date_datepicker_change {
 	position: relative;
@@ -56,6 +69,7 @@
 	position: relative;
 	text-align: left;
 	padding: 5px 0;
+	width: 38px;
 }
 .rtl #tmsht_ts_report_table td.tmsht_ts_report_table_td_timeline {
 	text-align: right;
@@ -74,8 +88,17 @@
 #tmsht_ts_report_table td.tmsht_ts_report_table_td_dateline .tmsht_ts_report_weekday {
 	font-size: 10px;
 }
+#tmsht_ts_report_table tr.tmsht_ts_report_table_tr_roll_up td.tmsht_ts_report_table_td_dateline {
+	/*max-width:*/
+}
+#tmsht_ts_report_table tr.tmsht_ts_report_table_tr_roll_up td.tmsht_ts_report_table_td_dateline div {
+	display: inline-block;
+}
 #tmsht_ts_report_table td.tmsht_ts_report_table_td_no_data {
 	white-space: nowrap;
+}
+#tmsht_ts_report_table td.tmsht_ts_report_table_td_roll_up {
+	color: #888888;
 }
 #tmsht_ts_report_table .tmsht_ts_report_table_highlight_weekdays {
 	color: #d12121;
@@ -232,6 +255,14 @@
 }
 .tmsht_ts_report_table_td_helper_hover {
 	background-color: rgba( 0,0,0, 0.2 );
+}
+@media screen and (max-width: 1190px) {
+	.tmsht_ts_report_filter_item_legend {
+		max-width: auto;
+	}
+	.tmsht_ts_report_filter_item_user {
+		float: left;
+	}
 }
 @media screen and (max-width: 782px) {
 	.tmsht_wrap input[type=radio],

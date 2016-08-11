@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
 Requires at least: 3.8
-Tested up to: 4.5.3
-Stable tag: 0.1.1
+Tested up to: 4.6
+Stable tag: 0.1.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -80,6 +80,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 
 == Changelog ==
 
+= V0.1.2 - 11.08.2016 =
+* NEW : Ability to edit the content of the reminder letter.
+* NEW : Ability to change colors for saved legends.
+* Update : All functionality for WordPress 4.6 was updated.
+
 = V0.1.1 - 14.07.2016 =
 * NEW : Automatic email reminders was added.
 * NEW : Saving filters set by user on TS report page.
@@ -90,9 +95,14 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 
 == Upgrade Notice ==
 
+= V0.1.2 =
+* New features added.
+* Usability improved.
+* The compatibility with new WordPress version updated.
+
 = V0.1.1 =
-* New features added
-* Bugs fixed
+* New features added.
+* Bugs fixed.
 
 = V0.1 =
 The Timesheet by BestWebSoft plugin is ready for use.

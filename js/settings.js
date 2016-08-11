@@ -78,7 +78,7 @@
 			} );
 		});
 
-		$( '#tmsht_add_ts_legend_color' ).wpColorPicker();
+		$( '#tmsht_add_ts_legend_color, .tmsht_ts_legend_color' ).wpColorPicker();
 
 		$( '#tmsht_reminder_on_email' ).on( 'change', function() {
 			if ( ! $( this ).is( ':checked' ) ) {

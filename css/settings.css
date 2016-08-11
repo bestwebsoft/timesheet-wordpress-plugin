@@ -8,7 +8,10 @@
 #tmsht_timeline_settings {
 	margin: 0 0 10px;
 }
-
+#tmsht_ts_timeline_from,
+#tmsht_ts_timeline_to {
+	width: 60px;
+}
 #tmsht_timeline_slider_wrap {
 	margin: 0 0 0 7px;
 }
@@ -38,7 +41,7 @@
 }
 .tmsht_ts_legend_color {
 	display: inline-block;
-	width: 50px;
+	width: 70px;
 	height: 25px;
 	vertical-align: middle;
 }
@@ -112,10 +115,26 @@
 .tmsht_reminder_settings span:first-child {
 	margin-left: 0;
 }
-#tmsht_time_reminder {
+#tmsht_time_reminder,
+#tmsht_repeat_reminder,
+#tmsht_hours_reminder {
 	max-width: 80px;
 	width: 100%;
 	vertical-align: middle;
+}
+#tmsht_reminder_content {
+    max-width: 500px;
+    width: 100%;
+	margin: 20px 0 0;
+}
+#tmsht_reminder_subject {
+	max-width: 100%;
+	width: 100%;
+}
+#tmsht_reminder_message {
+	max-width: 100%;
+	width: 100%;
+	height: 150px;
 }
 @media screen and (max-width: 782px) {
 	.tmsht_wrap input[type=radio],

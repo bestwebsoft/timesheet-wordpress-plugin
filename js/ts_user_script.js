@@ -36,6 +36,7 @@
 
 		/* Fake selector legends */
 		$( '.tmsht_ts_user_legend' ).tmsht_ts_user_select_legend();
+
 		/* Show details table */
 		$( '#tmsht_ts_user_table' ).tmsht_ts_user_table_handler();
 
@@ -57,203 +58,74 @@
 			}
 		}
 
-		var getRGBA = function ( hex ) {
-			hex = hex.replace( '#','' );
+		$( '#tmsht_ts_user_table tbody' ).selectable({
+			filter   : 'td',
+			cancel   : '.tmsht_ts_user_table_td_readonly',
+			appendTo : '#tmsht_ts_user_table_area',
+			selecting: function( event, ui ) {
 
-			return {
-				'r' : parseInt( hex.substring( 0, 2 ), 16 ),
-				'g' : parseInt( hex.substring( 2, 4 ), 16 ),
-				'b' : parseInt( hex.substring( 4, 6 ), 16 )
-			}
-		}
-
-		var $target = {
-			'ts_table_area' : $( '#tmsht_ts_user_select_area' ),
-			'ts_table'      : $( '#tmsht_ts_user_table' ),
-			'td'            : 'td.tmsht_ts_user_table_td_time',
-			'td_fill'       : '.tmsht_ts_user_table_td_fill'
-		}
-
-		var mouse = {
-			'flag'   : false,
-			'coor'   : {
-				'x0' : 0,
-				'y0' : 0,
-				'x1' : 0,
-				'y1' : 0
-			},
-			'offset' : function( type ) {
-				var type = type || 'normal',
-					normal_offset = $( '#tmsht_ts_user_table_area' ).offset();
-
-				return normal_offset;
-			}
-		}
-
-		$target.ts_table.on( 'click touchend contextmenu', $target.td, function( event ) {
-			var event = event || window.event,
-				$td = $( this ),
-				legend = ( event.type != 'contextmenu' ) ? get_legend() : get_legend( -1 );
-
-			event.preventDefault();
-
-			if ( $td.hasClass( 'tmsht_ts_user_table_td_readonly' ) ) {
-				return false;
-			}
-
-			$td.attr( 'data-legend-id', legend.id );
-
-			$td.trigger( 'apply_legend' );
-
-			$target.ts_table.tmsht_ts_user_table_handler( 'show_details' );
-
-		}).on( 'apply_legend', $target.td, function() {
-			var $td = $( this ),
-				legend_id = $td.attr( 'data-legend-id' ),
-				legend = get_legend( legend_id ),
-				$tr = $td.parent();
-
-			$tr.find( '.tmsht_tr_date[disabled="disabled"]' ).attr( 'disabled', false );
-
-			if ( legend.id == -1 ) {
-				$td.attr( 'title', '' );
-			}
-
-			$td.find( $target.td_fill ).css( 'background-color', legend.color );
-		});
-
-		$( document ).on( "mousedown touchstart", '#tmsht_ts_user_table_area', function( event ) {
-			var event = event || window.event;
-
-			if ( event.type == 'mousedown' && event.which != 1 ) {
-				return;
-			}
-
-			mouse.flag = true;
-
-			if ( event.type == 'touchstart' ) { /* mobile */
-				var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
-
-				mouse.coor.x0 = mouse.coor.x1 = touch.pageX - mouse.offset( 'mobile' ).left;
-				mouse.coor.y0 = mouse.coor.y1 = touch.pageY - mouse.offset( 'mobile' ).top;
-			} else {
-				if ( event.pageX ) { /* Mozilla, Chrome, Opera */
-					mouse.coor.x0 = mouse.coor.x1 = event.pageX - mouse.offset().left;
-					mouse.coor.y0 = mouse.coor.y1 = event.pageY - mouse.offset().top;
-				} else if ( event.clientX ) { /* IE */
-					mouse.coor.x0 = mouse.coor.x1 = event.clientX - mouse.offset().left;
-					mouse.coor.y0 = mouse.coor.y1 = event.clientY - mouse.offset().top;
-				}
-			}
-
-			event.preventDefault();
-
-		}).on( "mousemove touchmove", function( event ) {
-			var event = event || window.event;
-
-			if ( mouse.flag ) {
-				if ( event.type == 'touchmove' ) { /* mobile */
-					var touch = event.originalEvent.touches[0] || event.originalEvent.changedTouches[0];
-
-					mouse.coor.x0 = touch.pageX - mouse.offset( 'mobile' ).left;
-					mouse.coor.y0 = touch.pageY - mouse.offset( 'mobile' ).top;
-				} else {
-					if ( event.pageX ) { /* Mozilla, Chrome, Opera */
-						mouse.coor.x0 = event.pageX - mouse.offset().left;
-						mouse.coor.y0 = event.pageY - mouse.offset().top;
-					} else if ( event.clientX ) { /* IE */
-						mouse.coor.x0 = event.clientX - mouse.offset().left;
-						mouse.coor.y0 = event.clientY - mouse.offset().top;
-					}
-				}
-
-				$( 'body' )
-					.css( 'cursor', 'default' )
-					.addClass( 'tmsht_unselectable' )
-					.attr( 'unselectable', 'on' );
-
-				var legend = get_legend();
-					color = ( legend['id'] > 0 ) ? legend['color'] : '#000000',
-					rgba = getRGBA( color );
-
-				$target.ts_table_area.css({
-					'display'          : 'block',
-					'width'            : Math.abs( mouse.coor.x0 - mouse.coor.x1 ) + 'px',
-					'height'           : Math.abs( mouse.coor.y0 - mouse.coor.y1 ) + 'px',
-					'left'             : ( mouse.coor.x1 < mouse.coor.x0 ) ? mouse.coor.x1 + 'px' : mouse.coor.x0 + 'px',
-					'top'              : ( mouse.coor.y1 < mouse.coor.y0 ) ? mouse.coor.y1 + 'px' : mouse.coor.y0 + 'px',
-					'border'           : '1px solid ' + color,
-					'background-color' : 'rgba(' + rgba['r'] + ', ' + rgba['g'] + ', ' + rgba['b'] + ', 0.1)'
+				/* Fix select area */
+				$( '.ui-selectable-helper' ).css({
+					'margin-top'  : -1 * ( parseInt( ( $( '#tmsht_ts_user_table' ).offset().top ) ) - 2 ),
+					'margin-left' : -1 * ( parseInt( ( $( '#tmsht_ts_user_table' ).offset().left ) ) - 2 )
 				});
 
-				event.preventDefault();
-			}
-
-		}).on( "mouseup touchend", function( event ) {
-			if ( mouse.flag ) {
-				var selection_area_coor = {
-					'x0' : $target.ts_table_area.offset().left,
-					'y0' : $target.ts_table_area.offset().top,
-					'x1' : $target.ts_table_area.offset().left + $target.ts_table_area.width(),
-					'y1' : $target.ts_table_area.offset().top + $target.ts_table_area.height(),
-				},
-				td_event = false;
-
-				$target.ts_table.find( $target.td ).not( '.tmsht_ts_user_table_td_readonly' ).each( function() {
-					var $td = $( this ),
-						td_coor = {
-							'x0' : $td.offset().left,
-							'y0' : $td.offset().top,
-							'x1' : $td.offset().left + $td.width(),
-							'y1' : $td.offset().top + $td.height()
-						},
+				if ( $( ui.selecting ).is( '.tmsht_ts_user_table_td_time' ) ) {
+					var $td = $( ui.selecting ),
+						$tr = $td.parent(),
+						prev_legend_id = $td.attr( 'data-legend-id' ),
+						$td_fill = $td.find( '.tmsht_ts_user_table_td_fill' ),
 						legend = get_legend();
 
 
-					if ( td_coor.y0 > selection_area_coor.y1 ) {
+					if ( $td.hasClass( 'tmsht_ts_user_table_td_readonly' ) ) {
 						return false;
-					}
-
-					if ( ( td_coor.y1 < selection_area_coor.y0 ) || ( td_coor.x1 < selection_area_coor.x0 ) || ( td_coor.x0 > selection_area_coor.x1 ) ) {
-						return true;
 					}
 
 					$td
 						.attr( 'data-legend-id', legend.id )
-						.trigger( 'apply_legend' );
+						.attr( 'data-prev-legend-id', prev_legend_id )
+						.removeAttr( 'title' )
+						.removeAttr( 'data-td-group' );
 
-					td_event = true;
-				});
+					$td_fill.css( 'background-color', legend.color );
 
-				mouse.flag = false;
+					if ( legend.id > 0 ) {
+						$td.addClass( 'tmsht_ts_user_table_td_selected' );
+					} else {
+						$td.removeClass( 'tmsht_ts_user_table_td_selected' );
+					}
 
-				$( 'body' )
-					.css( 'cursor', 'auto' )
-					.removeClass( 'tmsht_unselectable' )
-					.attr( 'unselectable', 'off' );
-
-				$target.ts_table_area.css({
-					'display' : 'none',
-					'width'   : 0,
-					'height'  : 0,
-					'left'    : 0,
-					'top'     : 0
-				});
-
-				if ( td_event ) {
-					$target.ts_table.tmsht_ts_user_table_handler( 'show_details' );
+					$tr.find( '.tmsht_tr_date[disabled="disabled"]' ).attr( 'disabled', false );
 				}
+			},
+			unselecting: function( event, ui ) {
+				if ( $( ui.unselecting ).is( '.tmsht_ts_user_table_td_time' ) ) {
+					var $td = $( ui.unselecting ),
+						$tr = $td.parent(),
+						prev_legend_id = $td.attr( 'data-prev-legend-id' ),
+						$td_fill = $td.find( '.tmsht_ts_user_table_td_fill' ),
+						legend = get_legend( prev_legend_id );
+
+					$td
+						.attr( 'data-legend-id', legend.id )
+						.removeAttr( 'data-prev-legend-id' );
+
+					$td_fill.css( 'background-color', legend.color );
+
+					if ( legend.id > 0 ) {
+						$td.addClass( 'tmsht_ts_user_table_td_selected' );
+					} else {
+						$td.removeClass( 'tmsht_ts_user_table_td_selected' );
+					}
+				}
+			},
+			selected: function( event, ui ) {
+				$( ui.selected ).removeClass( 'ui-selected' );
+			},
+			stop: function( event, ui ) {
+				$( '#tmsht_ts_user_table' ).tmsht_ts_user_table_handler( 'show_details' );
 			}
-		});
-
-		$( '.tmsht_ts_user_advanced_box' ).on( 'click', '.tmsht_ts_user_advanced_box_edit_interval', function () {
-			var $this = $( this ),
-				$parent = $this.parent();
-
-			$parent.addClass( 'tmsht_ts_user_advanced_box_interval_editable' );
-			$parent.find( '.tmsht_ts_user_advanced_box_interval_from_text, .tmsht_ts_user_advanced_box_interval_to_text' ).hide();
-			$this.hide();
-			$parent.find( '.tmsht_ts_user_advanced_box_interval_from, .tmsht_ts_user_advanced_box_interval_to' ).show();
 		});
 
 		$( '#tmsht_transposition_tbl' ).on( 'click', function(e) {
@@ -498,8 +370,9 @@
 										group_legend_name = $( '.tmsht_ts_user_legend option[value="' + group_legend_id + '"]' ).text(),
 										time_from = $interval_template.find( '.tmsht_ts_user_advanced_box_interval_from_text' ).text(),
 										time_to = $interval_template.find( '.tmsht_ts_user_advanced_box_interval_to_text' ).text();
-
-									$td.attr( 'title', group_legend_name + ' (' + time_from + ' - ' + time_to + ')' );
+									if ( group_legend_id > 0 ) {
+										$td.attr( 'title', group_legend_name + ' (' + time_from + ' - ' + time_to + ')' );
+									}
 								});
 							}
 						}
