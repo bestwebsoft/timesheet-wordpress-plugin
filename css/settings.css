@@ -16,10 +16,16 @@
 	margin: 0 0 0 7px;
 }
 .tmsht_label_weekends {
-	margin: 0 5px 0 0;
+	padding: 0 10px 0 0;
+}
+.tmsht_label_weekends input {
+	margin: 0 2px 0 0;
 }
 .rtl .tmsht_label_weekends {
-	margin: 0 0 0 5px;
+	padding: 0 0 0 10px;
+}
+.rtl  .tmsht_label_weekends input {
+	margin: 0 0 0 2px;
 }
 #tmsht_ts_legends_table_wrap {
 	max-width: 500px;
@@ -35,6 +41,10 @@
 }
 .tmsht_ts_legends_table td.tmsht_ts_legend_id_cell {
 	width: 60px;
+}
+.tmsht_ts_legends_table td.tmsht_ts_legend_name_cell {
+	width: 200px;
+	word-wrap: break-word;
 }
 .tmsht_ts_legend_id_cell input[type="checkbox"] {
 	display: inline-block !important;
@@ -77,9 +87,9 @@
 }
 #tmsht_display_ts_user_page_for_wrap,
 #tmsht_display_ts_report_page_for_wrap {
-	max-width: 350px;
+	max-width: 600px;
 	width: 100%;
-	height: 139px;
+	height: 250px;
 	overflow: auto;
 	border: 1px solid #ddd;
 	-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
@@ -115,9 +125,11 @@
 .tmsht_reminder_settings span:first-child {
 	margin-left: 0;
 }
-#tmsht_time_reminder,
-#tmsht_repeat_reminder,
-#tmsht_hours_reminder {
+#tmsht_display_ts_user_page_for_users_wrap,
+#tmsht_display_ts_report_page_for_users_wrap {
+	padding: 0 10px 0 25px;
+}
+#tmsht_time_reminder {
 	max-width: 80px;
 	width: 100%;
 	vertical-align: middle;
@@ -164,5 +176,9 @@
 	}
 	#tmsht_date_format_code {
 		display: inline;
+	}
+	#tmsht_display_ts_user_page_for_users_wrap,
+	#tmsht_display_ts_report_page_for_users_wrap {
+		padding: 0 10px 0 40px;
 	}
 }

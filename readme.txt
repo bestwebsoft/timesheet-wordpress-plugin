@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
 Requires at least: 3.8
-Tested up to: 4.6
-Stable tag: 0.1.2
+Tested up to: 4.6.1
+Stable tag: 0.1.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,6 +19,8 @@ http://www.youtube.com/watch?v=zQZx06CDr1I
 <a href="http://wordpress.org/plugins/timesheet/faq/" target="_blank">Timesheet by BestWebSoft FAQ</a>
 
 <a href="http://support.bestwebsoft.com" target="_blank">Timesheet by BestWebSoft Support</a>
+
+<a href="http://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=4c99d58eadceab42cd2b7cdf4ddd4cab" target="_blank">Upgrade to Timesheet Pro by BestWebSoft</a>
 
 = Features =
 
@@ -76,9 +78,14 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 
 1. Settings page.
 2. TS user page.
-3. TS report page.
+3. TS user page with context menu in TS user table.
+4. TS report page.
 
 == Changelog ==
+
+= V0.1.3 - 18.10.2016 =
+* Bugfix : Bug related to the styles of the TS report table was fixed.
+* NEW : Сontext menu has been added for TS user table.
 
 = V0.1.2 - 11.08.2016 =
 * NEW : Ability to edit the content of the reminder letter.
@@ -94,6 +101,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<a hre
 * NEW : The Timesheet by BestWebSoft plugin is ready for use.
 
 == Upgrade Notice ==
+
+= V0.1.3 =
+* New features added.
+* Bugs fixed.
 
 = V0.1.2 =
 * New features added.

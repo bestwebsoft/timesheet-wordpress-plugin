@@ -1,10 +1,12 @@
-(function($){
-	$(document).ready(function(){
+( function( $ ) {
+	$( document ).ready( function() {
+
+		/* Timeline slider */
 		$( '#tmsht_timeline_slider' ).slider({
 			'min'    : 0,
 			'max'    : 24,
 			'range'  : true,
-			'create' : function(event, ui) {
+			'create' : function( event, ui ) {
 				var $this = $( this ),
 					timeline_from = $( 'input[name="tmsht_ts_timeline_from"]' ).val(),
 					timeline_to = $( 'input[name="tmsht_ts_timeline_to"]' ).val();
@@ -53,6 +55,7 @@
 
 		});
 
+		/* Timeline inputs */
 		$( 'input[name="tmsht_ts_timeline_from"], input[name="tmsht_ts_timeline_to"]' ).on( 'keypress', function( e ) {
     		var charCode = ( e.which ) ? e.which : e.keyCode;
     		return ! ( charCode > 31 && ( charCode < 48 || charCode > 57 ) );
@@ -65,6 +68,10 @@
 			}
 		});
 
+		/* Colorpicker */
+		$( '#tmsht_add_ts_legend_color, .tmsht_ts_legend_color' ).wpColorPicker();
+
+		/* Date format */
 		$( '#tmsht_date_format_code' ).on( 'mousedown', function() {
 			$( '#tmsht_date_format_type_custom' ).trigger( 'click' );
 		}).on( 'change', function() {
@@ -78,8 +85,7 @@
 			} );
 		});
 
-		$( '#tmsht_add_ts_legend_color, .tmsht_ts_legend_color' ).wpColorPicker();
-
+		/* Email reminder */
 		$( '#tmsht_reminder_on_email' ).on( 'change', function() {
 			if ( ! $( this ).is( ':checked' ) ) {
 				$( '.tmsht_reminder_settings' ).hide();

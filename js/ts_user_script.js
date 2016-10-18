@@ -64,6 +64,8 @@
 			appendTo : '#tmsht_ts_user_table_area',
 			selecting: function( event, ui ) {
 
+				$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
+
 				/* Fix select area */
 				$( '.ui-selectable-helper' ).css({
 					'margin-top'  : -1 * ( parseInt( ( $( '#tmsht_ts_user_table' ).offset().top ) ) - 2 ),
@@ -163,10 +165,143 @@
 			e.preventDefault();
 			return false;
 		});
+
+
+		/* On right click */
+		$( '#tmsht_ts_user_table' ).on( 'contextmenu', '.tmsht_ts_user_table_td_time', function( e ) {
+			var $td = $( this );
+
+			if ( ! $td.hasClass( 'tmsht_ts_user_table_td_readonly' ) ) {
+				if ( $td.is( '[data-legend-id!="-1"]' ) ) {
+					$( '#tmsht_ts_user_context_menu' ).trigger( 'show_context_menu', e );
+					$td.addClass( 'tmsht_context_menu' );
+				} else {
+					$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
+				}
+			}
+			e.preventDefault();
+			return false;
+		});
+
+		/* On taphold */
+		var touch_timer;
+		$( '#tmsht_ts_user_table tbody' ).on( 'touchstart', '.tmsht_ts_user_table_td_time', function( e ) {
+			var $td = $( this );
+
+			if ( ! $td.hasClass( 'tmsht_ts_user_table_td_readonly' ) ) {
+				touch_timer = setTimeout( function() {
+					$( '#tmsht_ts_user_context_menu' ).trigger( 'show_context_menu', e );
+					$td.addClass( 'tmsht_context_menu' );
+				}, 600 );
+			}
+		}).on( 'touchend touchmove', '.tmsht_ts_user_table_td_time', function() {
+			if ( touch_timer ) {
+				clearTimeout( touch_timer );
+			}
+		});
+
+		/* Context menu */
+		$( '#tmsht_ts_user_context_menu' ).on( 'show_context_menu', function( event, e ) {
+			var $context_menu = $( this ),
+				$wp_bar = $( '#wpadminbar' ),
+				width = $context_menu.width(),
+				ts_table_offset_left = parseInt( $( '#tmsht_ts_user_table' ).offset().left ),
+				margin_left = 0,
+				coorX = coorY = 0;
+
+			if ( e.type == 'touchstart' ) { /* mobile */
+				var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+				coorX = touch.clientX + window.scrollX;
+				coorY = touch.clientY + window.scrollY;
+			} else { /* desktop */
+				coorX = e.clientX + window.scrollX;
+				coorY = e.clientY + window.scrollY;
+			}
+
+			coorX = coorX - ts_table_offset_left;
+
+			if ( $wp_bar.css( 'position' ) == 'fixed' ) {
+				coorY = coorY - parseInt( $wp_bar.height() );
+			}
+
+			margin_left = ( $( window ).width() > coorX + width + ts_table_offset_left ) ? 0 : -1 * width;
+
+			$context_menu
+				.trigger( 'hide_context_menu' )
+				.css({
+					'left'             : coorX,
+					'top'              : coorY,
+					'margin-left'      : margin_left + 4,
+					'margin-top'       : '2px'
+				})
+				.show( 100 )
+				.attr( 'data-visible', 'true' );
+		}).on( 'hide_context_menu', function() {
+			var $context_menu = $( this ),
+				$td = $( '#tmsht_ts_user_table tbody td.tmsht_context_menu' );
+
+			$td.removeClass( 'tmsht_context_menu' );
+			$context_menu
+				.hide()
+				.attr( 'data-visible', 'false' );
+		});
+
+		$( window ).on( 'resize', function() {
+			$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
+		});
+
+		$( document ).on( 'click', function( e ) {
+			if ( e.button != 0 || $( e.target ).closest( '#tmsht_ts_user_context_menu' ).length ) {
+				return;
+			}
+
+			$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
+		});
+
+		$( '.tmsht_ts_user_context_menu_item.tmsht_ts_user_context_menu_item_enabled' ).on( 'click', function() {
+			var $context_menu_item = $( this ),
+				action = $context_menu_item.attr( 'data-action' ),
+				$td = $( '#tmsht_ts_user_table tbody td.tmsht_context_menu' ),
+				$tr = $td.parent(),
+				$td_fill = $td.find( '.tmsht_ts_user_table_td_fill' ),
+				legend = get_legend( -1 );
+
+			switch( action ) {
+				case 'delete':
+					$td
+						.attr( 'data-legend-id', legend.id )
+						.removeAttr( 'data-prev-legend-id' )
+						.removeAttr( 'title' )
+						.removeAttr( 'data-td-group' )
+						.removeClass( 'tmsht_ts_user_table_td_selected' );
+
+					$td_fill.css( 'background-color', legend.color );
+
+					$tr.find( '.tmsht_tr_date[disabled="disabled"]' ).attr( 'disabled', false );
+
+					$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
+					$( '#tmsht_ts_user_table' ).tmsht_ts_user_table_handler( 'show_details' );
+					break;
+				default:
+					break;
+			}
+		});
 	});
 
 	/* start Legend selector*/
-	$.fn.tmsht_ts_user_select_legend = function() {
+	$.fn.tmsht_ts_user_select_legend = function( target ) {
+
+		var escapeHtml = function( text ) {
+			var map = {
+				'&': '&amp;',
+				'<': '&lt;',
+				'>': '&gt;',
+				'"': '&quot;',
+				"'": '&#039;'
+			};
+
+			return text.replace( /[&<>"']/g, function( m ) { return map[ m ]; } );
+		}
 
 		$( document ).on( 'click', function( e ) {
 			if ( $( e.target ).closest( '.tmsht_select_legend' ).length ) {
@@ -183,10 +318,12 @@
 
 			var $this_select = $( this );
 
-			$this_select.attr( 'data-target', 'tmsht_select_legend_' + select_index ).on( 'change', function() {
+			target = target || select_index;
+
+			$this_select.attr( 'data-target', 'tmsht_select_legend_' + target ).on( 'change', function() {
 				var index = $( this ).find( 'option:selected' ).index(),
 					color = $( this ).find( 'option:selected' ).data( 'color' ),
-					name = $( this ).find( 'option:selected' ).text(),
+					name = escapeHtml( $( this ).find( 'option:selected' ).text() ),
 					target = $( this ).data( 'target' ),
 					$target_select = $( '.' + target ),
 					$target_option = $target_select.find( '.tmsht_select_legend_option' ).eq( index );
@@ -196,7 +333,7 @@
 			});
 
 			var	$select = $( '<div/>', {
-					'class'       : 'tmsht_select_legend tmsht_select_legend_' + select_index + ' tmsht_select_legend_hidden tmsht_unselectable',
+					'class'       : 'tmsht_select_legend tmsht_select_legend_' + target + ' tmsht_select_legend_hidden tmsht_unselectable',
 					'data-status' : 'close'
 				}).bind( 'select.open', function () {
 					$( this ).trigger( 'select.close' );
@@ -225,7 +362,7 @@
 
 			var $label_name = $( '<div/>', {
 				'class' : 'tmsht_select_legend_label_name',
-				'html'  : $this_select.find( 'option:selected' ).text()
+				'html'  : escapeHtml( $this_select.find( 'option:selected' ).text() )
 			}).appendTo( $label );
 
 			var $label_color = $( '<div/>', {
@@ -250,7 +387,7 @@
 					'data-color' : $this_option.data( 'color' ),
 					'data-name'  : $this_option.text(),
 					'title'      : $this_option.text(),
-					'html'       : $( '<span class="tmsht_select_legend_option_label_color" style="background-color: ' + $this_option.data( 'color' ) + ';"></span><div class="tmsht_select_legend_option_label_name">' + $this_option.text() + '</div>' )
+					'html'       : $( '<span class="tmsht_select_legend_option_label_color" style="background-color: ' + $this_option.data( 'color' ) + ';"></span><div class="tmsht_select_legend_option_label_name">' + escapeHtml( $this_option.text() ) + '</div>' )
 				}).on( 'mouseenter', function() {
 					$( this ).addClass( 'tmsht_select_legend_option_hover' );
 				}).on( 'mouseleave', function() {

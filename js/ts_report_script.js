@@ -110,18 +110,21 @@
 			});
 		}).on( 'count', function() {
 			var $checkboxes = $( '.tmsht_ts_report_user_checkbox' ),
-				$checkboxes_checked = $checkboxes.filter( ':checked' );
+				$checkboxes_checked = $checkboxes.filter( ':checked' ),
+				$users_container = $( '.tmsht_ts_report_selected_users_container' );
 
-			$( '.tmsht_ts_report_selected_users_container' ).empty();
+			$users_container.empty();
 			$checkboxes_checked.each( function() {
 				var $selected_user = $( '<span/>', {
 					'id'    : 'tmsht_ts_report_user_selected_' + $( this ).val(),
 					'class' : 'tmsht_ts_report_user_selected',
-					'html'  : $( this ).parent().text() + '<label class="tmsht_ts_report_user_uncheck notice-dismiss" for="tmsht_ts_report_user_id_' + $( this ).val() + '"></label>'
+					'html'  : $( this ).parent().text() + '<label class="tmsht_ts_report_user_uncheck" for="tmsht_ts_report_user_id_' + $( this ).val() + '"></label>'
 				});
 
-				$( '.tmsht_ts_report_selected_users_container' ).append( $selected_user );
+				$users_container.append( $selected_user );
 			});
+
+			$users_container.append( '<div class="tmsht_clearfix"></div>' );
 		});
 		/* end User selector */
 
