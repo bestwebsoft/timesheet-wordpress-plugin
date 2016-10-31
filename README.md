@@ -1,29 +1,70 @@
-<a href="http://bestwebsoft.com/products/timesheet/" target=_blank>Timesheet WordPress Plugin</a>
+<a href="http://bestwebsoft.com/products/wordpress/plugins/timesheet/" target=_blank>Timesheet WordPress Plugin</a>
 ========================
 
 Best timesheet plugin for WordPress. Track employee time, streamline attendance and generate reports.
 
 <img src="http://bestwebsoft.com/wp-content/uploads/2016/06/timesheet-banner-website.jpg" />
 
-<p>Timesheet plugin is a convenient tool which allows you to organise your work schedule in the easiest way. Also, you can view schedule of other users and stay up-to-date on all changes. This way, you can make the best use of your time!</p>
+<p>Timesheet plugin is the best solution which helps to track work schedule using WordPress website. Customizable and useful tool which brings accuracy and efficiency to your accountability tracking. Use existing WordPress users, keep their working hours, streamline attendance and generate reports.</p>
+
+<p>Start manage your workforce effectively today!</p>
 
 
 <div class='video'></div>
 
 
-<p><a href="http://wordpress.org/plugins/timesheet/faq/">Timesheet by BestWebSoft FAQ</a></p>
-
-<p><a href="http://support.bestwebsoft.com">Timesheet by BestWebSoft Support</a></p>
-
-<h4>Features</h4>
+<h4>Free Features</h4>
 
 <ul>
-<li>Organise your work schedule easily</li>
-<li>View work schedule of users</li>
-<li>Automatic email reminders</li>
+<li>Create work schedule</li>
+<li>Display timesheet and report pages for certain user roles</li>
+<li>Add unlimited number of statuses</li>
+<li>Customize statuses:
+
+<ul>
+<li>Name</li>
+<li>Color</li>
+</ul></li>
+<li>Set the timeline for your schedule</li>
+<li>Set days off</li>
+<li>Enable automatic email notifications from timesheet</li>
+<li>Customize timesheet email notifications:
+
+<ul>
+<li>Remaining day/time </li>
+<li>Subject</li>
+<li>Message</li>
+</ul></li>
+<li>Set the date format:
+
+<ul>
+<li>WordPress default</li>
+<li>Custom</li>
+</ul></li>
+<li>Compatible with latest WordPress version</li>
+<li>Incredibly simple settings for fast setup without modifying code</li>
+<li>Detailed step-by-step documentation and videos</li>
 </ul>
 
-<p>If you have a feature, suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">Suggest a Feature</a></p>
+<blockquote>
+  <p><strong>Pro Features</strong></p>
+  
+  <p>All features from Free version included plus:</p>
+  
+  <ul>
+  <li>Display timesheet user page and report for certain users</li>
+  <li>Create/edit schedules accurate to 5 min</li>
+  <li>Get answer to your support question within one business day (<a href="http://bestwebsoft.com/support-policy/">Support Policy</a>)</li>
+  </ul>
+  
+  <p><a href="http://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=4c99d58eadceab42cd2b7cdf4ddd4cab">Upgrade to Pro Now</a></p>
+</blockquote>
+
+<p>If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">Suggest a Feature</a></p>
+
+<h4>Help &#38; Support</h4>
+
+<p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help &#8212; <a href="http://support.bestwebsoft.com/">http://support.bestwebsoft.com/</a></p>
 
 <h4>Translation</h4>
 
@@ -32,12 +73,16 @@ Best timesheet plugin for WordPress. Track employee time, streamline attendance 
 <li>Ukrainian (uk)</li>
 </ul>
 
-<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress">the text of PO and MO files</a> for <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php">Poedit</a>.</p>
+<p>Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress">the text of PO and MO files</a> to <a href="http://support.bestwebsoft.com/hc/en-us/requests/new">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO <a href="http://www.poedit.net/download.php">files Poedit</a>.</p>
 
-<h4>Technical support</h4>
+<h4>Recommended Plugins</h4>
 
-<p>Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please note that we accept requests in English only. All messages in other languages won't be accepted.</p>
+<ul>
+<li><a href="http://bestwebsoft.com/products/wordpress/plugins/updater/?k=ab42b1189a340aba05a496458775873f">Updater</a> - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.</li>
+</ul>
 
-<p>If you notice any bugs in the plugins, you can notify us about it and we'll investigate and fix the issue then. Your request should contain URL of the website, issues description and WordPress admin panel credentials.
-Moreover we can customize the plugin according to your requirements. It's a paid service (as a rule it costs $40, but the price can vary depending on the amount of the necessary changes and their complexity). Please note that we could also include this or that feature (developed for you) in the next release and share with the other users then. 
-We can fix some things for free for the users who provide translation of our plugin into their native language (this should be a new translation of a certain plugin, you can check available translations on the official plugin page).</p>
+<h4>Donate</h4>
+
+<p>Donations play an important role in supporting open-source projects. We greatly appreciate any donation you can make to help us continue further development of free products.</p>
+
+<p><a href="http://bestwebsoft.com/donate/">Donate Now</a></p>

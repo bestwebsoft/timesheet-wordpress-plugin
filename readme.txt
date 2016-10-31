@@ -12,38 +12,66 @@ Best timesheet plugin for WordPress. Track employee time, streamline attendance 
 
 == Description ==
 
-Timesheet plugin is a convenient tool which allows you to organise your work schedule in the easiest way. Also, you can view schedule of other users and stay up-to-date on all changes. This way, you can make the best use of your time!
+Timesheet plugin is the best solution which helps to track work schedule using WordPress website. Customizable and useful tool which brings accuracy and efficiency to your accountability tracking. Use existing WordPress users, keep their working hours, streamline attendance and generate reports.
+
+Start manage your workforce effectively today!
 
 http://www.youtube.com/watch?v=zQZx06CDr1I
 
-<a href="http://wordpress.org/plugins/timesheet/faq/" target="_blank">Timesheet by BestWebSoft FAQ</a>
+= Free Features =
 
-<a href="http://support.bestwebsoft.com" target="_blank">Timesheet by BestWebSoft Support</a>
+* Create work schedule
+* Display timesheet and report pages for certain user roles
+* Add unlimited number of statuses
+* Customize statuses:
+	* Name
+	* Color
+* Set the timeline for your schedule
+* Set days off
+* Enable automatic email notifications from timesheet
+* Customize timesheet email notifications:
+	* Remaining day/time 
+	* Subject
+	* Message
+* Set the date format:
+	* WordPress default
+	* Custom
+* Compatible with latest WordPress version
+* Incredibly simple settings for fast setup without modifying code
+* Detailed step-by-step documentation and videos
 
-<a href="http://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=4c99d58eadceab42cd2b7cdf4ddd4cab" target="_blank">Upgrade to Timesheet Pro by BestWebSoft</a>
+> **Pro Features**
+>
+> All features from Free version included plus:
+>
+> * Display timesheet user page and report for certain users
+> * Create/edit schedules accurate to 5 min
+> * Get answer to your support question within one business day ([Support Policy](http://bestwebsoft.com/support-policy/))
+>
+> [Upgrade to Pro Now](http://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=4c99d58eadceab42cd2b7cdf4ddd4cab)
 
-= Features =
+If you have a feature suggestion or idea you'd like to see in the plugin, we'd love to hear about it! [Suggest a Feature](http://support.bestwebsoft.com/hc/en-us/requests/new)
 
-* Organise your work schedule easily
-* View work schedule of users
-* Automatic email reminders
+= Help & Support =
 
-If you have a feature, suggestion or idea you'd like to see in the plugin, we'd love to hear about it! <a href="http://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">Suggest a Feature</a>
+Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <http://support.bestwebsoft.com/>
 
 = Translation =
 
 * Russian (ru_RU)
 * Ukrainian (uk)
 
-Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send <a href="http://codex.wordpress.org/Translating_WordPress" target="_blank">the text of PO and MO files</a> for <a href="http://support.bestwebsoft.com/hc/en-us/requests/new" target="_blank">BestWebSoft</a> and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO files  <a href="http://www.poedit.net/download.php" target="_blank">Poedit</a>.
+Some of these translations are not complete. We are constantly adding new features which should be translated. If you would like to create your own language pack or update the existing one, you can send [the text of PO and MO files](http://codex.wordpress.org/Translating_WordPress) to [BestWebSoft](http://support.bestwebsoft.com/hc/en-us/requests/new) and we'll add it to the plugin. You can download the latest version of the program for work with PO and MO [files Poedit](http://www.poedit.net/download.php).
 
-= Technical support =
+= Recommended Plugins =
 
-Dear users, our plugins are available for free download. If you have any questions or recommendations regarding the functionality of our plugins (existing options, new options, current issues), please feel free to contact us. Please note that we accept requests in English only. All messages in other languages won't be accepted.
+* [Updater](http://bestwebsoft.com/products/wordpress/plugins/updater/?k=ab42b1189a340aba05a496458775873f) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
 
-If you notice any bugs in the plugins, you can notify us about it and we'll investigate and fix the issue then. Your request should contain URL of the website, issues description and WordPress admin panel credentials.
-Moreover we can customize the plugin according to your requirements. It's a paid service (as a rule it costs $40, but the price can vary depending on the amount of the necessary changes and their complexity). Please note that we could also include this or that feature (developed for you) in the next release and share with the other users then. 
-We can fix some things for free for the users who provide translation of our plugin into their native language (this should be a new translation of a certain plugin, you can check available translations on the official plugin page).
+= Donate =
+
+Donations play an important role in supporting open-source projects. We greatly appreciate any donation you can make to help us continue further development of free products.
+
+[Donate Now](http://bestwebsoft.com/donate/)
 
 == Installation ==
 
@@ -67,12 +95,12 @@ You can't delete the legend, but you can hide it. Please go to the plugin settin
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
-Please make sure that the problem hasn't been discussed yet on our forum (<a href="http://support.bestwebsoft.com" target="_blank">http://support.bestwebsoft.com</a>). If no, please provide the following data along with your problem's description:
+Please make sure that the problem hasn't been discussed yet on our forum (<http://support.bestwebsoft.com>). If no, please provide the following data along with your problem's description:
 
-1. The link to the page where the problem occurs.
-2. The name of the plugin and its version. If you are using a pro version - your order number.
-3. The version of your WordPress installation.
-4. Copy and paste into the message your system status report. Please read more here: <a href="https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit?pli=1" target="_blank">Instruction on System Status</a>
+1. the link to the page where the problem occurs
+2. the name of the plugin and its version. If you are using a pro version - your order number.
+3. the version of your WordPress installation
+4. copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit)
 
 == Screenshots ==
 
