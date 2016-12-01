@@ -3,8 +3,6 @@
 
 Best timesheet plugin for WordPress. Track employee time, streamline attendance and generate reports.
 
-<img src="http://bestwebsoft.com/wp-content/uploads/2016/06/timesheet-banner-website.jpg" />
-
 <p>Timesheet plugin is the best solution which helps to track work schedule using WordPress website. Customizable and useful tool which brings accuracy and efficiency to your accountability tracking. Use existing WordPress users, keep their working hours, streamline attendance and generate reports.</p>
 
 <p>Start manage your workforce effectively today!</p>
