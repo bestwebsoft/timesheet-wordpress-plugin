@@ -97,7 +97,7 @@ $bws_plugins = array(
 		'link'			=> 'http://bestwebsoft.com/products/wordpress/plugins/db-manager/?k=01ed9731780d87f85f5901064b7d76d8&pn=' . $bws_plugin_info["id"] . '&v=' . $bws_plugin_info["version"] . '&wp_v=' . $wp_version,
 		'install_url'	=> 'http://bestwebsoft.com/products/wordpress/plugins/db-manager/download/?k=01ed9731780d87f85f5901064b7d76d8&pn=' . $bws_plugin_info["id"] . '&v=' . $bws_plugin_info["version"] . '&wp_v=' . $wp_version,
 		'settings'		=> 'admin.php?page=db-manager.php',
-		'icon'			=> plugins_url( 'icons/plugins/', __FILE__ ) . 'db-manager.png'
+		'icon'			=> bws_menu_url( 'icons/plugins/' ) . 'db-manager.png'
 	),
 	'donate-button/donate.php' => array(
 		'category'		=> array( 'other' ),
@@ -353,6 +353,13 @@ $bws_plugins = array(
 		'link'			=> 'http://bestwebsoft.com/products/wordpress/plugins/quotes-and-tips/?k=5738a4e85a798c4a5162240c6515098d&pn=' . $bws_plugin_info["id"] . '&v=' . $bws_plugin_info["version"] . '&wp_v=' . $wp_version,
 		'settings'		=> 'admin.php?page=quotes-and-tips.php'
 	),
+	'rating-bws/rating-bws.php' => array(
+		'category'		=> array( 'content-and-media' ),
+		'name'			=> 'Rating',
+		'description'	=> 'Add rating plugin to your WordPress website to receive feedback from your customers.',
+		'link'			=> 'http://bestwebsoft.com/products/wordpress/plugins/rating/?k=c00e0824bb999735a3224616ef51f4c5&pn=' . $bws_plugin_info["id"] . '&v=' . $bws_plugin_info["version"] . '&wp_v=' . $wp_version,
+		'settings'		=> 'admin.php?page=rating.php'
+	),
 	'realty/realty.php' => array(
 		'category'		=> array( 'content-and-media' ),
 		'name'			=> 'Realty',
@@ -399,7 +406,10 @@ $bws_plugins = array(
 		'name'			=> 'Social Buttons Pack',
 		'description'	=> 'Add social media buttons and widgets to WordPress posts, pages and widgets. FB, Twitter, G+1, Pinterest, LinkedIn.',
 		'link'			=> 'http://bestwebsoft.com/products/wordpress/plugins/social-buttons-pack/?k=b6440fad9f54274429e536b0c61b42da&pn=' . $bws_plugin_info["id"] . '&v=' . $bws_plugin_info["version"] . '&wp_v=' . $wp_version,
-		'settings'		=> 'admin.php?page=social-buttons.php'
+		'settings'		=> 'admin.php?page=social-buttons.php',
+		'pro_version'	=> 'social-buttons-pack-pro/social-buttons-pack-pro.php',
+		'purchase' 		=> 'http://bestwebsoft.com/products/wordpress/plugins/social-buttons-pack/buy/?k=e7059cacde0d275b224a5d995c9160fd&pn=' . $bws_plugin_info["id"] . '&v=' . $bws_plugin_info["version"] . '&wp_v=' . $wp_version,
+		'pro_settings'	=> 'admin.php?page=social-buttons.php'
 	),
 	'subscriber/subscriber.php' => array(
 		'category'		=> array( 'social', 'recommended' ),

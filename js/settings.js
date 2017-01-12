@@ -39,7 +39,6 @@
 					$this.slider( 'values', 0, timeline_from );
 					$this.slider( 'values', 1, timeline_to );
 				});
-
 			},
 			'slide' : function( event, ui ) {
 				var $this = $( this ),
@@ -52,7 +51,6 @@
 				$( 'input[name="tmsht_ts_timeline_from"]' ).val( timeline_from ).trigger( 'change' );
 				$( 'input[name="tmsht_ts_timeline_to"]' ).val( timeline_to ).trigger( 'change' );
 			}
-
 		});
 
 		/* Timeline inputs */

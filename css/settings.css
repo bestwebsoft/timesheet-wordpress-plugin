@@ -100,6 +100,10 @@
 	transition: 50ms border-color ease-in-out;
 	background: #ffffff;
 }
+#tmsht_display_ts_user_page_for_users_wrap,
+#tmsht_display_ts_report_page_for_users_wrap {
+	padding: 0 10px 0 25px;
+}
 #tmsht_display_ts_user_page_for,
 #tmsht_display_ts_report_page_for {
 	height: 100%;
@@ -109,7 +113,6 @@
 #tmsht_display_ts_report_page_for li {
 	margin: 0;
 }
-
 #tmsht_display_ts_user_page_for label,
 #tmsht_display_ts_report_page_for label {
 	display: block;
@@ -124,10 +127,6 @@
 }
 .tmsht_reminder_settings span:first-child {
 	margin-left: 0;
-}
-#tmsht_display_ts_user_page_for_users_wrap,
-#tmsht_display_ts_report_page_for_users_wrap {
-	padding: 0 10px 0 25px;
 }
 #tmsht_time_reminder {
 	max-width: 80px;
@@ -167,6 +166,9 @@
 		content: attr(data-column-title);
 		min-width: 100px;
 		padding: 0 5px;
+	}
+	#tmsht_settings_table tr td:last-child {
+		padding-right: 0;
 	}
 	.tmsht_format_i18n {
 		width: 100% !important;

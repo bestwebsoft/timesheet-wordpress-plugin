@@ -97,9 +97,12 @@
 #tmsht_ts_user_table .tmsht_ts_user_table_highlight_today {
 	color: #0592ce !important;
 }
-#tmsht_ts_user_table tr.tmsht_ts_user_table_tr_today td {
+#tmsht_ts_user_table.tmsht_ts_user_table_head_timeline tr.tmsht_ts_user_table_tr_today td {
 	border-top: 2px solid #0592ce !important;
 	border-bottom: 2px solid #0592ce !important;
+}
+#tmsht_ts_user_table.tmsht_ts_user_table_head_dateline .tmsht_ts_user_table_td_highlight_today_right_border {
+	border-right: 2px solid #0592ce !important;
 }
 #tmsht_ts_user_table td.tmsht_ts_user_table_td_time {
 	position: relative;
@@ -109,16 +112,38 @@
 	text-align: left;
 	vertical-align: top;
 }
-#tmsht_ts_user_table td.tmsht_ts_user_table_td_time:hover {
+#tmsht_ts_user_table td.tmsht_ts_user_table_td_highlighted {
 	opacity: 0.8;
 }
-#tmsht_ts_user_table .tmsht_ts_user_table_td_fill {
+#tmsht_ts_user_table td.tmsht_ts_user_table_td_highlighted:before {
+	content: '';
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	top: 0;
 	left: 0;
+	right: 0;
+	background: rgba( 160, 195, 255, 0.2 );
+	z-index: 2;
 	pointer-events: none;
+}
+.tmsht_ts_user_table_td_selecting .tmsht_ts_user_table_td_fill_group {
+	visibility: hidden;
+}
+#tmsht_ts_user_table .tmsht_ts_user_table_td_fill_group {
+	width: 100%;
+	height: 100%;
+}
+#tmsht_ts_user_table.tmsht_ts_user_table_head_timeline .tmsht_ts_user_table_td_fill {
+	width: 8.333333333%;
+	height: 100%;
+	float: left;
+}
+.rtl #tmsht_ts_user_table.tmsht_ts_user_table_head_timeline .tmsht_ts_user_table_td_fill {
+	float: right;
+}
+#tmsht_ts_user_table.tmsht_ts_user_table_head_dateline .tmsht_ts_user_table_td_fill {
+	width: 100%;
+	height: 8.333333333%;
 }
 #tmsht_ts_user_table .tmsht_ts_user_table_td_readonly_fill {
 	position: absolute;
@@ -239,11 +264,11 @@
 }
 .tmsht_select_legend_display {
 	position: relative;
-	padding: 3px 25px 3px 32px;
+	padding: 3px 25px 3px 3px;
     margin: 1px;
 }
 .rtl .tmsht_select_legend_display {
-	padding: 3px 32px 3px 25px;
+	padding: 3px 3px 3px 25px;
 }
 .tmsht_select_legend_label_name,
 .tmsht_select_legend_option_label_name {
@@ -304,7 +329,7 @@
 	background-color: #fff;
 	color: #32373c;
 	outline: 0;
-	z-index: 1;
+	z-index: 3;
 	-webkit-transition: 50ms border-color ease-in-out;
 	transition: 50ms border-color ease-in-out;
 	box-sizing: content-box;
@@ -342,13 +367,20 @@
 .tmsht_clearfix {
 	clear:both;
 }
-#tmsht_ts_user_table_area .ui-selectable-helper {
+#tmsht_ts_user_table_selection {
+	display: none;
 	position: absolute;
-	z-index: 100;
-	background: rgba( 0, 0, 0, 0.1 );
-	border: 1px dashed rgba( 0, 0, 0, 0.3 );
+	border: 1px solid #4285f4;
+	background: none;
+	z-index: 2;
+	pointer-events: none;
 }
-/* Context menu */
+#tmsht_ts_user_table_area .ui-selectable-helper {
+	display: none;
+	position: absolute;
+	z-index: -2;
+}
+/* Context menu TS table*/
 #tmsht_ts_user_context_menu {
 	display: none;
 	position: absolute;
@@ -368,9 +400,9 @@
 	user-select: none;
 }
 #tmsht_ts_user_context_menu .tmsht_ts_user_context_menu_item {
+	max-width: 240px;
 	margin: 0;
 	padding: 5px 9px 5px 5px;
-	white-space: nowrap;
 	cursor: default;
 }
 #tmsht_ts_user_context_menu .tmsht_ts_user_context_menu_item.tmsht_ts_user_context_menu_item_disabled {
@@ -380,13 +412,25 @@
 	color: #ffffff;
 	background-color: #0073aa;
 }
+.tmsht_ts_user_context_menu_item_separator {
+	border-top: 1px solid #cccccc;
+	border-bottom: 1px solid #f5f5f5;
+	padding: 0 !important;
+	margin: 5px !important;
+}
 .tmsht_ts_user_context_menu_text {
 	vertical-align: top;
 }
 .tmsht_ts_user_context_menu_icon {
+	display: inline-block;
+	min-width: 20px;
+    min-height: 20px;
 	margin: 0 5px 0 0;
 	font-size: 18px;
 	vertical-align: bottom;
+}
+.rtl .tmsht_ts_user_context_menu_icon {
+	margin: 0 0 0 5px;
 }
 .tmsht_ts_user_context_menu_link {
 	margin: 0 0 0 5px;
@@ -407,7 +451,7 @@
 	}
 	.tmsht_select_legend_display {
 		position: relative;
-		padding: 7px 25px 7px 32px;
+		padding: 7px 25px 7px 7px;
 	    margin: 1px;
 	}
 	.tmsht_select_legend_label_color,
@@ -418,7 +462,7 @@
 		top: 10px;
 	}
 	.rtl .tmsht_select_legend_display {
-		padding: 7px 32px 7px 25px;
+		padding: 7px 7px 7px 25px;
 	}
 	.tmsht_select_legend_option {
 		padding: 7px 3px 7px 32px;

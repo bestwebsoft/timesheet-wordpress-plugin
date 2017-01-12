@@ -1,5 +1,24 @@
 (function($){
 	$( document ).ready( function() {
+		var get_legend = function( legend_id ) {
+			var legend_id = legend_id || false,
+				$ts_legend = $( '.tmsht_ts_user_legend' ),
+				$ts_legend_option = null;
+
+			if ( legend_id !== false ) {
+				$ts_legend_option = $ts_legend.find( 'option[value="' + legend_id + '"]' );
+			} else {
+				$ts_legend_option = $ts_legend.find( 'option:selected' );
+			}
+
+			return {
+				'id'    : $ts_legend_option.val(),
+				'title' : $ts_legend_option.text(),
+				'color' : $ts_legend_option.attr( 'data-color' )
+			}
+		},
+		is_rtl = $( 'body' ).hasClass( 'rtl' );
+
 		/* Date picker */
 		tmsht_datetime_options = tmsht_datetime_options || {};
 
@@ -32,7 +51,6 @@
 		}).on( 'keydown', function() {
 			return false;
 		});
-		/* Date picker */
 
 		/* Fake selector legends */
 		$( '.tmsht_ts_user_legend' ).tmsht_ts_user_select_legend();
@@ -40,99 +58,35 @@
 		/* Show details table */
 		$( '#tmsht_ts_user_table' ).tmsht_ts_user_table_handler();
 
-		var get_legend = function( legend_id ) {
-			var legend_id = legend_id || false,
-				$ts_legend = $( '.tmsht_ts_user_legend' ),
-				$ts_legend_option = null;
-
-			if ( legend_id !== false ) {
-				$ts_legend_option = $ts_legend.find( 'option[value="' + legend_id + '"]' );
-			} else {
-				$ts_legend_option = $ts_legend.find( 'option:selected' );
-			}
-
-			return {
-				'id'    : $ts_legend_option.val(),
-				'title' : $ts_legend_option.text(),
-				'color' : $ts_legend_option.attr( 'data-color' )
-			}
-		}
-
-		$( '#tmsht_ts_user_table tbody' ).selectable({
-			filter   : 'td',
-			cancel   : '.tmsht_ts_user_table_td_readonly',
-			appendTo : '#tmsht_ts_user_table_area',
-			selecting: function( event, ui ) {
-
-				$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
-
-				/* Fix select area */
-				$( '.ui-selectable-helper' ).css({
-					'margin-top'  : -1 * ( parseInt( ( $( '#tmsht_ts_user_table' ).offset().top ) ) - 2 ),
-					'margin-left' : -1 * ( parseInt( ( $( '#tmsht_ts_user_table' ).offset().left ) ) - 2 )
-				});
-
-				if ( $( ui.selecting ).is( '.tmsht_ts_user_table_td_time' ) ) {
-					var $td = $( ui.selecting ),
-						$tr = $td.parent(),
-						prev_legend_id = $td.attr( 'data-legend-id' ),
-						$td_fill = $td.find( '.tmsht_ts_user_table_td_fill' ),
-						legend = get_legend();
-
-
-					if ( $td.hasClass( 'tmsht_ts_user_table_td_readonly' ) ) {
-						return false;
-					}
-
-					$td
-						.attr( 'data-legend-id', legend.id )
-						.attr( 'data-prev-legend-id', prev_legend_id )
-						.removeAttr( 'title' )
-						.removeAttr( 'data-td-group' );
-
-					$td_fill.css( 'background-color', legend.color );
-
-					if ( legend.id > 0 ) {
-						$td.addClass( 'tmsht_ts_user_table_td_selected' );
-					} else {
-						$td.removeClass( 'tmsht_ts_user_table_td_selected' );
-					}
-
-					$tr.find( '.tmsht_tr_date[disabled="disabled"]' ).attr( 'disabled', false );
+		/* On preparation transposition data */
+		$( '#tmsht_ts_user_table' ).on( 'set_transposition_data', function() {
+			var $tbl = $( '#tmsht_ts_user_table' ),
+				$trs = $tbl.find( 'tbody tr' );
+				data = {
+					'current_date' : 'undefined',
+					'dates'        : {}
 				}
-			},
-			unselecting: function( event, ui ) {
-				if ( $( ui.unselecting ).is( '.tmsht_ts_user_table_td_time' ) ) {
-					var $td = $( ui.unselecting ),
-						$tr = $td.parent(),
-						prev_legend_id = $td.attr( 'data-prev-legend-id' ),
-						$td_fill = $td.find( '.tmsht_ts_user_table_td_fill' ),
-						legend = get_legend( prev_legend_id );
 
-					$td
-						.attr( 'data-legend-id', legend.id )
-						.removeAttr( 'data-prev-legend-id' );
+			$trs.each( function( index ) {
+				var $tr = $( this ),
+					tr_date = $tr.attr( 'data-tr-date' );
 
-					$td_fill.css( 'background-color', legend.color );
-
-					if ( legend.id > 0 ) {
-						$td.addClass( 'tmsht_ts_user_table_td_selected' );
-					} else {
-						$td.removeClass( 'tmsht_ts_user_table_td_selected' );
-					}
+				if ( $tr.hasClass( 'tmsht_ts_user_table_tr_today' ) ) {
+					data.current_date = tr_date;
 				}
-			},
-			selected: function( event, ui ) {
-				$( ui.selected ).removeClass( 'ui-selected' );
-			},
-			stop: function( event, ui ) {
-				$( '#tmsht_ts_user_table' ).tmsht_ts_user_table_handler( 'show_details' );
-			}
-		});
 
-		$( '#tmsht_transposition_tbl' ).on( 'click', function(e) {
+				data.dates[ index ] = tr_date;
+			});
+
+			$tbl.data( 'transposition_data', data );
+
+		}).trigger( 'set_transposition_data' );
+
+		/* On transposition button click */
+		$( '#tmsht_transposition_tbl' ).on( 'click', function( e ) {
 			var $table = $( '#tmsht_ts_user_table' ),
 				count = $table.find( 'tr:first td' ).length - 1,
+				trs_data = $table.data( 'transposition_data' ),
 				data = {};
 
 			for ( $i = 0; $i <= count; $i++ ) {
@@ -162,19 +116,192 @@
 					return classes.replace( 'tmsht_ts_user_table_head_dateline', 'tmsht_ts_user_table_head_timeline' );;
 				}
 			});
+
+			if ( $table.is( '.tmsht_ts_user_table_head_timeline' ) ) {
+				$table.find( 'tbody tr' ).each( function( index ) {
+					var $tr = $( this );
+
+					$tr.addClass( 'tmsht_ts_user_table_tr' )
+					$tr.attr( 'data-tr-date', trs_data.dates[ index ] );
+
+					if ( trs_data.dates[ index ] == trs_data.current_date ) {
+						$tr.addClass( 'tmsht_ts_user_table_tr_today' );
+					}
+
+				});
+			} else if ( $table.is( '.tmsht_ts_user_table_head_dateline' ) ) {
+				var $div = $table.find( 'thead tr td.tmsht_ts_user_table_td_dateline .tmsht_ts_user_table_highlight_today' ),
+					index = $div.parent().index(),
+					$tds = $table.find( 'tr' ).find( 'td:eq(' + index + ')' ),
+					$tds_prev = ( ! is_rtl ) ? $tds.prev() : $tds.next();
+
+				$tds.addClass( 'tmsht_ts_user_table_td_highlight_today_right_border' );
+				$tds_prev.addClass( 'tmsht_ts_user_table_td_highlight_today_right_border' );
+			}
+
+			$( '#tmsht_ts_user_table' ).trigger( 'selection' );
 			e.preventDefault();
 			return false;
 		});
 
+		/***********************************************************
+		 * Actions with TS table
+		 ***********************************************************/
 
-		/* On right click */
+		/* Show select area in TS table */
+		$( '#tmsht_ts_user_table' ).on( 'selection', function() {
+			var $tbl = $( this ),
+				$trs = $tbl.find( 'tbody tr' ).has( '.tmsht_ts_user_table_td_highlighted' ),
+				$tds = $trs.find( '.tmsht_ts_user_table_td_highlighted' );
+
+			if ( $tds.length > 0 ) {
+				var $td_in_first_tr = ( ! is_rtl ) ? $trs.filter( ':first' ).find( '.tmsht_ts_user_table_td_highlighted:first' ) : $trs.filter( ':first' ).find( '.tmsht_ts_user_table_td_highlighted:last' ),
+					$tr_first = $td_in_first_tr.parent(),
+					$tds_in_first_tr = $tr_first.find( '.tmsht_ts_user_table_td_highlighted' ),
+					tr_index = $tr_first.index(),
+					trs_count = $tds.length / $tds_in_first_tr.length,
+					select_top = $td_in_first_tr.offset().top - $tbl.offset().top,
+					select_left = $td_in_first_tr.offset().left - $tbl.offset().left,
+					select_width = 0,
+					select_height = 0,
+					isWebkit = $.browser.webkit;
+
+				$tds_in_first_tr.each( function() {
+					select_width += $( this ).outerWidth();
+				});
+
+				for ( var i = tr_index; i <= tr_index + trs_count ; i++ ) {
+					select_height += $tbl.find( 'tbody tr:eq(' + i + ') .tmsht_ts_user_table_td_highlighted:first' ).outerHeight();
+				}
+
+				$( '#tmsht_ts_user_table_selection:hidden' ).show();
+
+				$( '#tmsht_ts_user_table_selection:visible' ).css({
+					'top'    : select_top,
+					'left'   : select_left,
+					'width'  : select_width + 1,
+					'height' : select_height + 1,
+					'margin' : ( ! isWebkit ) ? '-1px 0 0 -1px' : ''
+				});
+			}
+		}).trigger( 'selection' );
+
+		/* Hide select area in TS table */
+		$( '#tmsht_ts_user_table' ).on( 'deselection', function() {
+			$( this ).find( 'tbody td.tmsht_ts_user_table_td_highlighted' ).removeClass( 'tmsht_ts_user_table_td_highlighted' );
+			$( '#tmsht_ts_user_table_selection:visible' ).hide();
+		});
+
+		/* Add selection event in TS table */
+		$( '#tmsht_ts_user_table' ).on( 'add_event', function( event, e ) {
+			$( this ).data( 'selecting', e );
+		}).data( 'selecting', false );
+
+		/* Apply status to selected cells in TS table */
+		$( '#tmsht_ts_user_table' ).on( 'apply_status', function( event, legend_id ) {
+			var $tbl = $( this ),
+				$tds = $tbl.find( '.tmsht_ts_user_table_td_highlighted' );
+
+			$tds.each( function() {
+				var $td = $( this ),
+					$tr = $td.parent(),
+					$ts_user_table_td_fill = $td.find( '.tmsht_ts_user_table_td_fill' ),
+					legend = get_legend( legend_id );
+
+				$ts_user_table_td_fill
+					.attr( 'data-legend-id', legend.id )
+					.css( 'background-color', legend.color )
+					.removeAttr( 'data-td-group' )
+					.removeAttr( 'title' );
+
+				$tr.find( '.tmsht_tr_date[disabled="disabled"]' ).attr( 'disabled', false );
+			});
+
+			$( '#tmsht_ts_user_table' ).tmsht_ts_user_table_handler( 'show_details' );
+		});
+
+		/* Get mobile events in TS table */
+		$( '#tmsht_ts_user_table tbody' ).on( 'touchstart', function( event ) {
+			$( this ).data( 'mobile_event', event );
+		}).on( 'touchmove', function( event ) {
+			$( this ).data( 'mobile_event', event );
+		}).on( 'touchend', function( event ) {
+			$( this ).data( 'mobile_event', event );
+		}).data( 'mobile_event', false );
+
+		/* Select cells in TS table */
+		$( '#tmsht_ts_user_table tbody' ).selectable({
+			filter   : 'td',
+			cancel   : '.tmsht_ts_user_table_td_readonly',
+			appendTo : '#tmsht_ts_user_table_area',
+			start : function( event ) {
+				$( '.tmsht_select_legend' ).filter( '[data-status="open"]' ).trigger( 'select.close' );
+				$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
+			},
+			selecting: function( event, ui ) {
+				var $td = $( ui.selecting );
+
+				if ( $td.hasClass( 'tmsht_ts_user_table_td_readonly' ) ) {
+					return false;
+				}
+
+				if ( ! $( '#tmsht_ts_user_table' ).data( 'selecting' ) && ! $td.hasClass( 'tmsht_ts_user_table_td_dateline' ) ) {
+					$( '#tmsht_ts_user_table' ).trigger( 'deselection' );
+				}
+
+				$( '#tmsht_ts_user_table' ).trigger( 'add_event', true );
+
+				if ( $td.is( '.tmsht_ts_user_table_td_time' ) ) {
+					$td.addClass( 'tmsht_ts_user_table_td_highlighted' );
+				}
+			},
+			unselecting: function( event, ui ) {
+
+				var $td = $( ui.unselecting );
+
+				if ( $td.hasClass( 'tmsht_ts_user_table_td_readonly' ) ) {
+					return false;
+				}
+
+				if ( $td.is( '.tmsht_ts_user_table_td_time' ) ) {
+					$td.removeClass( 'tmsht_ts_user_table_td_highlighted' );
+				}
+			},
+			selected: function( event, ui ) {
+				$( ui.selected ).removeClass( 'ui-selected' );
+			},
+			stop: function( event, ui ) {
+				var mobile_event = $( '#tmsht_ts_user_table tbody' ).data( 'mobile_event' )
+
+				if ( mobile_event.type == 'touchend' ) {
+					$( '#tmsht_ts_user_context_menu' ).trigger( 'show_context_menu', mobile_event );
+				}
+
+				$( '#tmsht_ts_user_table' )
+					.trigger( 'selection' )
+					.trigger( 'add_event', false );
+			}
+		});
+
+		/***********************************************************
+		 * Actions with context menu in TS table
+		 ***********************************************************/
+
+		/* On right click in TS table cell */
 		$( '#tmsht_ts_user_table' ).on( 'contextmenu', '.tmsht_ts_user_table_td_time', function( e ) {
 			var $td = $( this );
 
 			if ( ! $td.hasClass( 'tmsht_ts_user_table_td_readonly' ) ) {
-				if ( $td.is( '[data-legend-id!="-1"]' ) ) {
+
+				/* If clicked not in selected cell */
+				if ( ! $td.hasClass( 'tmsht_ts_user_table_td_highlighted' ) ) {
+					$( '#tmsht_ts_user_table' ).trigger( 'deselection' );
+					$td.addClass( 'tmsht_ts_user_table_td_highlighted' );
+					$( '#tmsht_ts_user_table' ).trigger( 'selection' )
+				}
+
+				if ( $td.is( '.tmsht_ts_user_table_td_highlighted' ) ) {
 					$( '#tmsht_ts_user_context_menu' ).trigger( 'show_context_menu', e );
-					$td.addClass( 'tmsht_context_menu' );
 				} else {
 					$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
 				}
@@ -183,24 +310,7 @@
 			return false;
 		});
 
-		/* On taphold */
-		var touch_timer;
-		$( '#tmsht_ts_user_table tbody' ).on( 'touchstart', '.tmsht_ts_user_table_td_time', function( e ) {
-			var $td = $( this );
-
-			if ( ! $td.hasClass( 'tmsht_ts_user_table_td_readonly' ) ) {
-				touch_timer = setTimeout( function() {
-					$( '#tmsht_ts_user_context_menu' ).trigger( 'show_context_menu', e );
-					$td.addClass( 'tmsht_context_menu' );
-				}, 600 );
-			}
-		}).on( 'touchend touchmove', '.tmsht_ts_user_table_td_time', function() {
-			if ( touch_timer ) {
-				clearTimeout( touch_timer );
-			}
-		});
-
-		/* Context menu */
+		/* TS table context menu */
 		$( '#tmsht_ts_user_context_menu' ).on( 'show_context_menu', function( event, e ) {
 			var $context_menu = $( this ),
 				$wp_bar = $( '#wpadminbar' ),
@@ -209,22 +319,25 @@
 				margin_left = 0,
 				coorX = coorY = 0;
 
-			if ( e.type == 'touchstart' ) { /* mobile */
+			if ( e.type == 'touchend' ) { /* mobile */
 				var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
 				coorX = touch.clientX + window.scrollX;
 				coorY = touch.clientY + window.scrollY;
 			} else { /* desktop */
-				coorX = e.clientX + window.scrollX;
-				coorY = e.clientY + window.scrollY;
+				coorX = e.pageX;
+				coorY = e.pageY;
 			}
-
-			coorX = coorX - ts_table_offset_left;
 
 			if ( $wp_bar.css( 'position' ) == 'fixed' ) {
 				coorY = coorY - parseInt( $wp_bar.height() );
 			}
 
-			margin_left = ( $( window ).width() > coorX + width + ts_table_offset_left ) ? 0 : -1 * width;
+			if ( ! is_rtl ) {
+				coorX = coorX - ts_table_offset_left;
+				margin_left = ( $( window ).width() > coorX + width ) ? 0 : -1 * width;
+			} else {
+				margin_left = ( coorX - width < 0 ) ? 0 : -1 * width;
+			}
 
 			$context_menu
 				.trigger( 'hide_context_menu' )
@@ -237,58 +350,48 @@
 				.show( 100 )
 				.attr( 'data-visible', 'true' );
 		}).on( 'hide_context_menu', function() {
-			var $context_menu = $( this ),
-				$td = $( '#tmsht_ts_user_table tbody td.tmsht_context_menu' );
+			var $context_menu = $( this );
 
-			$td.removeClass( 'tmsht_context_menu' );
 			$context_menu
 				.hide()
 				.attr( 'data-visible', 'false' );
 		});
 
-		$( window ).on( 'resize', function() {
-			$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
+		/* On select item in context menu in TS table */
+		$( '.tmsht_ts_user_context_menu_item.tmsht_ts_user_context_menu_item_enabled' ).on( 'click', function() {
+			var $context_menu_item = $( this ),
+				action = $context_menu_item.attr( 'data-action' );
+
+			switch( action ) {
+				case 'delete':
+					$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
+					$( '#tmsht_ts_user_table' ).trigger( 'apply_status', -1 );
+					break;
+				case 'apply_status':
+					var legend_id = $context_menu_item.attr( 'data-legend-id' );
+					$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
+					$( '#tmsht_ts_user_table' ).trigger( 'apply_status', legend_id );
+					break
+				default:
+					break;
+			}
 		});
 
-		$( document ).on( 'click', function( e ) {
+		$( window ).on( 'resize', function() {
+			$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
+			$( '#tmsht_ts_user_table' ).trigger( 'deselection' );
+		});
+
+		$( document ).on( 'mouseup', function( e ) {
 			if ( e.button != 0 || $( e.target ).closest( '#tmsht_ts_user_context_menu' ).length ) {
 				return;
 			}
 
 			$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
 		});
-
-		$( '.tmsht_ts_user_context_menu_item.tmsht_ts_user_context_menu_item_enabled' ).on( 'click', function() {
-			var $context_menu_item = $( this ),
-				action = $context_menu_item.attr( 'data-action' ),
-				$td = $( '#tmsht_ts_user_table tbody td.tmsht_context_menu' ),
-				$tr = $td.parent(),
-				$td_fill = $td.find( '.tmsht_ts_user_table_td_fill' ),
-				legend = get_legend( -1 );
-
-			switch( action ) {
-				case 'delete':
-					$td
-						.attr( 'data-legend-id', legend.id )
-						.removeAttr( 'data-prev-legend-id' )
-						.removeAttr( 'title' )
-						.removeAttr( 'data-td-group' )
-						.removeClass( 'tmsht_ts_user_table_td_selected' );
-
-					$td_fill.css( 'background-color', legend.color );
-
-					$tr.find( '.tmsht_tr_date[disabled="disabled"]' ).attr( 'disabled', false );
-
-					$( '#tmsht_ts_user_context_menu' ).trigger( 'hide_context_menu' );
-					$( '#tmsht_ts_user_table' ).tmsht_ts_user_table_handler( 'show_details' );
-					break;
-				default:
-					break;
-			}
-		});
 	});
 
-	/* start Legend selector*/
+	/* Handler fake legend */
 	$.fn.tmsht_ts_user_select_legend = function( target ) {
 
 		var escapeHtml = function( text ) {
@@ -303,7 +406,7 @@
 			return text.replace( /[&<>"']/g, function( m ) { return map[ m ]; } );
 		}
 
-		$( document ).on( 'click', function( e ) {
+		$( document ).on( 'mouseup', function( e ) {
 			if ( $( e.target ).closest( '.tmsht_select_legend' ).length ) {
 				return;
 			}
@@ -316,7 +419,8 @@
 				return;
 			}
 
-			var $this_select = $( this );
+			var $this_select = $( this ),
+				this_select_id = ( $this_select.attr( 'id' ) ) ? 'id_' + $this_select.attr( 'id' ) + ' ' : '';
 
 			target = target || select_index;
 
@@ -333,7 +437,7 @@
 			});
 
 			var	$select = $( '<div/>', {
-					'class'       : 'tmsht_select_legend tmsht_select_legend_' + target + ' tmsht_select_legend_hidden tmsht_unselectable',
+					'class'       : this_select_id + 'tmsht_select_legend tmsht_select_legend_' + target + ' tmsht_select_legend_hidden tmsht_unselectable',
 					'data-status' : 'close'
 				}).bind( 'select.open', function () {
 					$( this ).trigger( 'select.close' );
@@ -381,9 +485,14 @@
 			$this_select.find( 'option' ).each( function( index_option ) {
 				var $this_option = $( this );
 
+				if( index_option == 0 ) {
+					return true;
+				}
+
 				$( '<li/>', {
 					'class' 	 : 'tmsht_select_legend_option',
 					'data-index' : index_option,
+					'data-id'    : $this_option.val(),
 					'data-color' : $this_option.data( 'color' ),
 					'data-name'  : $this_option.text(),
 					'title'      : $this_option.text(),
@@ -393,9 +502,13 @@
 				}).on( 'mouseleave', function() {
 					$( this ).removeClass( 'tmsht_select_legend_option_hover' );
 				}).on( 'click', function() {
-					var index = $( this ).data( 'index' );
+					var index = $( this ).data( 'index' ),
+						legend_id = $( this ).data( 'id' );
 
-					$this_select.find( 'option' ).eq( index ).attr( 'selected', true ).trigger( 'change' );
+					if( $select.hasClass( 'id_tmsht_ts_user_legend' ) ) {
+						$( '#tmsht_ts_user_table' ).trigger( 'apply_status', legend_id );
+					}
+
 				}).appendTo( $options_wrap );
 			});
 
@@ -403,36 +516,39 @@
 			$this_select.after( $select );
 		});
 	};
-	/* end Legend selector*/
 
-	/* start Legend selector*/
+	/* Handler TS table */
 	$.fn.tmsht_ts_user_table_handler = (function( method ) {
 		var methods = {
 			'init' : function( options ) {
-				return this.each( function ( table_index ) {
+				return this.each( function() {
 					$( this ).tmsht_ts_user_table_handler( 'show_details' );
 				});
 			},
 			'show_details' : function() {
-				return this.each( function () {
+				return this.each( function() {
 					var $ts_table = $( this ),
-						tbl_data = {};
+						tbl_data = {},
 						key = 0;
 
-					$( '.tmsht_tr_date' ).each( function() {
-						var tr_date = $( this ).val();
+					$trs_date = $ts_table.find( '.tmsht_tr_date' );
 
-						if ( $ts_table.find( 'td.tmsht_ts_user_table_td_time[data-td-date="' + tr_date + '"]' ).filter( '[data-legend-id!="-1"]' ).length == 0 ) {
+					$trs_date.each( function() {
+
+						var date = $( this ).val();
+
+						if ( $ts_table.find( 'td.tmsht_ts_user_table_td_time[data-td-date="' + date + '"] .tmsht_ts_user_table_td_fill[data-legend-id!="-1"]' ).length == 0 ) {
 							return true;
 						}
 
-						var $tds = $ts_table.find( 'td.tmsht_ts_user_table_td_time[data-td-date="' + tr_date + '"]' );
+						var $tds_fill = $ts_table.find( '.tmsht_ts_user_table_td_time[data-td-date="' + date + '"] .tmsht_ts_user_table_td_fill' );
 
-						$tds.each( function( index, elem ) {
-							var $td = $( this ),
-								legend_id = $td.attr( 'data-legend-id' );
-								next_legend_id = $( $tds[ index + 1 ] ).attr( 'data-legend-id' );
-								date = $td.attr( 'data-td-date' );
+						$tds_fill.each( function( index, elem ) {
+							var $td_fill = $( elem ),
+								legend_id = $td_fill.attr( 'data-legend-id' );
+								next_legend_id = $tds_fill.eq( index + 1 ).attr( 'data-legend-id' );
+
+							$td_fill.removeAttr( 'title' );
 
 							if ( legend_id < 0 ) {
 								return true;
@@ -442,47 +558,48 @@
 							tbl_data[ legend_id ][ date ] = tbl_data[ legend_id ][ date ] || {};
 
 							tbl_data[ legend_id ][ date ][ key ] = tbl_data[ legend_id ][ date ][ key ] || [];
-							tbl_data[ legend_id ][ date ][ key ].push( parseInt( $td.attr( 'data-td-time' ) ) );
+							tbl_data[ legend_id ][ date ][ key ].push( {
+								'time_from' : $td_fill.attr( 'data-fill-time-from' ),
+								'time_to'   : $td_fill.attr( 'data-fill-time-to' )
+							} );
 
-							$td.attr( 'data-td-group', key );
+							$td_fill.attr( 'data-fill-group', key );
+
 							if ( legend_id != next_legend_id ) {
 								key++;
 							}
 						});
 					});
 
-					$( '.tmsht_ts_user_advanced_box.tmsht_maybe_hidden, .tmsht_ts_user_advanced_box .tmsht_maybe_hidden' ).addClass( 'tmsht_hidden' );
-					$( '.tmsht_ts_user_advanced_box.tmsht_maybe_hidden .tmsht_ts_user_advanced_box_interval' ).remove();
-
-					Number.prototype.toFormat = function() {
-						var n = this;
-
-						return n > 9 ? "" + n: "0" + n;
-					}
+					$prepare_box = $( '.tmsht_ts_user_advanced_box' ).addClass( 'tmsht_hidden' );
+					$prepare_box.find( '.tmsht_ts_user_advanced_box_details' ).addClass( 'tmsht_hidden' );
+					$prepare_box.find( '.tmsht_ts_user_advanced_box_interval' ).remove();
 
 					for ( var legend_id in tbl_data ) {
+
 						var $box = $( '.tmsht_ts_user_advanced_box[data-box-id="' + legend_id + '"]' ).removeClass( 'tmsht_hidden' );
 
 						for ( var date in tbl_data[ legend_id ] ) {
-							var $details = $box.find( '.tmsht_ts_user_advanced_box_details[data-box-details-date="' + date + '"]' ),
+							var $details = $box.find( '.tmsht_ts_user_advanced_box_details[data-details-date="' + date + '"]' ),
 								$wrap = $details.find( '.tmsht_ts_user_advanced_box_interval_wrap' );
 
 							$details.removeClass( 'tmsht_hidden' );
-							for ( var time in tbl_data[ legend_id ][ date ] ) {
+
+							for ( var interval in tbl_data[ legend_id ][ date ] ) {
 								var $interval_template = $( '#tmsht_ts_user_advanced_box_details_template .tmsht_ts_user_advanced_box_interval' ).clone(),
-									time_from = tbl_data[ legend_id ][ date ][ time ][0],
-									time_to = ( tbl_data[ legend_id ][ date ][ time ][ tbl_data[ legend_id ][ date ][ time ].length - 1 ] + 1 ),
-									group = time,
+									time_from = tbl_data[ legend_id ][ date ][ interval ][0]['time_from'],
+									time_to = tbl_data[ legend_id ][ date ][ interval ][ tbl_data[ legend_id ][ date ][ interval ].length - 1 ]['time_to'],
+									group = interval,
 									index = $box.find( '.tmsht_ts_user_advanced_box_interval' ).length,
 									interval_html = $interval_template.html()
-														.replace( /%index%/g, index )
-														.replace( /%legend_id%/g, legend_id )
-														.replace( /%date%/g, date )
-														.replace( /%time_from%/g, time_from.toFormat() )
-														.replace( /%time_to%/g, ( time_to ).toFormat() )
-														.replace( /%input_time_from%/g, time_from.toFormat() + ':00:00' )
-														.replace( /%input_time_to%/g, ( time_to != 24 ) ? time_to.toFormat() + ':00:00' : '23:59:59' )
-														.replace( /data-hidden-name/g, 'name' );
+										.replace( /%index%/g, index )
+										.replace( /%legend_id%/g, legend_id )
+										.replace( /%date%/g, date )
+										.replace( /%time_from%/g, time_from )
+										.replace( /%time_to%/g, time_to )
+										.replace( /%input_time_from%/g, time_from + ':00' )
+										.replace( /%input_time_to%/g, ( time_to != '24:00' ) ? time_to + ':00' : '23:59:59' )
+										.replace( /data-hidden-name/g, 'name' );
 
 								$interval_template
 									.html( interval_html )
@@ -492,25 +609,19 @@
 									.on( 'mouseenter', function () {
 										var $interval = $( this ),
 											group = $interval.attr( 'data-details-group' ),
-											$td_fill = $ts_table.find( 'td.tmsht_ts_user_table_td_time[data-td-group="' + group + '"] .tmsht_ts_user_table_td_fill' );
+											$tds_fill = $ts_table.find( '.tmsht_ts_user_table_td_fill[data-fill-group="' + group + '"]' );
 
-										$td_fill.addClass( 'tmsht_ts_user_highlight' );
+										$tds_fill.addClass( 'tmsht_ts_user_highlight' );
 									}).on( 'mouseleave', function () {
-										var $td_fill = $( '.tmsht_ts_user_highlight' );
+										var $tds_fill = $ts_table.find( '.tmsht_ts_user_highlight' );
 
-										$td_fill.removeClass( 'tmsht_ts_user_highlight' );
+										$tds_fill.removeClass( 'tmsht_ts_user_highlight' );
 									});
 
-								$ts_table.find( 'td.tmsht_ts_user_table_td_time[data-td-group="' + group + '"]' ).each( function() {
-									var $td = $( this );
-										group_legend_id = $td.attr( 'data-legend-id' ),
-										group_legend_name = $( '.tmsht_ts_user_legend option[value="' + group_legend_id + '"]' ).text(),
-										time_from = $interval_template.find( '.tmsht_ts_user_advanced_box_interval_from_text' ).text(),
-										time_to = $interval_template.find( '.tmsht_ts_user_advanced_box_interval_to_text' ).text();
-									if ( group_legend_id > 0 ) {
-										$td.attr( 'title', group_legend_name + ' (' + time_from + ' - ' + time_to + ')' );
-									}
-								});
+								var group_legend_name = $box.find( '.tmsht_ts_user_advanced_box_title' ).text();
+									$tds_fill = $ts_table.find( '.tmsht_ts_user_table_td_fill[data-fill-group="' + group + '"]' );
+
+								$tds_fill.attr( 'title', group_legend_name + ' (' + time_from + ' - ' + time_to + ')' );
 							}
 						}
 					}

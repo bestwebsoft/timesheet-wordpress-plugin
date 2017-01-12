@@ -1,5 +1,30 @@
 (function($){
 	$( document ).ready( function() {
+		var is_rtl = $( 'body' ).hasClass( 'rtl' );
+
+		/* Users filter position */
+		$( window ).on( 'resize', function() {
+			var filters_width = 0;
+			$( '.tmsht_ts_report_filter_item' ).each( function() {
+				var $filter_item = $( this );
+				filters_width += $filter_item.innerWidth();
+			});
+
+			if ( $( '.tmsht_ts_report_filter' ).width() > filters_width ) {
+				if ( ! is_rtl ) {
+					$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'right' );
+				} else {
+					$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'left' );
+				}
+			} else {
+				if ( ! is_rtl ) {
+					$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'left' );
+				} else {
+					$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'right' );
+				}
+			}
+		}).trigger( 'resize' );
+
 		/* Date picker */
 		tmsht_datetime_options = tmsht_datetime_options || {};
 

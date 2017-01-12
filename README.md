@@ -29,7 +29,7 @@ Best timesheet plugin for WordPress. Track employee time, streamline attendance 
 <li>Customize timesheet email notifications:
 
 <ul>
-<li>Remaining day/time </li>
+<li>Remaining day/time</li>
 <li>Subject</li>
 <li>Message</li>
 </ul></li>

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Timesheet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-11 16:24+0300\n"
-"PO-Revision-Date: 2016-10-11 16:24+0300\n"
+"POT-Creation-Date: 2016-12-21 19:22+0300\n"
+"PO-Revision-Date: 2016-12-29 19:22+0300\n"
 "Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft Team <wp@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -18,225 +18,240 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../timesheet.php:56 ../timesheet.php:58 ../timesheet.php:1354
+#: ../timesheet.php:59 ../timesheet.php:61 ../timesheet.php:1363
 msgid "Report"
 msgstr "Отчет"
 
-#: ../timesheet.php:147
+#: ../timesheet.php:149
 msgid "Work In Office"
 msgstr "Работа в офисе"
 
-#: ../timesheet.php:153
+#: ../timesheet.php:155
 msgid "Work Remotely"
 msgstr "Удаленная работа"
 
-#: ../timesheet.php:159
+#: ../timesheet.php:161
 msgid "Will be absent"
 msgstr "Отсутствие"
 
-#: ../timesheet.php:165
+#: ../timesheet.php:167
 msgid "Vacation"
 msgstr "Отпуск"
 
-#: ../timesheet.php:255
+#: ../timesheet.php:293
 msgid "Timesheet Reminder"
 msgstr "Timesheet Напоминание"
 
-#: ../timesheet.php:256
+#: ../timesheet.php:294
 msgid "Hi"
 msgstr "Привет"
 
-#: ../timesheet.php:256
+#: ../timesheet.php:294
 msgid "Please complete your timesheet for the following days"
 msgstr "Пожалуйста, заполните ваш график за следующие дни"
 
-#: ../timesheet.php:256
+#: ../timesheet.php:294
 msgid "Complete Timesheet Now"
 msgstr "Заполнить График Сейчас"
 
-#: ../timesheet.php:256
+#: ../timesheet.php:294
 msgid "Do not reply to this message. This is an automatic mailing."
 msgstr "Не отвечайте на это сообщение. Это автоматическая рассылка."
 
-#: ../timesheet.php:400
-msgid "Please, input legend name"
-msgstr "Пожалуйста, введите название легенды"
+#: ../timesheet.php:384
+msgid "Please, input status name"
+msgstr ""
+"Пожалуйста, введите название легендыПожалуйста, введите название статуса"
 
-#: ../timesheet.php:405 ../timesheet.php:407
-msgid "Please, choose legend color"
-msgstr "Пожалуйста, выберите цвет легенды"
+#: ../timesheet.php:389 ../timesheet.php:391
+msgid "Please, choose status color"
+msgstr "Пожалуйста, выберите цвет легендыПожалуйста, выберите цвет статуса"
 
-#: ../timesheet.php:412
+#: ../timesheet.php:396
 #, php-format
-msgid "Legend with name \"%s\" or with color %s already exists"
-msgstr "Легенда с названием \"%s\" или цветом %s уже существует"
+msgid "Status with name \"%s\" or with color %s already exists"
+msgstr "Статус с названием \"%s\" или цветом %s уже существует"
 
-#: ../timesheet.php:416
+#: ../timesheet.php:400
 #, php-format
 msgid ""
-"The legend with the color %s can not be saved. Please choose a different "
+"The status with the color %s can not be saved. Please choose a different "
 "color."
 msgstr ""
-"Легенда с цветом %s не может быть сохранена. Пожалуйста выберите другой цвет."
+"Статус с цветом %s не может быть сохранен. Пожалуйста выберите другой цвет."
 
-#: ../timesheet.php:429
-msgid "Legend has been successfully added"
-msgstr "Легенда успешно добавлена"
+#: ../timesheet.php:413
+msgid "Status has been successfully added"
+msgstr "Статус добавлен успешно"
 
-#: ../timesheet.php:431 ../timesheet.php:434
-msgid "Legend has not been added"
-msgstr "Легенда не добавлена"
+#: ../timesheet.php:415 ../timesheet.php:418
+msgid "Status has not been added"
+msgstr "Статус не был добавлен"
 
-#: ../timesheet.php:572
+#: ../timesheet.php:571
 msgid "Settings saved"
 msgstr "Настройки сохранены"
 
-#: ../timesheet.php:592
+#: ../timesheet.php:582
 msgid "All plugin settings were restored."
 msgstr "Все настройки плагина восстановлены."
 
-#: ../timesheet.php:597
+#: ../timesheet.php:596
 msgid "Timesheet Settings"
 msgstr "Настройки Timesheet"
 
-#: ../timesheet.php:599 ../timesheet.php:1911 ../timesheet.php:1924
+#: ../timesheet.php:598 ../timesheet.php:1926 ../timesheet.php:1939
 msgid "Settings"
 msgstr "Настройки"
 
-#: ../timesheet.php:600
+#: ../timesheet.php:599
 msgid "Go PRO"
 msgstr "Перейти на PRO версию"
 
-#: ../timesheet.php:604 ../timesheet.php:982 ../timesheet.php:1357
+#: ../timesheet.php:603 ../timesheet.php:985 ../timesheet.php:1366
 msgid "WARNING"
 msgstr "ВНИМАНИЕ"
 
-#: ../timesheet.php:604 ../timesheet.php:982 ../timesheet.php:1357
+#: ../timesheet.php:603 ../timesheet.php:985 ../timesheet.php:1366
 msgid "The plugin works correctly only if JavaScript is enabled."
 msgstr "Плагин работает корректно только при включенном JavaScript."
 
-#: ../timesheet.php:620
+#: ../timesheet.php:619
 msgid "Timeline"
 msgstr "Время"
 
-#: ../timesheet.php:623
+#: ../timesheet.php:622
 msgctxt "timeline"
 msgid "from"
 msgstr "от"
 
-#: ../timesheet.php:623
+#: ../timesheet.php:622
 msgctxt "timeline"
 msgid "to"
 msgstr "до"
 
-#: ../timesheet.php:623
+#: ../timesheet.php:622
 msgctxt "timeline"
 msgid "hours"
 msgstr "часов"
 
-#: ../timesheet.php:631
+#: ../timesheet.php:630
 msgid "Weekends"
 msgstr "Выходные"
 
-#: ../timesheet.php:644 ../timesheet.php:678
-msgid "Legends"
-msgstr "Легенды"
+#: ../timesheet.php:643 ../timesheet.php:677
+msgid "Statuses"
+msgstr "Статусы"
 
-#: ../timesheet.php:647
+#: ../timesheet.php:646
 msgid "Name"
 msgstr "Название"
 
-#: ../timesheet.php:650
-msgid "Add Legend"
-msgstr "Добавить Легенду"
+#: ../timesheet.php:649
+msgid "Add status"
+msgstr "Добавить статус"
 
-#: ../timesheet.php:655 ../timesheet.php:664 ../timesheet.php:684
+#: ../timesheet.php:654 ../timesheet.php:663 ../timesheet.php:683
 msgid "Enabled"
 msgstr "Включено"
 
-#: ../timesheet.php:656 ../timesheet.php:668 ../timesheet.php:685
+#: ../timesheet.php:655 ../timesheet.php:684
+msgctxt "Settings status table header"
+msgid "Name"
+msgstr "Название"
+
+#: ../timesheet.php:656 ../timesheet.php:685
+msgctxt "Settings status table header"
+msgid "Color"
+msgstr "Цвет"
+
+#: ../timesheet.php:667
 msgctxt "Settings legend table header"
 msgid "Name"
 msgstr "Название"
 
-#: ../timesheet.php:657 ../timesheet.php:671 ../timesheet.php:686
+#: ../timesheet.php:670
 msgctxt "Settings legend table header"
 msgid "Color"
 msgstr "Цвет"
 
-#: ../timesheet.php:678
-msgid "No legends"
-msgstr "Нет легенд"
+#: ../timesheet.php:677
+msgid "No statuses"
+msgstr "Нет статусов"
 
-#: ../timesheet.php:694
+#: ../timesheet.php:693
 msgid "Date format"
 msgstr "Формат даты"
 
-#: ../timesheet.php:701
+#: ../timesheet.php:700
 msgid "WordPress Settings"
 msgstr "Настройки WordPress"
 
-#: ../timesheet.php:713
+#: ../timesheet.php:712
 msgid "Custom"
 msgstr "Пользовательский"
 
-#: ../timesheet.php:724
+#: ../timesheet.php:723
 msgid "Documentation on date and time formatting"
 msgstr "Документация по форматированию времени и даты"
 
-#: ../timesheet.php:729
+#: ../timesheet.php:727
+msgid "Allow to edit past days"
+msgstr "Разрешить редактирование прошедших дней"
+
+#: ../timesheet.php:732
 msgid "Display TS user page for"
 msgstr "Отображать TS страницу пользователя для"
 
-#: ../timesheet.php:752 ../timesheet.php:805
+#: ../timesheet.php:757 ../timesheet.php:812
 msgid "Close"
 msgstr "Закрыть"
 
-#: ../timesheet.php:763 ../timesheet.php:816
+#: ../timesheet.php:768 ../timesheet.php:823
 msgid "Unlock premium options by upgrading to Pro version"
 msgstr "Активируйте премиум опции обновившись до Pro версии"
 
-#: ../timesheet.php:766 ../timesheet.php:819
+#: ../timesheet.php:771 ../timesheet.php:826
 msgid "Learn More"
 msgstr "Подробнее"
 
-#: ../timesheet.php:782
+#: ../timesheet.php:787
 msgid "Display TS report page for"
 msgstr "Отображать TS страницу отчетов для"
 
-#: ../timesheet.php:834
+#: ../timesheet.php:841
 msgid "Email reminder"
 msgstr "Напоминания на емейл"
 
-#: ../timesheet.php:836
+#: ../timesheet.php:843
 msgid ""
 "This option allows sending an email reminder to a user if his work schedule "
 "isn't filled out."
 msgstr ""
 "Эта опция позволяет отправить по электронной почте напоминание пользователю, "
-"если он не заполнен график работы."
+"если он не заполнил график работы."
 
-#: ../timesheet.php:838
+#: ../timesheet.php:845
 msgctxt "email reminder"
 msgid "every"
 msgstr "каждый (каждую)"
 
-#: ../timesheet.php:844
+#: ../timesheet.php:851
 msgctxt "email reminder"
 msgid "in"
 msgstr "в"
 
-#: ../timesheet.php:848
+#: ../timesheet.php:855
 msgctxt "email reminder"
 msgid "Subject"
 msgstr "Тема"
 
-#: ../timesheet.php:850
+#: ../timesheet.php:857
 msgctxt "email reminder"
 msgid "Message"
 msgstr "Сообщение"
 
-#: ../timesheet.php:853
+#: ../timesheet.php:860
 msgid ""
 "You can edit the content of reminder letter which will be sent to users. You "
 "can use the following shortcodes in the text of the message:"
@@ -245,16 +260,16 @@ msgstr ""
 "отправлено пользователям. Вы можете использовать следующие шорткоды в тексте "
 "сообщения:"
 
-#: ../timesheet.php:855
+#: ../timesheet.php:862
 msgid "this shortcode will be replaced with the username"
 msgstr "этот шорткод будет заменен на имя пользователя"
 
-#: ../timesheet.php:856
+#: ../timesheet.php:863
 msgid ""
 "this shortcode will be replaced with days that are not filled by the user"
 msgstr "этот шорткод будет заменен днями, которые не заполнены пользователем"
 
-#: ../timesheet.php:857
+#: ../timesheet.php:864
 msgid ""
 "this shortcode will be replaced with the link to TS user page in the "
 "dashboard"
@@ -262,7 +277,7 @@ msgstr ""
 "это шорткод будет заменен ссылкой на TS страницу пользователя в панели "
 "управления"
 
-#: ../timesheet.php:858
+#: ../timesheet.php:865
 msgid ""
 "this shortcode will be replaced with the link with your text to TS user page "
 "in the dashboard"
@@ -270,145 +285,173 @@ msgstr ""
 "это шорткод будет заменен ссылкой с вашим текстом на TS страницу "
 "пользователя в панели управления"
 
-#: ../timesheet.php:869 ../timesheet.php:1124
+#: ../timesheet.php:876 ../timesheet.php:1135
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: ../timesheet.php:913 ../timesheet.php:1167
-msgid "Reset"
-msgstr "Сброс"
+#: ../timesheet.php:916
+msgid "Please select..."
+msgstr "Пожалуста, выберите..."
 
-#: ../timesheet.php:928 ../timesheet.php:948
+#: ../timesheet.php:931 ../timesheet.php:951
 msgid "Data has not been saved"
 msgstr "Данные не сохранены"
 
-#: ../timesheet.php:956
+#: ../timesheet.php:959
 msgid "Data has been saved"
 msgstr "Данные сохранены"
 
-#: ../timesheet.php:959
+#: ../timesheet.php:962
 msgid "Data has not been saved, because there was no change"
 msgstr "Данные не сохранены, поскольку изменения не вносились"
 
-#: ../timesheet.php:992
+#: ../timesheet.php:995
 msgid "Date from"
 msgstr "Дата от"
 
-#: ../timesheet.php:996
+#: ../timesheet.php:999
 msgid "Date to"
 msgstr "Дата до"
 
-#: ../timesheet.php:1000
+#: ../timesheet.php:1003
 msgid "Change date"
 msgstr "Изменить дату"
 
-#: ../timesheet.php:1005 ../timesheet.php:1411
-msgid "Legend"
-msgstr "Легенда"
+#: ../timesheet.php:1008 ../timesheet.php:1420
+msgid "Status"
+msgstr "Статус"
 
-#: ../timesheet.php:1018
+#: ../timesheet.php:1021
 msgid "Transposition table"
 msgstr "Транспонирование таблицы"
 
-#: ../timesheet.php:1129
+#: ../timesheet.php:1141
 msgid "Edit time"
 msgstr "Изменить время"
 
-#: ../timesheet.php:1129
+#: ../timesheet.php:1141
 msgid "Available in PRO"
 msgstr "Доступно в ПРО"
 
-#: ../timesheet.php:1131
-msgid "Delete legend"
-msgstr "Удалить легенду"
+#: ../timesheet.php:1145
+msgid "Delete status"
+msgstr "Удалить статус"
 
-#: ../timesheet.php:1154
+#: ../timesheet.php:1175
 msgid "Week"
 msgstr "Неделя"
 
-#: ../timesheet.php:1155
+#: ../timesheet.php:1176
 msgid "Month"
 msgstr "Месяц"
 
-#: ../timesheet.php:1159
+#: ../timesheet.php:1180
 msgctxt "Group by"
 msgid "Date"
 msgstr "Дате"
 
-#: ../timesheet.php:1160
+#: ../timesheet.php:1181
 msgctxt "Group by"
 msgid "User"
 msgstr "Пользователю"
 
-#: ../timesheet.php:1168
-msgid "All Legends"
-msgstr "Все легенды"
+#: ../timesheet.php:1188
+msgid "Blank"
+msgstr "Пустые"
 
-#: ../timesheet.php:1351
+#: ../timesheet.php:1189
+msgid "All statuses"
+msgstr "Все статусы"
+
+#: ../timesheet.php:1360
 msgid "Select at least one user"
 msgstr "Выберите хотя бы одного пользователя"
 
-#: ../timesheet.php:1366
+#: ../timesheet.php:1375
 msgid "Date"
 msgstr "Дата"
 
-#: ../timesheet.php:1375
+#: ../timesheet.php:1384
 msgctxt "date"
 msgid "from"
 msgstr "с"
 
-#: ../timesheet.php:1379
+#: ../timesheet.php:1388
 msgctxt "date"
 msgid "to"
 msgstr "по"
 
-#: ../timesheet.php:1405
+#: ../timesheet.php:1414
 msgid "Group by"
 msgstr "Сортировать по "
 
-#: ../timesheet.php:1423
+#: ../timesheet.php:1432
 msgid "Users"
 msgstr "Пользователи"
 
-#: ../timesheet.php:1426
+#: ../timesheet.php:1435
 msgid "Search user"
 msgstr "Поиск пользователя"
 
-#: ../timesheet.php:1430
+#: ../timesheet.php:1439
 msgctxt "All users"
 msgid "All users"
 msgstr "Все пользователи"
 
-#: ../timesheet.php:1436
+#: ../timesheet.php:1445
 msgctxt "Search user"
 msgid "No results"
 msgstr "По вашему запросу ничего не найдено"
 
-#: ../timesheet.php:1443
+#: ../timesheet.php:1452
 msgctxt "Search user"
 msgid "No users to select"
 msgstr "Нет доступных пользователей для выбора"
 
-#: ../timesheet.php:1464
+#: ../timesheet.php:1473
 msgctxt "Apply ts report"
 msgid "Apply"
 msgstr "Применить"
 
-#: ../timesheet.php:1524 ../timesheet.php:1637 ../timesheet.php:1734
+#: ../timesheet.php:1533 ../timesheet.php:1651 ../timesheet.php:1753
 msgid "No data to view"
 msgstr "Нет доступных данных для просмотра"
 
-#: ../timesheet.php:1925
+#: ../timesheet.php:1940
 msgid "FAQ"
 msgstr "FAQ"
 
-#: ../timesheet.php:1926
+#: ../timesheet.php:1941
 msgid "Support"
 msgstr "Тех. Поддержка"
 
-#: ../timesheet.php:1958
+#: ../timesheet.php:1973
 msgid "Once Weekly"
 msgstr "Один раз в неделю"
+
+#~ msgid "Legend has not been added"
+#~ msgstr "Легенда не добавлена"
+
+#~ msgid "Legends"
+#~ msgstr "Легенды"
+
+#~ msgid "Add Legend"
+#~ msgstr "Добавить Легенду"
+
+#~ msgid "No legends"
+#~ msgstr "Нет легенд"
+
+#~ msgid "Reset"
+#~ msgstr "Сброс"
+
+#~ msgid "Legend"
+#~ msgstr "Легенда"
+
+#~ msgid "Delete legend"
+#~ msgstr "Удалить легенду"
+
+#~ msgid "All Legends"
+#~ msgstr "Все легенды"
 
 #~ msgid ""
 #~ "Hi {user_name},\n"
@@ -453,6 +496,3 @@ msgstr "Один раз в неделю"
 
 #~ msgid "Highlight current day"
 #~ msgstr "Выделить текущий день"
-
-#~ msgid "Highlight past days"
-#~ msgstr "Выделить предыдущие дни"

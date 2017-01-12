@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: http://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
 Requires at least: 3.8
-Tested up to: 4.6.1
-Stable tag: 0.1.3
+Tested up to: 4.7.1
+Stable tag: 0.1.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,7 +30,7 @@ http://www.youtube.com/watch?v=zQZx06CDr1I
 * Set days off
 * Enable automatic email notifications from timesheet
 * Customize timesheet email notifications:
-	* Remaining day/time 
+	* Remaining day/time
 	* Subject
 	* Message
 * Set the date format:
@@ -83,7 +83,7 @@ Donations play an important role in supporting open-source projects. We greatly 
 
 = Why I don't see all users on the report page, just certain of them? =
 
-It is necessary to select roles for users who be able to see Timesheet page for filling out the schedule. To do so, please go to the plugin settings page and find "Display TS user page for" option. After that, select the necessary roles and save changes. 
+It is necessary to select roles for users who be able to see Timesheet page for filling out the schedule. To do so, please go to the plugin settings page and find "Display TS user page for" option. After that, select the necessary roles and save changes.
 
 = How can I add a legend? =
 
@@ -91,7 +91,7 @@ You can do it using "Legends" option on the plugin settings page.
 
 = Is it possible to delete the legend from the legends list? =
 
-You can't delete the legend, but you can hide it. Please go to the plugin settings page, find the table with legends, and deselect the legend you want to hide. 
+You can't delete the legend, but you can hide it. Please go to the plugin settings page, find the table with legends, and deselect the legend you want to hide.
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
@@ -111,6 +111,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<http:
 
 == Changelog ==
 
+= V0.1.4 - 12.01.2017 =
+* NEW : Ability to allow edit past days.
+* Update : BWS plugins section is updated.
+
 = V0.1.3 - 18.10.2016 =
 * Bugfix : Bug related to the styles of the TS report table was fixed.
 * NEW : Сontext menu has been added for TS user table.
@@ -129,6 +133,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<http:
 * NEW : The Timesheet by BestWebSoft plugin is ready for use.
 
 == Upgrade Notice ==
+
+= V0.1.4 =
+* New features added.
+* Appearance improved.
+* Usability improved.
 
 = V0.1.3 =
 * New features added.
