@@ -1,17 +1,17 @@
 <?php
 /*
 Plugin Name: Timesheet by BestWebSoft
-Plugin URI: http://bestwebsoft.com/products/wordpress/plugins/timesheet/
+Plugin URI: https://bestwebsoft.com/products/wordpress/plugins/timesheet/
 Description: Best timesheet plugin for WordPress. Track employee time, streamline attendance and generate reports.
 Author: BestWebSoft
 Text Domain: timesheet
 Domain Path: /languages
-Version: 0.1.4
-Author URI: http://bestwebsoft.com/
+Version: 0.1.5
+Author URI: https://bestwebsoft.com/
 License: Proprietary
 */
 
-/*  © Copyright 2017  BestWebSoft  ( http://support.bestwebsoft.com )
+/*  © Copyright 2017  BestWebSoft  ( https://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -805,10 +805,7 @@ if ( ! function_exists( 'tmsht_settings_page' ) ) {
 																		</ul>
 																	</div>
 																	<div class="bws_pro_version_tooltip">
-																		<div class="bws_info">
-																			<?php _e( 'Unlock premium options by upgrading to Pro version', 'timesheet' ); ?>
-																		</div>
-																		<a class="bws_button" href="http://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=3bdf25984ad6aa9d95074e31c5eb9bb3&amp;pn=606&amp;v=<?php echo $tmsht_plugin_info['Version']; ?>&amp;wp_v=<?php echo $wp_version; ?>" target="_blank" title="Timesheet Pro">
+																		<a class="bws_button" href="https://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=3bdf25984ad6aa9d95074e31c5eb9bb3&amp;pn=606&amp;v=<?php echo $tmsht_plugin_info['Version']; ?>&amp;wp_v=<?php echo $wp_version; ?>" target="_blank" title="Timesheet Pro">
 																			<?php _e( 'Learn More', 'timesheet' ); ?>
 																		</a>
 																		<div class="clear"></div>
@@ -877,10 +874,7 @@ if ( ! function_exists( 'tmsht_settings_page' ) ) {
 																		</ul>
 																	</div>
 																	<div class="bws_pro_version_tooltip">
-																		<div class="bws_info">
-																			<?php _e( 'Unlock premium options by upgrading to Pro version', 'timesheet' ); ?>
-																		</div>
-																		<a class="bws_button" href="http://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=3bdf25984ad6aa9d95074e31c5eb9bb3&amp;pn=606&amp;v=<?php echo $tmsht_plugin_info['Version']; ?>&amp;wp_v=<?php echo $wp_version; ?>" target="_blank" title="Timesheet Pro">
+																		<a class="bws_button" href="https://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=3bdf25984ad6aa9d95074e31c5eb9bb3&amp;pn=606&amp;v=<?php echo $tmsht_plugin_info['Version']; ?>&amp;wp_v=<?php echo $wp_version; ?>" target="_blank" title="Timesheet Pro">
 																			<?php _e( 'Learn More', 'timesheet' ); ?>
 																		</a>
 																		<div class="clear"></div>
@@ -1196,7 +1190,7 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
 				<ul id="tmsht_ts_user_context_menu" data-visible="false">
 					<?php if ( ! $bws_hide_premium_options_check ) { ?>
 						<li class="tmsht_ts_user_context_menu_item tmsht_ts_user_context_menu_item_disabled" data-action="false">
-							<span class="tmsht_ts_user_context_menu_icon dashicons dashicons-clock"></span><span class="tmsht_ts_user_context_menu_text"><?php _e( 'Edit time', 'timesheet' ); ?> <a class="tmsht_ts_user_context_menu_link" href="http://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=3bdf25984ad6aa9d95074e31c5eb9bb3&amp;pn=606&amp;v=<?php echo $tmsht_plugin_info['Version']; ?>&amp;wp_v=<?php echo $wp_version; ?>" target="_blank">(<?php _e( 'Available in PRO', 'timesheet' ); ?>)</a></span>
+							<span class="tmsht_ts_user_context_menu_icon dashicons dashicons-clock"></span><span class="tmsht_ts_user_context_menu_text"><?php _e( 'Edit time', 'timesheet' ); ?> <a class="tmsht_ts_user_context_menu_link" href="https://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=3bdf25984ad6aa9d95074e31c5eb9bb3&amp;pn=606&amp;v=<?php echo $tmsht_plugin_info['Version']; ?>&amp;wp_v=<?php echo $wp_version; ?>" target="_blank">(<?php _e( 'Available in PRO', 'timesheet' ); ?>)</a></span>
 						</li>
 					<?php } ?>
 					<li class="tmsht_ts_user_context_menu_item tmsht_ts_user_context_menu_item_enabled" data-action="delete">
@@ -2031,8 +2025,8 @@ if ( ! function_exists ( 'tmsht_links' ) ) {
 		if ( $file == $base ) {
 			if ( ! is_network_admin() )
 				$links[]	=	'<a href="admin.php?page=timesheet_settings">' . __( 'Settings', 'timesheet' ) . '</a>';
-			$links[]	=	'<a href="http://support.bestwebsoft.com/hc/en-us/sections/202101246" target="_blank">' . __( 'FAQ', 'timesheet' ) . '</a>';
-			$links[]	=	'<a href="http://support.bestwebsoft.com">' . __( 'Support', 'timesheet' ) . '</a>';
+			$links[]	=	'<a href="https://support.bestwebsoft.com/hc/en-us/sections/202101246" target="_blank">' . __( 'FAQ', 'timesheet' ) . '</a>';
+			$links[]	=	'<a href="https://support.bestwebsoft.com">' . __( 'Support', 'timesheet' ) . '</a>';
 		}
 		return $links;
 	}
