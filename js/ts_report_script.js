@@ -1,69 +1,5 @@
 (function($){
 	$( document ).ready( function() {
-		var is_rtl = $( 'body' ).hasClass( 'rtl' );
-
-		/* Users filter position */
-		$( window ).on( 'resize', function() {
-			var filters_width = 0;
-			$( '.tmsht_ts_report_filter_item' ).each( function() {
-				var $filter_item = $( this );
-				filters_width += $filter_item.innerWidth();
-			});
-
-			if ( $( '.tmsht_ts_report_filter' ).width() > filters_width ) {
-				if ( ! is_rtl ) {
-					$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'right' );
-				} else {
-					$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'left' );
-				}
-			} else {
-				if ( ! is_rtl ) {
-					$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'left' );
-				} else {
-					$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'right' );
-				}
-			}
-		}).trigger( 'resize' );
-
-		/* Date picker */
-		tmsht_datetime_options = tmsht_datetime_options || {};
-
-		tmsht_datetime_options = $.extend({
-			'timepicker'        : false,
-			'format'            : ( Boolean( tmsht_datetime_options['timepicker'] ) ) ? 'Y-m-d H:s' : 'Y-m-d',
-			'closeOnDateSelect' : true,
-			'onSelectDate'      : function( $dtp, current, input ) {
-				var input_id = current.attr('id'),
-					date_target = ( input_id == 'tmsht_ts_report_date_from' ) ? 'date_from' : 'date_to',
-					$input_date_from = $( '#tmsht_ts_report_date_from' ),
-					$input_date_to = $( '#tmsht_ts_report_date_to' );
-
-				if ( date_target == 'date_from' && $input_date_from.val() > $input_date_to.val() ) {
-					$input_date_to.val( $input_date_from.val() );
-				}
-
-				if ( date_target == 'date_to' && $input_date_from.val() > $input_date_to.val() ) {
-					$input_date_from.val( $input_date_to.val() );
-				}
-			}
-		}, tmsht_datetime_options );
-
-		$.datetimepicker.setLocale( tmsht_datetime_options['locale'] );
-
-		$( ".tmsht_date_datepicker_input" ).datetimepicker( tmsht_datetime_options );
-
-		$( ".tmsht_date_datepicker_input" ).on( 'click touchstart', function(e) {
-			$( this ).datetimepicker('show');
-		}).on( 'keydown', function() {
-			return false;
-		});
-		/* Date picker */
-
-		/* Date filter */
-		$( '.tmsht_ts_report_filter_item_datepicker input[type="text"], .tmsht_ts_report_filter_item_datepicker select' ).on( 'focus', function() {
-			var filter_type = $( this ).parents( 'td' ).attr( 'data-filter-type' );
-			$( '.tmsht_ts_report_filter_item_datepicker input[value="' + filter_type + '"]' ).attr( 'checked', true );
-		});
 
 		/* start User selector */
 		$( 'noscript.tmsht_ts_report_user_list_container_noscript' ).before( $( 'noscript.tmsht_ts_report_user_list_container_noscript' ).text() );
@@ -81,11 +17,11 @@
 			}
 
 			if ( $( '.tmsht_ts_report_user:visible' ).length == 0 ) {
-				$( '.tmsht_ts_report_user_search_results' ).removeClass( 'tmsht_hidden' );
+				$( '.tmsht_ts_report_user_search_results' ).removeClass( 'hidden' );
 				$checkbox_all.attr( 'disabled', true );
 				$checkbox_all.parent().css( 'opacity', 0.7 );
 			} else {
-				$( '.tmsht_ts_report_user_search_results' ).addClass( 'tmsht_hidden' );
+				$( '.tmsht_ts_report_user_search_results' ).addClass( 'hidden' );
 				$checkbox_all.attr( 'disabled', false )
 				$checkbox_all.parent().css( 'opacity', 1 );
 			}
@@ -153,21 +89,95 @@
 		});
 		/* end User selector */
 
-		$( '.tmsht_hide_weekends' ).on( 'change', function() {
-			$( '.tmsht_hide_weekends' ).not( this ).attr( 'checked', false );
-		});
+		if ( $( 'body' ).hasClass( 'timesheet_page_timesheet_ts_report' ) ) {
 
-		/* start td helper */
-		$( '.tmsht_ts_report_table_has_data td.tmsht_ts_report_table_td_time' ).on( 'mouseenter', function() {
-			var $td = $( this ),
-				td_index = $( this ).attr( 'data-td-index' );
+			var is_rtl = $( 'body' ).hasClass( 'rtl' );
 
-			$( '.tmsht_ts_report_table_has_data tr:hover .tmsht_ts_report_table_td_helper' ).addClass( 'tmsht_ts_report_table_td_helper_hover' );
-			$( '.tmsht_ts_report_table_has_data tr .tmsht_ts_report_table_td_helper_' + td_index ).addClass( 'tmsht_ts_report_table_td_helper_hover' );
+			/* Users filter position */
+			$( window ).on( 'resize', function() {
+				var filters_width = 0;
+				$( '.tmsht_ts_report_filter_item' ).each( function() {
+					var $filter_item = $( this );
+					filters_width += $filter_item.innerWidth();
+				});
 
-		}).on( 'mouseleave', function() {
-			$( '#tmsht_ts_report_table tbody tr td.tmsht_ts_report_table_td_time' ).find( '.tmsht_ts_report_table_td_helper_hover' ).removeClass( 'tmsht_ts_report_table_td_helper_hover' );
-		});
-		/* end td helper */
+				if ( $( '.tmsht_ts_report_filter' ).width() > filters_width ) {
+					if ( ! is_rtl ) {
+						$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'right' );
+					} else {
+						$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'left' );
+					}
+				} else {
+					if ( ! is_rtl ) {
+						$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'left' );
+					} else {
+						$( '.tmsht_ts_report_filter_item_user' ).css( 'float', 'right' );
+					}
+				}
+			}).trigger( 'resize' );
+
+			/* Date picker */
+			tmsht_datetime_options = tmsht_datetime_options || {};
+
+			tmsht_datetime_options = $.extend({
+				'timepicker'        : false,
+				'format'            : ( Boolean( tmsht_datetime_options['timepicker'] ) ) ? 'Y-m-d H:s' : 'Y-m-d',
+				'closeOnDateSelect' : true,
+				'onSelectDate'      : function( $dtp, current, input ) {
+					var input_id = current.attr('id'),
+						date_target = ( input_id == 'tmsht_ts_report_date_from' ) ? 'date_from' : 'date_to',
+						$input_date_from = $( '#tmsht_ts_report_date_from' ),
+						$input_date_to = $( '#tmsht_ts_report_date_to' );
+
+					if ( date_target == 'date_from' && $input_date_from.val() > $input_date_to.val() ) {
+						$input_date_to.val( $input_date_from.val() );
+					}
+
+					if ( date_target == 'date_to' && $input_date_from.val() > $input_date_to.val() ) {
+						$input_date_from.val( $input_date_to.val() );
+					}
+				}
+			}, tmsht_datetime_options );
+
+			$.datetimepicker.setLocale( tmsht_datetime_options['locale'] );
+
+			$( ".tmsht_date_datepicker_input" ).datetimepicker( tmsht_datetime_options );
+
+			$( ".tmsht_date_datepicker_input" ).on( 'click touchstart', function(e) {
+				$( this ).datetimepicker( 'show' );
+			}).on( 'keydown', function() {
+				return false;
+			});
+			/* Date picker */
+
+			/* Date filter */
+			$( '.tmsht_ts_report_filter_item_datepicker input[type="text"], .tmsht_ts_report_filter_item_datepicker select' ).on( 'focus', function() {
+				var filter_type = $( this ).parents( 'td' ).attr( 'data-filter-type' );
+				$( '.tmsht_ts_report_filter_item_datepicker input[value="' + filter_type + '"]' ).attr( 'checked', true );
+			});
+
+			$( '.tmsht_ts_report_legend' ).on( 'change', function() {
+				if ( '-2' == $( '.tmsht_ts_report_legend:checked' ).val() ) {
+					$( '.tmsht_ts_report_view_filter' ).addClass( 'hidden' );
+				} else {
+					$( '.tmsht_ts_report_view_filter' ).removeClass( 'hidden' );
+				}
+			});
+
+			/* start td helper */
+			if ( ! $( 'body' ).hasClass( 'mobile' ) ) {
+				$( '.tmsht_ts_report_table_has_data td.tmsht_ts_report_table_td_time' ).on( 'mouseenter', function() {
+					var $td = $( this ),
+						td_index = $( this ).attr( 'data-td-index' );
+
+					$( '.tmsht_ts_report_table_has_data tr:hover .tmsht_ts_report_table_td_helper' ).addClass( 'tmsht_ts_report_table_td_helper_hover' );
+					$( '.tmsht_ts_report_table_has_data tr .tmsht_ts_report_table_td_helper_' + td_index ).addClass( 'tmsht_ts_report_table_td_helper_hover' );
+
+				}).on( 'mouseleave', function() {
+					$( '#tmsht_ts_report_table tbody tr td.tmsht_ts_report_table_td_time' ).find( '.tmsht_ts_report_table_td_helper_hover' ).removeClass( 'tmsht_ts_report_table_td_helper_hover' );
+				});
+			}
+			/* end td helper */
+		}
 	});
 })(jQuery);

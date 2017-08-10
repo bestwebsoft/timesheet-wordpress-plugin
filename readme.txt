@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
-Requires at least: 3.8
-Tested up to: 4.7.3
-Stable tag: 0.1.5
+Requires at least: 3.9
+Tested up to: 4.8.1
+Stable tag: 0.1.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,7 +21,7 @@ https://www.youtube.com/watch?v=zQZx06CDr1I
 = Free Features =
 
 * Create work schedule
-* Display timesheet and report pages for certain user roles
+* Display timesheet and reports pages for certain user roles
 * Add unlimited number of statuses
 * Customize statuses:
 	* Name
@@ -44,7 +44,8 @@ https://www.youtube.com/watch?v=zQZx06CDr1I
 >
 > All features from Free version included plus:
 >
-> * Display timesheet user page and report for certain users
+> * Display timesheet user page and reports for certain users
+> * Enable reports notifications via email [NEW]
 > * Create/edit schedules accurate to 5 min
 > * Get answer to your support question within one business day ([Support Policy](https://bestwebsoft.com/support-policy/))
 >
@@ -70,27 +71,27 @@ Some of these translations are not complete. We are constantly adding new featur
 
 = Recommended Plugins =
 
-* [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=ab42b1189a340aba05a496458775873f) - Automatically check and update WordPress core with all installed plugins to the latest versions. Manual mode, email notifications and backups of all your files and database before updating.
+* [Updater](https://bestwebsoft.com/products/wordpress/plugins/updater/?k=ab42b1189a340aba05a496458775873f) - Automatically check and update WordPress website core with all installed plugins and themes to the latest versions.
 
 == Installation ==
 
 1. Upload the `timesheet` folder to `/wp-content/plugins/` directory.
 2. Activate the plugin using the 'Plugins' menu in your WordPress admin panel.
-3. You can adjust the necessary settings using your WordPress admin panel in "BWS Panel" > "Timesheet".
+3. You can adjust the necessary settings using your WordPress admin panel in "Timesheet".
 
 == Frequently Asked Questions ==
 
 = Why I don't see all users on the report page, just certain of them? =
 
-It is necessary to select roles for users who be able to see Timesheet page for filling out the schedule. To do so, please go to the plugin settings page and find "Display TS user page for" option. After that, select the necessary roles and save changes.
+It is necessary to select user roles, that will be able to see Timesheet page for completing the schedule. To do so, please go to the plugin settings page and find "Display" settings. After that, select the necessary roles and save changes.
 
-= How can I add a legend? =
+= How can I add a status? =
 
-You can do it using "Legends" option on the plugin settings page.
+You can do it using "Statuses" option on the plugin settings page.
 
-= Is it possible to delete the legend from the legends list? =
+= Is it possible to delete the status from the statuses list? =
 
-You can't delete the legend, but you can hide it. Please go to the plugin settings page, find the table with legends, and deselect the legend you want to hide.
+You can't delete the status, but you can hide it. Please go to the plugin settings page, find the table with statuses, and deselect the status you want to hide.
 
 = I have some problems with the plugin's work. What Information should I provide to receive proper support? =
 
@@ -99,7 +100,7 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 1. the link to the page where the problem occurs
 2. the name of the plugin and its version. If you are using a pro version - your order number.
 3. the version of your WordPress installation
-4. copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/edit)
+4. copy and paste into the message your system status report. Please read more here: [Instruction on System Status](https://docs.google.com/document/d/1Wi2X8RdRGXk9kMszQy1xItJrpN0ncXgioH935MaBKtc/)
 
 == Screenshots ==
 
@@ -109,6 +110,12 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 4. TS report page.
 
 == Changelog ==
+
+= V0.1.6 - 10.08.2017 =
+* NEW : Ability to view report data by day was added.
+* Update : Plugin optimization completed.
+* Update : The plugin settings page has been updated.
+* Pro : Ability to receive reports by email.
 
 = V0.1.5 - 17.04.2017 =
 * Bugfix : Multiple Cross-Site Scripting (XSS) vulnerability was fixed.
@@ -135,6 +142,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : The Timesheet by BestWebSoft plugin is ready for use.
 
 == Upgrade Notice ==
+
+= V0.1.6 =
+* New features added.
+* Plugin optimization completed.
 
 = V0.1.5 =
 * Bugs fixed.

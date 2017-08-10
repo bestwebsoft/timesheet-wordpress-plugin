@@ -58,6 +58,11 @@
 		/* Show details table */
 		$( '#tmsht_ts_user_table' ).tmsht_ts_user_table_handler();
 
+		$( '.tmsht_save_anchor' ).on( "click", function( event ) {
+			event.preventDefault();
+			$( '#tmsht_save_ts_button' ).click();
+		});
+
 		/* On preparation transposition data */
 		$( '#tmsht_ts_user_table' ).on( 'set_transposition_data', function() {
 			var $tbl = $( '#tmsht_ts_user_table' ),
@@ -218,6 +223,9 @@
 			});
 
 			$( '#tmsht_ts_user_table' ).tmsht_ts_user_table_handler( 'show_details' );
+
+			$( '.updated.fade:not(.bws_visible), .error:not(.bws_visible)' ).css( 'display', 'none' );
+			$( '#tmsht_save_notice' ).show();
 		});
 
 		/* Get mobile events in TS table */
@@ -571,19 +579,19 @@
 						});
 					});
 
-					$prepare_box = $( '.tmsht_ts_user_advanced_box' ).addClass( 'tmsht_hidden' );
-					$prepare_box.find( '.tmsht_ts_user_advanced_box_details' ).addClass( 'tmsht_hidden' );
+					$prepare_box = $( '.tmsht_ts_user_advanced_box' ).addClass( 'hidden' );
+					$prepare_box.find( '.tmsht_ts_user_advanced_box_details' ).addClass( 'hidden' );
 					$prepare_box.find( '.tmsht_ts_user_advanced_box_interval' ).remove();
 
 					for ( var legend_id in tbl_data ) {
 
-						var $box = $( '.tmsht_ts_user_advanced_box[data-box-id="' + legend_id + '"]' ).removeClass( 'tmsht_hidden' );
+						var $box = $( '.tmsht_ts_user_advanced_box[data-box-id="' + legend_id + '"]' ).removeClass( 'hidden' );
 
 						for ( var date in tbl_data[ legend_id ] ) {
 							var $details = $box.find( '.tmsht_ts_user_advanced_box_details[data-details-date="' + date + '"]' ),
 								$wrap = $details.find( '.tmsht_ts_user_advanced_box_interval_wrap' );
 
-							$details.removeClass( 'tmsht_hidden' );
+							$details.removeClass( 'hidden' );
 
 							for ( var interval in tbl_data[ legend_id ][ date ] ) {
 								var $interval_template = $( '#tmsht_ts_user_advanced_box_details_template .tmsht_ts_user_advanced_box_interval' ).clone(),

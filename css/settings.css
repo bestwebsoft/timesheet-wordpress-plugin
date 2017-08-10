@@ -1,6 +1,3 @@
-#tmsht_settings_table {
-	margin: 0 0 20px;
-}
 #tmsht_timeline_settings_wrap {
 	max-width: 250px;
 	width: 100%;
@@ -27,12 +24,10 @@
 .rtl  .tmsht_label_weekends input {
 	margin: 0 0 0 2px;
 }
-#tmsht_ts_legends_table_wrap {
+.tmsht_ts_legends_table {
 	max-width: 500px;
 	width: 100%;
-}
-#tmsht_ts_legend_header_actions {
-	margin: 14px 0 20px;
+	margin-top: 10px;
 }
 .tmsht_ts_legends_table td {
 	padding-top: 5px;
@@ -55,13 +50,15 @@
 	height: 25px;
 	vertical-align: middle;
 }
+.tmsht_ts_legend_color_cell .wp-color-result {
+	height: auto;
+}
 .tmsht_ts_legend_id {
 	vertical-align: middle !important;
 	margin: 0 !important;
 }
 #tmsht_add_ts_legend_name {
-	width: 100%;
-	margin: 0 0 3px;
+	vertical-align: top;
 }
 .tmsht_format_i18n td {
 	padding: 5px 40px 5px 0 !important;
@@ -74,10 +71,6 @@
 }
 .rtl .tmsht_format_i18n tr td:last-child {
 	padding-left: 0 !important;
-}
-#tmsht_date_format_code {
-	width: 56px;
-	padding: 1px 6px;
 }
 #tmsht_date_format_display {
 	white-space: nowrap;
@@ -128,23 +121,11 @@
 .tmsht_reminder_settings span:first-child {
 	margin-left: 0;
 }
-#tmsht_time_reminder {
-	max-width: 80px;
-	width: 100%;
-	vertical-align: middle;
-}
-#tmsht_reminder_content {
-    max-width: 500px;
-    width: 100%;
-	margin: 20px 0 0;
-}
 #tmsht_reminder_subject {
 	max-width: 100%;
 	width: 100%;
 }
 #tmsht_reminder_message {
-	max-width: 100%;
-	width: 100%;
 	height: 150px;
 }
 @media screen and (max-width: 782px) {
@@ -167,20 +148,10 @@
 		min-width: 100px;
 		padding: 0 5px;
 	}
-	#tmsht_settings_table tr td:last-child {
-		padding-right: 0;
-	}
 	.tmsht_format_i18n {
 		width: 100% !important;
 	}
 	.tmsht_format_i18n td {
 		display: table-cell;
-	}
-	#tmsht_date_format_code {
-		display: inline;
-	}
-	#tmsht_display_ts_user_page_for_users_wrap,
-	#tmsht_display_ts_report_page_for_users_wrap {
-		padding: 0 10px 0 40px;
 	}
 }

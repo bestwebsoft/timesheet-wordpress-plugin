@@ -30,7 +30,7 @@
 	padding-right: 40px;
 	word-wrap: break-word;
 }
-.tmsht_ts_report_filter_item_legend .tmsht_ts_report_legend_color {
+.tmsht_ts_report_legend_color {
 	display: inline-block;
 	width: 16px;
 	height: 16px;
@@ -38,7 +38,7 @@
 	background: #ffffff;
 	vertical-align: middle;
 }
-.rtl .tmsht_ts_report_filter_item_legend .tmsht_ts_report_legend_color {
+.rtl .tmsht_ts_report_legend_color {
 	margin: -4px 0 0 5px;
 }
 .tmsht_ts_report_filter_item_user {
@@ -103,9 +103,6 @@
 #tmsht_ts_report_table tr.tmsht_ts_report_table_tr_roll_up td.tmsht_ts_report_table_td_dateline div {
 	display: inline-block;
 }
-#tmsht_ts_report_table td.tmsht_ts_report_table_td_no_data {
-	white-space: nowrap;
-}
 #tmsht_ts_report_table td.tmsht_ts_report_table_td_roll_up {
 	position: relative;
 	color: #888888;
@@ -122,9 +119,17 @@
 	height: 37px;
 	width: 37px;
 }
+#tmsht_ts_report_table.tmsht_ts_report_view_daily td.tmsht_ts_report_table_td_time {
+	width: auto;
+}
 #tmsht_ts_report_table .tmsht_ts_report_table_td_fill_group {
 	width: 100%;
 	height: 100%;
+}
+#tmsht_ts_report_table .tmsht_ts_report_table_td_fill_full {
+	width: 100%;
+	height: 100%;
+	float: none;
 }
 #tmsht_ts_report_table .tmsht_ts_report_table_td_fill {
 	width: 8.333333333%;
@@ -258,6 +263,10 @@
 .tmsht_ts_report_user_uncheck:hover {
 	color: #c00;
 }
+.tmsht_ts_report_view_daily.tmsht_ts_report_table_group_by_date .tmsht_ts_report_table_td_today {
+	border-left: 2px solid #0592ce !important;
+	border-right: 2px solid #0592ce !important;
+}
 /* General styles */
 .tmsht_unselectable {
 	-moz-user-select: none;
@@ -267,9 +276,6 @@
 	-ms-user-select: none;
 	 user-select: none;
 	 cursor: default;
-}
-.tmsht_hidden {
-	display: none;
 }
 .tmsht_clearfix {
 	clear: both;
@@ -323,8 +329,7 @@
 	.tmsht_ts_report_user_selected {
 		font-size: 16px;
 	}
-	#tmsht_ts_report_table td.tmsht_ts_report_table_td_dateline .tmsht_ts_report_formatted_date,
-	#tmsht_ts_report_table td.tmsht_ts_report_table_td_no_data {
+	#tmsht_ts_report_table td.tmsht_ts_report_table_td_dateline .tmsht_ts_report_formatted_date {
 		white-space: normal;
 	}
 	#tmsht_ts_report_table td.tmsht_ts_report_table_td_user {

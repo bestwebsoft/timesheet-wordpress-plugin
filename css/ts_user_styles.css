@@ -361,9 +361,6 @@
 	 user-select: none;
 	 cursor: default;
 }
-.tmsht_hidden {
-	display: none;
-}
 .tmsht_clearfix {
 	clear:both;
 }

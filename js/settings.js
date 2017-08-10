@@ -83,15 +83,6 @@
 			} );
 		});
 
-		/* Email reminder */
-		$( '#tmsht_reminder_on_email' ).on( 'change', function() {
-			if ( ! $( this ).is( ':checked' ) ) {
-				$( '.tmsht_reminder_settings' ).hide();
-			} else {
-				$( '.tmsht_reminder_settings' ).show();
-			}
-		}).trigger( 'change' );
-
 		$( '#tmsht_reminder_change_state' ).attr( 'disabled', true );
 
 		$( '#tmsht_reminder_on_email, #tmsht_day_reminder, #tmsht_time_reminder' ).on( 'change paste', function() {
