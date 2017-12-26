@@ -6,7 +6,7 @@ Description: Best timesheet plugin for WordPress. Track employee time, streamlin
 Author: BestWebSoft
 Text Domain: timesheet
 Domain Path: /languages
-Version: 0.1.6
+Version: 0.1.7
 Author URI: https://bestwebsoft.com/
 License: Proprietary
 */
@@ -244,6 +244,8 @@ if ( ! function_exists( 'tmsht_register_options' ) ) {
 
 			$tmsht_options['plugin_option_version'] = $tmsht_plugin_info["Version"];
 			$update_option = true;
+
+			tmsht_plugin_activate();
 		}
 
 		/* Update tables when update plugin and tables changes*/
@@ -291,7 +293,7 @@ if ( ! function_exists( 'tmsht_get_options_default' ) ) {
 					'user_ids'          => array(),
 					'has_sub_exception' => array()
 				)
-			),			
+			),
 			'reminder_on_email'       => 0,
 			'day_reminder'            => 'fri',
 			'time_reminder'           => '18:00',
@@ -328,18 +330,18 @@ if ( ! function_exists( 'tmsht_admin_scripts_styles' ) ) {
 				wp_enqueue_style( 'wp-color-picker' );
 				wp_enqueue_style( 'jquery-ui', plugins_url( 'css/jquery-ui.css', __FILE__ ), false );
 				wp_enqueue_style( 'ts_settings_styles', plugins_url( 'css/settings.css', __FILE__ ), false, $tmsht_plugin_info['Version'] );
-				
+
 				bws_enqueue_settings_scripts();
 			} elseif ( $_GET['page'] == 'timesheet_ts_user' || $_GET['page'] == 'timesheet_ts_report' ) {
 				wp_register_script( 'tmsht_datetimepicker_script', plugins_url( 'js/jquery.datetimepicker.full.min.js', __FILE__ ), array( 'jquery' ) );
 				wp_enqueue_style( 'tmsht_datetimepicker_styles', plugins_url( 'css/jquery.datetimepicker.css', __FILE__ ), false );
 
-				if ( $_GET['page'] == 'timesheet_ts_user' ) {					
+				if ( $_GET['page'] == 'timesheet_ts_user' ) {
 					wp_enqueue_script( 'tmsht_script', plugins_url( 'js/ts_user_script.js', __FILE__ ), array( 'jquery', 'jquery-ui-selectable', 'jquery-touch-punch', 'tmsht_datetimepicker_script' ), $tmsht_plugin_info['Version'] );
 					wp_enqueue_style( 'tmsht_styles', plugins_url( 'css/ts_user_styles.css', __FILE__ ), false, $tmsht_plugin_info['Version'] );
 				} else {
 					wp_enqueue_script( 'tmsht_script', plugins_url( 'js/ts_report_script.js', __FILE__ ), array( 'jquery', 'tmsht_datetimepicker_script' ), $tmsht_plugin_info['Version'] );
-					wp_enqueue_style( 'tmsht_styles', plugins_url( 'css/ts_report_styles.css', __FILE__ ), false, $tmsht_plugin_info['Version'] );					
+					wp_enqueue_style( 'tmsht_styles', plugins_url( 'css/ts_report_styles.css', __FILE__ ), false, $tmsht_plugin_info['Version'] );
 				}
 
 				$locale = explode( '_', get_locale() );
@@ -373,10 +375,10 @@ if ( ! function_exists( 'tmsht_generate_color' ) ) {
 }
 
 if ( ! function_exists( 'tmsht_settings_page' ) ) {
-	function tmsht_settings_page() { 
-		require_once( dirname( __FILE__ ) . '/includes/class-tmsht-settings.php' ); 
+	function tmsht_settings_page() {
+		require_once( dirname( __FILE__ ) . '/includes/class-tmsht-settings.php' );
 		$page = new Tmsht_Settings_Tabs( plugin_basename( __FILE__ ) ); ?>
-		<div class="wrap">			
+		<div class="wrap">
 			<h1>Timesheet <?php _e( 'Settings', 'timesheet' ); ?></h1>
 			<noscript>
 				<div class="error below-h2">
@@ -667,7 +669,7 @@ if ( ! function_exists( 'tmsht_get_users' ) ) {
 		global $wpdb, $tmsht_options;
 
 		$users = array();
-		
+
 		if ( ! empty( $tmsht_options['display_pages']['ts_user']['user_roles'] ) ) {
 			foreach ( $tmsht_options['display_pages']['ts_user']['user_roles'] as $role ) {
 				if ( ! empty( $users_in_role_query ) )
@@ -696,7 +698,7 @@ if ( ! function_exists( 'tmsht_get_users' ) ) {
 						);
 					} else {
 						$users[ $user_data->ID ] = $user_data->user_login;
-					}					
+					}
 				}
 			}
 
@@ -725,9 +727,9 @@ if ( ! function_exists( 'tmsht_get_users' ) ) {
 
 /**
 * Function array_replace (PHP 5 >= 5.3.0, PHP 7)
-* 
+*
 * @since 0.1.6
-* 
+*
 * @param array
 * @param array
 * @return array
@@ -866,7 +868,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 				$ts_data_query .= " AND `legend_id` = '" . $ts_report_filters['legend'] . "'";
 
 			$ts_data_query .=  " AND `user_id` IN (" . implode( ',', $selected_users ) . ")";
-			if ( 'hourly' != $ts_report_filters['view'] )				
+			if ( 'hourly' != $ts_report_filters['view'] )
 				$ts_data_query .=  " GROUP BY `user_id`, DAY(`time_from`)";
 			$ts_data_query .=  " ORDER BY `user_id` ASC, `time_from` ASC";
 			$ts_get_data = $wpdb->get_results( $ts_data_query, ARRAY_A );
@@ -876,7 +878,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 					if ( $ts_report_filters['group_by'] == 'date' ) {
 
 						foreach ( $ts_get_data as $data ) {
-							$key_date = date( 'Y-m-d', strtotime( $data['time_from'] ) );						
+							$key_date = date( 'Y-m-d', strtotime( $data['time_from'] ) );
 							$ts_data[ $key_date ][ $data['user_id'] ][] = $data;
 						}
 
@@ -884,7 +886,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 						$empty_users_data = array();
 						foreach ( $selected_users as $user_id ) {
 							$empty_users_data[ $user_id ][] = array();
-						}						
+						}
 
 						foreach ( $date_period as $date ) {
 							$date_formated = date( 'Y-m-d', strtotime( $date ) );
@@ -903,7 +905,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 					} else if ( $ts_report_filters['group_by'] == 'user' ) {
 						/* need to create empty array first for saving sorting - username ASC */
 						foreach ( $selected_users as $user_id ) {
-							$ts_data[ $user_id ] = array();							
+							$ts_data[ $user_id ] = array();
 						}
 
 						foreach ( $ts_get_data as $data ) {
@@ -921,8 +923,8 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 							if ( ! empty( $data ) ) {
 								$ts_data[ $user_id ] = tmsht_array_replace( $empty_date_data, $ts_data[ $user_id ] );
 							}
-						}						
-					}				
+						}
+					}
 				} else {
 					if ( $ts_report_filters['group_by'] == 'date' ) {
 
@@ -942,7 +944,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 
 						/* sort by time */
 						ksort( $ts_data );
-					} else {						
+					} else {
 						/* need to create empty array first for saving sorting - username ASC */
 						foreach ( $selected_users as $user_id ) {
 							$ts_data[ $user_id ] = array();
@@ -1027,7 +1029,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 								<?php } ?>
 							</div>
 						</div>
-						<div class="tmsht_ts_report_filter_item">							
+						<div class="tmsht_ts_report_filter_item">
 							<div class="tmsht_ts_report_filter_title"><strong><?php _e( 'Status', 'timesheet' ); ?></strong></div>
 							<fieldset>
 								<?php $legend_index = 0;
@@ -1042,7 +1044,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 						</div>
 						<div class="tmsht_ts_report_filter_item tmsht_ts_report_filter_item_user">
 							<div class="tmsht_ts_report_filter_title"><strong><?php _e( 'Users', 'timesheet' ); ?></strong></div>
-							<?php tmsht_report_user_list_display( $tmsht_users, $selected_users ); ?>							
+							<?php tmsht_report_user_list_display( $tmsht_users, $selected_users ); ?>
 						</div>
 						<div class="tmsht_clearfix"></div>
 						<div class="tmsht_ts_report_generate">
@@ -1064,7 +1066,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 									<?php }
 								} else {
 									if ( $ts_report_filters['group_by'] == 'date' ) {
-										foreach ( $ts_data as $ts_key => $ts_value ) { 
+										foreach ( $ts_data as $ts_key => $ts_value ) {
 											$td_timeline_classes = 'tmsht_ts_report_table_td_dateline';
 											if ( $ts_key == date( 'Y-m-d' ) )
 												$td_timeline_classes .= ' tmsht_ts_report_table_td_today tmsht_ts_report_table_highlight_today';
@@ -1256,7 +1258,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 											<td class="tmsht_ts_report_table_td_user">
 												<strong><?php echo $tmsht_users[ $user_id ]; ?></strong>
 											</td>
-											<?php foreach ( $ts_data as $ts_key => $ts_value ) {										
+											<?php foreach ( $ts_data as $ts_key => $ts_value ) {
 												$td_readonly = ( $tmsht_options['edit_past_days'] == 0 && $ts_key < date( 'Y-m-d' ) );
 												$td_timeline_classes = 'tmsht_ts_report_table_td_time tmsht_ts_report_table_td_time_' . $ts_key;
 												if ( $ts_key == date( 'Y-m-d' ) )
@@ -1295,14 +1297,14 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 											$tmsht_td_dateline_classes .= ' tmsht_ts_report_table_td_today';
 										if ( in_array( strtolower( date( 'D', strtotime( $date ) ) ), $tmsht_options['weekends'] ) )
 											$tmsht_td_dateline_classes .= ' tmsht_ts_report_table_highlight_weekdays'; ?>
-										
+
 										<tr class="<?php echo $tr_classes; ?>">
 											<td class="<?php echo $tmsht_td_dateline_classes; ?>">
 												<div class="tmsht_ts_report_formatted_date"><?php echo date_i18n( $tmsht_options['date_format'], strtotime( $date ) ); ?></div>
 												<div class="tmsht_ts_report_weekday"><?php echo date_i18n( 'D', strtotime( $date ) ); ?></div>
 											</td>
-											<?php foreach ( $ts_data as $ts_key => $ts_value ) {								
-												
+											<?php foreach ( $ts_data as $ts_key => $ts_value ) {
+
 												$td_timeline_classes = 'tmsht_ts_report_table_td_time tmsht_ts_report_table_td_time_' . $ts_key;
 												if ( $is_today )
 													$td_timeline_classes .= ' tmsht_ts_report_table_td_today'; ?>
@@ -1335,7 +1337,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 									<?php }
 								} else {
 									if ( $ts_report_filters['group_by'] == 'date' ) {
-										foreach ( $ts_data as $ts_key => $ts_value ) { 
+										foreach ( $ts_data as $ts_key => $ts_value ) {
 											$td_timeline_classes = 'tmsht_ts_report_table_td_dateline';
 											if ( $ts_key == date( 'Y-m-d' ) )
 												$td_timeline_classes .= ' tmsht_ts_report_table_td_today tmsht_ts_report_table_highlight_today';
@@ -1377,11 +1379,11 @@ if ( ! function_exists( 'tmsht_report_table_single_td' ) ) {
 
 				$time_legend_array = $legend_array = array();
 
-				foreach ( $user_data as $user_data_key => $data ) {											
+				foreach ( $user_data as $user_data_key => $data ) {
 
 					if ( $data ) {
 						if ( strtotime( $data['time_from'] ) > $td_datetime_to && strtotime( $data['time_to'] ) > $td_datetime_from )
-							break;														
+							break;
 
 						for ( $time_minutes = 0; $time_minutes < 60; $time_minutes += 5 ) {
 							$td_datetime = strtotime( sprintf( "%s %02d:%02d:00", $search_date, $time_value, $time_minutes ) );
@@ -1391,7 +1393,7 @@ if ( ! function_exists( 'tmsht_report_table_single_td' ) ) {
 								$time_to_adjustment = ( date( 'i', strtotime( $data['time_to'] ) ) == 59 ) ? '24:00' : date( 'H:i', strtotime( $data['time_to'] ) );
 
 								$time_legend_array[ $time_minutes ]['td_legend_id'] = $legend_array['td_legend_id'][] = $data['legend_id'];
-								
+
 								$time_legend_array[ $time_minutes ]['td_title'] = $legend_array['td_title'][] = sprintf( "%s (%s - %s)", $tmsht_legends[ $data['legend_id'] ]['name'], date( 'H:i', strtotime( $data['time_from'] ) ), $time_to_adjustment );
 
 							}
@@ -1400,13 +1402,13 @@ if ( ! function_exists( 'tmsht_report_table_single_td' ) ) {
 							unset( $user_data[ $user_data_key ] );
 					}
 				}
-				
+
 				if ( empty( $time_legend_array ) ) {
 					/**/
 				} elseif ( 12 == count( $legend_array['td_legend_id'] ) && 1 == count( array_unique( $legend_array['td_legend_id'] ) ) ) { ?>
 					<div class="tmsht_ts_report_table_td_fill_full" style="background-color: <?php echo $tmsht_legends[ $legend_array['td_legend_id'][0] ]['color']; ?>;" data-fill-time-from="<?php printf( "%02d:%02d", $time_value, $time_minutes ); ?>" data-fill-time-to="<?php printf( "%02d:%02d", ( $time_minutes < 55 ) ? $time_value : $time_value + 1, ( $time_minutes < 55 ) ? $time_minutes + 5 : 0 ); ?>" data-legend-id="<?php echo $legend_array['td_legend_id'][0]; ?>" title="<?php echo $legend_array['td_title'][0]; ?>"></div>
 				<?php } else {
-					for ( $time_minutes = 0; $time_minutes < 60; $time_minutes += 5 ) { 
+					for ( $time_minutes = 0; $time_minutes < 60; $time_minutes += 5 ) {
 						if ( ! isset( $time_legend_array[ $time_minutes ] ) )
 							$time_legend_array[ $time_minutes ] = array(
 								'td_legend_id' => -1,

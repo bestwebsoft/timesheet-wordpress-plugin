@@ -40,7 +40,7 @@
 <p>All features from Free version included plus:</p>
 <ul>
 <li>Display timesheet user page and reports for certain users</li>
-<li>Enable reports notifications via email [NEW]</li>
+<li>Enable reports notifications via email</li>
 <li>Create/edit schedules accurate to 5 min</li>
 <li>Get answer to your support question within one business day (<a href="https://bestwebsoft.com/support-policy/" rel="nofollow">Support Policy</a>)</li>
 </ul>
@@ -49,6 +49,7 @@
 <p>If you have a feature suggestion or idea you&#8217;d like to see in the plugin, we&#8217;d love to hear about it! <a href="https://support.bestwebsoft.com/hc/en-us/requests/new" rel="nofollow">Suggest a Feature</a></p>
 <h4>Documentation &amp; Videos</h4>
 <ul>
+<li><a href="https://docs.google.com/document/d/1LO_rfSxJap2t19qJkBMGscCG7BBac7fUDbhEbQ5g8YE/" rel="nofollow">[Doc] How to Use</a></li>
 <li><a href="https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/" rel="nofollow">[Doc] Installation</a></li>
 <li><a href="https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/" rel="nofollow">[Doc] Purchase</a></li>
 </ul>

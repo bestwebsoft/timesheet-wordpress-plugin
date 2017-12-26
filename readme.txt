@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
 Requires at least: 3.9
-Tested up to: 4.8.1
-Stable tag: 0.1.6
+Tested up to: 4.9.1
+Stable tag: 0.1.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -45,7 +45,7 @@ https://www.youtube.com/watch?v=zQZx06CDr1I
 > All features from Free version included plus:
 >
 > * Display timesheet user page and reports for certain users
-> * Enable reports notifications via email [NEW]
+> * Enable reports notifications via email
 > * Create/edit schedules accurate to 5 min
 > * Get answer to your support question within one business day ([Support Policy](https://bestwebsoft.com/support-policy/))
 >
@@ -55,6 +55,7 @@ If you have a feature suggestion or idea you'd like to see in the plugin, we'd l
 
 = Documentation & Videos =
 
+* [[Doc] How to Use](https://docs.google.com/document/d/1LO_rfSxJap2t19qJkBMGscCG7BBac7fUDbhEbQ5g8YE/)
 * [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 * [[Doc] Purchase](https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/)
 
@@ -111,6 +112,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V0.1.7 - 26.12.2017 =
+* Update : All functionality for WordPress 4.9.1 has been updated.
+
 = V0.1.6 - 10.08.2017 =
 * NEW : Ability to view report data by day was added.
 * Update : Plugin optimization completed.
@@ -142,6 +146,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : The Timesheet by BestWebSoft plugin is ready for use.
 
 == Upgrade Notice ==
+
+= V0.1.7 =
+* The compatibility with new WordPress version updated.
+* Bugs fixed.
 
 = V0.1.6 =
 * New features added.
