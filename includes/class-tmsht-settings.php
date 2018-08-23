@@ -443,7 +443,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 										OBJECT_K
 									);
 
-									if ( $role == 'administrator' && $this->is_multisite && ! is_main_site() ) {
+									if ( 'administrator' == $role && $this->is_multisite && ! is_main_site() ) {
 										$super_admins = get_super_admins();
 
 										foreach ( $super_admins as $super_admin ) {
@@ -511,7 +511,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 										OBJECT_K
 									);
 
-									if ( $role == 'administrator' && $this->is_multisite && ! is_main_site() ) {
+									if ( 'administrator' == $role && $this->is_multisite && ! is_main_site() ) {
 										$super_admins = get_super_admins();
 
 										foreach ( $super_admins as $super_admin ) {

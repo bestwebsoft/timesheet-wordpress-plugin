@@ -471,3 +471,34 @@
 		white-space: normal;
 	}
 }
+/* Preloader for ajax requests */
+.tmsht_ts_user_loading::after {
+	content: "";
+	position: absolute;
+	margin-left: 20px;
+	margin-top: 7px;
+	width: 10px;
+	height: 10px;
+	border: 4px solid #00aadc;
+	background-color: transparent;
+	border-bottom-color: transparent;
+	border-radius: 50%;
+	-webkit-animation: tmsht_ts_user_animate 6.0s linear infinite;
+	animation: tmsht_ts_user_animate 6.0s linear infinite;
+}
+@-webkit-keyframes tmsht_ts_user_animate {
+	0% {
+		transform: rotate(0deg)
+	}
+	100% {
+		transform: rotate(2000deg)
+	}
+}
+@keyframes tmsht_ts_user_animate {
+	0% {
+		transform: rotate(0deg)
+	}
+	100% {
+		transform: rotate(2000deg)
+	}
+}

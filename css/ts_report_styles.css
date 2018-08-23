@@ -149,6 +149,13 @@
 	opacity: 0.3;
 	pointer-events: none;
 }
+.tmsht_ts_report_table_nodata,
+.tmsht_ts_report_table_nodata tbody tr td{
+	background-color: #f1f1f1 !important;
+	box-shadow: none !important;
+	-webkit-box-shadow: none !important;
+	border-width: 0 !important;
+}
 .tmsht_ts_report_table_group_by_date tr.tmsht_ts_report_table_tr_today_top {
 	border-top: 2px solid #0592ce !important;
 }
@@ -335,5 +342,36 @@
 	#tmsht_ts_report_table td.tmsht_ts_report_table_td_user {
 		min-width: 50px;
 		word-wrap: break-word;
+	}
+}
+/* Preloader for ajax requests */
+.tmsht_ts_report_loading::after {
+	content: "";
+	position: absolute;
+	margin-left: 20px;
+	margin-top: 7px;
+	width: 10px;
+	height: 10px;
+	border: 4px solid #00aadc;
+	background-color: transparent;
+	border-bottom-color: transparent;
+	border-radius: 50%;
+	-webkit-animation: tmsht_ts_report_animate 6.0s linear infinite;
+	animation: tmsht_ts_report_animate 6.0s linear infinite;
+}
+@-webkit-keyframes tmsht_ts_report_animate {
+	0% {
+		transform: rotate(0deg)
+	}
+	100% {
+		transform: rotate(2000deg)
+	}
+}
+@keyframes tmsht_ts_report_animate {
+	0% {
+		transform: rotate(0deg)
+	}
+	100% {
+		transform: rotate(2000deg)
 	}
 }
