@@ -3,7 +3,7 @@
 
 		/* Ajax update table */
 		function tmsht_ajax_update_timesheet_table() {
-			window.history.replaceState( '', '', 'http://' + location.host + '/wp-admin/admin.php?page=timesheet_ts_user' + '&tmsht_ts_user_date_from=' + $( '#tmsht_ts_user_date_from' ).val() + '&tmsht_ts_user_date_to=' + $( '#tmsht_ts_user_date_to' ).val() );
+            window.history.replaceState( '', '', location.protocol + '://' + location.host + '/wp-admin/admin.php?page=timesheet_ts_user' + '&tmsht_ts_user_date_from=' + $( '#tmsht_ts_user_date_from' ).val() + '&tmsht_ts_user_date_to=' + $( '#tmsht_ts_user_date_to' ).val() );
 			$.ajax( {
 				type: "GET",
 				url: ajaxurl,
