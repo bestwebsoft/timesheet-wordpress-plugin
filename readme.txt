@@ -4,7 +4,7 @@ Donate link: https://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
 Requires at least: 3.9
 Tested up to: 4.9.8
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -113,6 +113,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.0.2 - 30.10.2018 =
+* Bugfix : Bug with Hyper Text Transfer Protocol Secure (HTTPS) has been fixed.
+
 = V1.0.1 - 30.10.2018 =
 * Bugfix : Bug with Hyper Text Transfer Protocol Secure (HTTPS) has been fixed.
 
@@ -154,6 +157,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : The Timesheet by BestWebSoft plugin is ready for use.
 
 == Upgrade Notice ==
+
+= V1.0.2 =
+* Bugs fixed.
 
 = V1.0.1 =
 * Bugs fixed.
