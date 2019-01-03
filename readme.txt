@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
 Requires at least: 3.9
-Tested up to: 4.9.8
-Stable tag: 1.0.2
+Tested up to: 5.0.2
+Stable tag: 1.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -46,7 +46,7 @@ https://www.youtube.com/watch?v=zQZx06CDr1I
 >
 > * Display timesheet user page and reports for certain users
 > * Enable reports notifications via email
-> * [NEW] Import and export timesheet data
+> * Import and export timesheet data
 > * Create/edit schedules accurate to 5 min
 > * Get answer to your support question within one business day ([Support Policy](https://bestwebsoft.com/support-policy/))
 >
@@ -113,6 +113,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.0.3 - 03.01.2019 =
+* Bugfix : A bug with the report of each user has been fixed.
+* Bugfix : A bug with the receiving reports by email has been fixed.
+* Update : All functionality for WordPress 5.0.2 has been updated.
+
 = V1.0.2 - 30.10.2018 =
 * Bugfix : Bug with Hyper Text Transfer Protocol Secure (HTTPS) has been fixed.
 
@@ -157,6 +162,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : The Timesheet by BestWebSoft plugin is ready for use.
 
 == Upgrade Notice ==
+
+= V1.0.3 =
+* Bugs fixed.
+* The compatibility with new WordPress version updated.
 
 = V1.0.2 =
 * Bugs fixed.

@@ -41,7 +41,7 @@
 <ul>
 <li>Display timesheet user page and reports for certain users</li>
 <li>Enable reports notifications via email</li>
-<li>[NEW] Import and export timesheet data</li>
+<li>Import and export timesheet data</li>
 <li>Create/edit schedules accurate to 5 min</li>
 <li>Get answer to your support question within one business day (<a href="https://bestwebsoft.com/support-policy/" rel="nofollow">Support Policy</a>)</li>
 </ul>
