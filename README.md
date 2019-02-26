@@ -37,14 +37,13 @@
 </ul>
 <blockquote>
 <p><strong>Pro Features</strong></p>
-<p>All features from Free version included plus:</p>
-<ul>
-<li>Display timesheet user page and reports for certain users</li>
-<li>Enable reports notifications via email</li>
-<li>Import and export timesheet data</li>
-<li>Create/edit schedules accurate to 5 min</li>
-<li>Get answer to your support question within one business day (<a href="https://bestwebsoft.com/support-policy/" rel="nofollow">Support Policy</a>)</li>
-</ul>
+<p>All features from Free version included plus:<br />
+  * Display timesheet using the shortcode [ NEW ]<br />
+  * Display timesheet user page and reports for certain users<br />
+  * Enable reports notifications via email<br />
+  * Import and export timesheet data<br />
+  * Create/edit schedules accurate to 5 min<br />
+  * Get answer to your support question within one business day (<a href="https://bestwebsoft.com/support-policy/" rel="nofollow">Support Policy</a>)</p>
 <p><a href="https://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=4c99d58eadceab42cd2b7cdf4ddd4cab" rel="nofollow">Upgrade to Pro Now</a></p>
 </blockquote>
 <p>If you have a feature suggestion or idea you&#8217;d like to see in the plugin, we&#8217;d love to hear about it! <a href="https://support.bestwebsoft.com/hc/en-us/requests/new" rel="nofollow">Suggest a Feature</a></p>

@@ -155,3 +155,8 @@
 		display: table-cell;
 	}
 }
+@media screen and  ( max-width: 1210px ) and ( min-width: 783px ) {
+	.wp-picker-holder{
+		position: absolute;
+	}
+}

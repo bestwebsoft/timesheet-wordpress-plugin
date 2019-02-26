@@ -24,7 +24,8 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 				'settings' 		=> array( 'label' => __( 'Settings', 'timesheet' ) ),
 				'display' 		=> array( 'label' => __( 'Display', 'timesheet' ) ),
 				'reports'		=> array( 'label' => __( 'Reports', 'timesheet' ), 'is_pro' => 1 ),
-				'misc' 			=> array( 'label' => __( 'Misc', 'timesheet' ) ),
+                'import-export' => array( 'label' => __( 'Import / Export', 'timesheet' ), 'is_pro' => 1 ),
+                'misc' 			=> array( 'label' => __( 'Misc', 'timesheet' ) ),
 				'license'		=> array( 'label' => __( 'License Key', 'timesheet' ) )
 			);
 
@@ -605,15 +606,52 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 				</div>
 				<?php $this->bws_pro_block_links(); ?>
 			</div>
-		<?php }
 
-		/**
+        <?php }
+        public function tab_import_export() { ?>
+            <h3 class="bws_tab_label"><?php _e( 'Import/Export', 'timesheet' ); ?></h3>
+            <?php $this->help_phrase(); ?>
+            <hr>
+            <div class="bws_pro_version_bloc">
+                <div class="bws_pro_version_table_bloc">
+                    <button type="submit" name="bws_hide_premium_options" class="notice-dismiss bws_hide_premium_options" title="<?php _e( 'Close', 'timesheet' ); ?>"></button>
+                    <div class="bws_table_bg"></div>
+                    <table class="form-table bws_pro_version">
+                        <tr valign="top">
+                            <th scope="row"><?php _e( 'Export Data', 'timesheet' ); ?></th>
+                            <td>
+                                <fieldset>
+                                    <label><input type="radio" name="tmsht_format_export" value="csv" checked="checked" /><?php _e( 'CSV file format', 'timesheet' ); ?></label><br />
+                                    <label><input type="radio" name="tmsht_format_export" value="xml" /><?php _e( 'XML file format', 'timesheet' ); ?></label><br />
+                                </fieldset>
+                                <input type="submit" name="tmsht_export_submit" class="button" value="<?php _e( 'Export', 'timesheet' ) ?>" />
+                            </td>
+                        </tr>
+                        <tr valign="top">
+                            <th scope="row"><?php _e( 'Import Data', 'timesheet' ); ?></th>
+                            <td>
+                                <fieldset>
+                                    <label><input type="radio" name="tmsht_method_insert" value="current_change" checked="checked" /><?php _e( 'Add and replace current data', 'timesheet' ); ?></label><br />
+                                    <label><input type="radio" name="tmsht_method_insert" value="clear_data" /><?php _e( 'Clear old and add new data', 'timesheet' ); ?> </label><br />
+                                    <label><input type="radio" name="tmsht_method_insert" value="missing_exists" /><?php _e( 'Add missing data', 'timesheet' ); ?></label><br />
+                                </fieldset>
+                                <label><input disabled="disabled" name="tmsht_import_file_upload" type="file" /></label><br />
+                                <input type="submit" name="tmsht_import_submit" class="button" value="<?php _e( 'Import', 'timesheet' ) ?>" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <?php $this->bws_pro_block_links(); ?>
+            </div>
+        <?php }
+
+        /**
 		 * Custom functions for "Restore plugin options to defaults"
 		 * @access public
 		 */
 		public function additional_restore_options( $default_options ) {
 			global $wpdb;
-			$wpdb->query( "UPDATE `{$wpdb->prefix}tmsht_legends` SET `disabled` = 1 WHERE `id` NOT IN (1,2,3,4)" );					
+			$wpdb->query( "UPDATE `{$wpdb->prefix}tmsht_legends` SET `disabled` = 1 WHERE `id` NOT IN ( 1,2,3,4 )" );
 			return $default_options;
 		}
 	}

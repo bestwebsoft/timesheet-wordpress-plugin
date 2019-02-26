@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Timesheet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-26 10:01+0300\n"
-"PO-Revision-Date: 2017-06-26 10:02+0300\n"
+"POT-Creation-Date: 2019-02-14 13:59+0200\n"
+"PO-Revision-Date: 2019-02-14 14:00+0200\n"
 "Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft Team <wp@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -15,11 +15,11 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11) ? 3 : "
 "((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.2.1\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../includes/class-tmsht-settings.php:24 ../timesheet.php:35
-#: ../timesheet.php:368 ../timesheet.php:1552 ../timesheet.php:1565
+#: ../timesheet.php:389 ../timesheet.php:1609 ../timesheet.php:1622
 msgid "Settings"
 msgstr "Настройки"
 
@@ -28,34 +28,38 @@ msgid "Display"
 msgstr "Отображение"
 
 #: ../includes/class-tmsht-settings.php:26
-#: ../includes/class-tmsht-settings.php:496 ../timesheet.php:82
-#: ../timesheet.php:84 ../timesheet.php:930
+#: ../includes/class-tmsht-settings.php:497 ../timesheet.php:82
+#: ../timesheet.php:84 ../timesheet.php:961
 msgid "Reports"
 msgstr "Отчеты"
 
 #: ../includes/class-tmsht-settings.php:27
+msgid "Import / Export"
+msgstr "Импорт / Экспорт"
+
+#: ../includes/class-tmsht-settings.php:28
 msgid "Misc"
 msgstr "Разное"
 
-#: ../includes/class-tmsht-settings.php:28
+#: ../includes/class-tmsht-settings.php:29
 msgid "License Key"
 msgstr "Лицензионный ключ"
 
-#: ../includes/class-tmsht-settings.php:73
+#: ../includes/class-tmsht-settings.php:74
 msgid "Please enter status name."
 msgstr "Пожалуйста, введите название статуса."
 
-#: ../includes/class-tmsht-settings.php:78
-#: ../includes/class-tmsht-settings.php:80
+#: ../includes/class-tmsht-settings.php:79
+#: ../includes/class-tmsht-settings.php:81
 msgid "Please choose status color."
 msgstr "Пожалуйста, выберите цвет статуса."
 
-#: ../includes/class-tmsht-settings.php:85
+#: ../includes/class-tmsht-settings.php:86
 #, php-format
 msgid "Status with name \"%s\" or with color %s already exists."
 msgstr "Статус с названием \"%s\" или цветом %s уже существует."
 
-#: ../includes/class-tmsht-settings.php:89
+#: ../includes/class-tmsht-settings.php:90
 #, php-format
 msgid ""
 "The status with the color %s can not be saved. Please choose a different "
@@ -63,118 +67,118 @@ msgid ""
 msgstr ""
 "Статус с цветом %s не может быть сохранен. Пожалуйста выберите другой цвет."
 
-#: ../includes/class-tmsht-settings.php:104
+#: ../includes/class-tmsht-settings.php:105
 msgid "Status has been successfully added."
 msgstr "Статус успешно добавлен."
 
-#: ../includes/class-tmsht-settings.php:106
-#: ../includes/class-tmsht-settings.php:109
+#: ../includes/class-tmsht-settings.php:107
+#: ../includes/class-tmsht-settings.php:110
 msgid "Status has not been added."
 msgstr "Статус не был добавлен."
 
-#: ../includes/class-tmsht-settings.php:249
+#: ../includes/class-tmsht-settings.php:250
 msgid "Settings saved."
 msgstr "Настройки сохранены."
 
-#: ../includes/class-tmsht-settings.php:262
+#: ../includes/class-tmsht-settings.php:263
 msgid "Timesheet Settings"
 msgstr "Настройки Timesheet"
 
-#: ../includes/class-tmsht-settings.php:267
+#: ../includes/class-tmsht-settings.php:268
 msgid "Timeline"
 msgstr "Время"
 
-#: ../includes/class-tmsht-settings.php:270
+#: ../includes/class-tmsht-settings.php:271
 msgctxt "timeline"
 msgid "from"
 msgstr "от"
 
-#: ../includes/class-tmsht-settings.php:270
+#: ../includes/class-tmsht-settings.php:271
 msgctxt "timeline"
 msgid "to"
 msgstr "до"
 
-#: ../includes/class-tmsht-settings.php:270
+#: ../includes/class-tmsht-settings.php:271
 msgctxt "timeline"
 msgid "hours"
 msgstr "часов"
 
-#: ../includes/class-tmsht-settings.php:278
+#: ../includes/class-tmsht-settings.php:279
 msgid "Weekends"
 msgstr "Выходные"
 
-#: ../includes/class-tmsht-settings.php:291
-#: ../includes/class-tmsht-settings.php:324
+#: ../includes/class-tmsht-settings.php:292
+#: ../includes/class-tmsht-settings.php:325
 msgid "Statuses"
 msgstr "Статусы"
 
-#: ../includes/class-tmsht-settings.php:293
+#: ../includes/class-tmsht-settings.php:294
 msgid "Name"
 msgstr "Название"
 
-#: ../includes/class-tmsht-settings.php:296
+#: ../includes/class-tmsht-settings.php:297
 msgid "Add status"
 msgstr "Добавить статус"
 
-#: ../includes/class-tmsht-settings.php:301
-#: ../includes/class-tmsht-settings.php:310
-#: ../includes/class-tmsht-settings.php:330
+#: ../includes/class-tmsht-settings.php:302
+#: ../includes/class-tmsht-settings.php:311
+#: ../includes/class-tmsht-settings.php:331
 msgid "Enabled"
 msgstr "Включено"
 
-#: ../includes/class-tmsht-settings.php:302
-#: ../includes/class-tmsht-settings.php:331
+#: ../includes/class-tmsht-settings.php:303
+#: ../includes/class-tmsht-settings.php:332
 msgctxt "Settings status table header"
 msgid "Name"
 msgstr "Название"
 
-#: ../includes/class-tmsht-settings.php:303
-#: ../includes/class-tmsht-settings.php:317
-#: ../includes/class-tmsht-settings.php:332
+#: ../includes/class-tmsht-settings.php:304
+#: ../includes/class-tmsht-settings.php:318
+#: ../includes/class-tmsht-settings.php:333
 msgctxt "Settings status table header"
 msgid "Color"
 msgstr "Цвет"
 
-#: ../includes/class-tmsht-settings.php:314
+#: ../includes/class-tmsht-settings.php:315
 msgctxt "Settings legend table header"
 msgid "Name"
 msgstr "Название"
 
-#: ../includes/class-tmsht-settings.php:324
+#: ../includes/class-tmsht-settings.php:325
 msgid "No statuses"
 msgstr "Нет статусов"
 
-#: ../includes/class-tmsht-settings.php:339
+#: ../includes/class-tmsht-settings.php:340
 msgid "Date Format"
 msgstr "Формат даты"
 
-#: ../includes/class-tmsht-settings.php:346
+#: ../includes/class-tmsht-settings.php:347
 msgid "WordPress Settings"
 msgstr "Настройки WordPress"
 
-#: ../includes/class-tmsht-settings.php:358
+#: ../includes/class-tmsht-settings.php:359
 msgid "Custom"
 msgstr "Пользовательский"
 
-#: ../includes/class-tmsht-settings.php:369
+#: ../includes/class-tmsht-settings.php:370
 msgid "Documentation on date and time formatting"
 msgstr "Документация по форматированию времени и даты"
 
-#: ../includes/class-tmsht-settings.php:373
+#: ../includes/class-tmsht-settings.php:374
 msgid "Edit Overdue Timesheets"
 msgstr "Редактировать прошедшее расписание"
 
-#: ../includes/class-tmsht-settings.php:375
+#: ../includes/class-tmsht-settings.php:376
 msgid "Enable to activate overdue timesheets editing."
 msgstr ""
 "Включить редактирование расписания за прошедшие \n"
 "дни."
 
-#: ../includes/class-tmsht-settings.php:379
+#: ../includes/class-tmsht-settings.php:380
 msgid "Email Reminder"
 msgstr "Напоминания через емейл"
 
-#: ../includes/class-tmsht-settings.php:383
+#: ../includes/class-tmsht-settings.php:384
 msgid ""
 "Enable to send an email reminder to a user if his work schedule isn't filled "
 "out."
@@ -182,295 +186,338 @@ msgstr ""
 "Включите, чтобы отправлять по электронной почте напоминание пользователю, "
 "если его график работы не заполнен."
 
-#: ../includes/class-tmsht-settings.php:390
-#: ../includes/class-tmsht-settings.php:588
+#: ../includes/class-tmsht-settings.php:391
+#: ../includes/class-tmsht-settings.php:589
 msgctxt "email reminder"
 msgid "Every"
 msgstr "Каждый"
 
-#: ../includes/class-tmsht-settings.php:396
-#: ../includes/class-tmsht-settings.php:594
+#: ../includes/class-tmsht-settings.php:397
+#: ../includes/class-tmsht-settings.php:595
 msgctxt "email reminder"
 msgid "at"
 msgstr "в"
 
-#: ../includes/class-tmsht-settings.php:404
+#: ../includes/class-tmsht-settings.php:405
 msgctxt "email reminder"
 msgid "Subject"
 msgstr "Тема"
 
-#: ../includes/class-tmsht-settings.php:406
+#: ../includes/class-tmsht-settings.php:407
 msgctxt "email reminder"
 msgid "Message"
 msgstr "Сообщение"
 
-#: ../includes/class-tmsht-settings.php:409
+#: ../includes/class-tmsht-settings.php:410
 msgid "Allowed Variables"
 msgstr "Допустимые переменные"
 
-#: ../includes/class-tmsht-settings.php:410
+#: ../includes/class-tmsht-settings.php:411
 msgid "the username"
 msgstr "имя пользователя"
 
-#: ../includes/class-tmsht-settings.php:411
+#: ../includes/class-tmsht-settings.php:412
 msgid "days that are not filled by the user"
 msgstr "дни, которые не заполнены пользователем"
 
-#: ../includes/class-tmsht-settings.php:412
+#: ../includes/class-tmsht-settings.php:413
 msgid "the link to TS user page in the Dashboard"
 msgstr "ссылка на TS страницу пользователя в консоли"
 
-#: ../includes/class-tmsht-settings.php:413
+#: ../includes/class-tmsht-settings.php:414
 msgid "the link to TS user page in the Dashboard with your text"
 msgstr "ссылка на TS страницу пользователя в консоли с вашим текстом"
 
-#: ../includes/class-tmsht-settings.php:422
+#: ../includes/class-tmsht-settings.php:423
 msgid "Display Settings"
 msgstr "Настройки отображения"
 
-#: ../includes/class-tmsht-settings.php:428
+#: ../includes/class-tmsht-settings.php:429
 msgid "Timesheet"
 msgstr "График"
 
-#: ../includes/class-tmsht-settings.php:474
-#: ../includes/class-tmsht-settings.php:542
-#: ../includes/class-tmsht-settings.php:574
+#: ../includes/class-tmsht-settings.php:475
+#: ../includes/class-tmsht-settings.php:543
+#: ../includes/class-tmsht-settings.php:575
+#: ../includes/class-tmsht-settings.php:617
 msgid "Close"
 msgstr "Закрыть"
 
-#: ../includes/class-tmsht-settings.php:566
+#: ../includes/class-tmsht-settings.php:567
 msgid "Reports Settings"
 msgstr "Настройки отчетов"
 
-#: ../includes/class-tmsht-settings.php:570
+#: ../includes/class-tmsht-settings.php:571
 msgid "Note"
 msgstr "Примечание"
 
-#: ../includes/class-tmsht-settings.php:570
+#: ../includes/class-tmsht-settings.php:571
 msgid "This is your personal reports settings."
 msgstr "Это ваши личные настройки отчетов."
 
-#: ../includes/class-tmsht-settings.php:578
+#: ../includes/class-tmsht-settings.php:579
 msgid "Email Notifications"
 msgstr "Емейл уведомления"
 
-#: ../includes/class-tmsht-settings.php:581
+#: ../includes/class-tmsht-settings.php:582
 msgid "Enable to receive reports by email."
 msgstr "Включите, чтобы получать отчеты по емейлу."
 
-#: ../includes/class-tmsht-settings.php:599
+#: ../includes/class-tmsht-settings.php:600
 msgid "Include User Timesheets"
 msgstr "Включить расписания пользователей"
 
-#: ../includes/class-tmsht-settings.php:601 ../timesheet.php:1399
+#: ../includes/class-tmsht-settings.php:602 ../timesheet.php:1436
 msgid "Search user"
 msgstr "Поиск пользователя"
+
+#: ../includes/class-tmsht-settings.php:612
+msgid "Import/Export"
+msgstr "Импорт/Экспорт"
+
+#: ../includes/class-tmsht-settings.php:621
+msgid "Export Data"
+msgstr "Экспорт данных"
+
+#: ../includes/class-tmsht-settings.php:624
+msgid "CSV file format"
+msgstr "Формат CSV-файла"
+
+#: ../includes/class-tmsht-settings.php:625
+msgid "XML file format"
+msgstr "Формат XML-файла"
+
+#: ../includes/class-tmsht-settings.php:627
+msgid "Export"
+msgstr "Экспорт"
+
+#: ../includes/class-tmsht-settings.php:631
+msgid "Import Data"
+msgstr "Импорт данных"
+
+#: ../includes/class-tmsht-settings.php:634
+msgid "Add and replace current data"
+msgstr "Добавление и замена текущих данных"
+
+#: ../includes/class-tmsht-settings.php:635
+msgid "Clear old and add new data"
+msgstr "Очистить старые и добавить новые данные"
+
+#: ../includes/class-tmsht-settings.php:636
+msgid "Add missing data"
+msgstr "Добавление и замена текущих данных"
+
+#: ../includes/class-tmsht-settings.php:639
+msgid "Import"
+msgstr "Импорт"
 
 #: ../timesheet.php:94
 msgid "Upgrade to Pro"
 msgstr "Обновить до Pro"
 
-#: ../timesheet.php:173
+#: ../timesheet.php:180
 msgid "In Office"
 msgstr "В офисе"
 
-#: ../timesheet.php:179
+#: ../timesheet.php:186
 msgid "Remote"
 msgstr "Удаленно"
 
-#: ../timesheet.php:185
+#: ../timesheet.php:192
 msgid "Absent"
 msgstr "Отсутствие"
 
-#: ../timesheet.php:191
+#: ../timesheet.php:198
 msgid "Vacation"
 msgstr "Отпуск"
 
-#: ../timesheet.php:299
+#: ../timesheet.php:308
 msgid "Timesheet Reminder"
 msgstr "Напоминание о графике"
 
-#: ../timesheet.php:300
+#: ../timesheet.php:309
 msgid "Hi"
 msgstr "Здравствуйте"
 
-#: ../timesheet.php:300
+#: ../timesheet.php:309
 msgid "Please complete your timesheet for the following days"
 msgstr "Пожалуйста, заполните ваш график на следующие дни"
 
-#: ../timesheet.php:300
+#: ../timesheet.php:309
 msgid "Complete Timesheet Now"
 msgstr "Заполнить график сейчас"
 
-#: ../timesheet.php:300
+#: ../timesheet.php:309
 msgid "Do not reply to this message. This is an automatic mailing."
 msgstr "Не отвечайте на это сообщение. Это автоматическая рассылка."
 
-#: ../timesheet.php:371 ../timesheet.php:474 ../timesheet.php:933
+#: ../timesheet.php:392 ../timesheet.php:491 ../timesheet.php:964
 msgid "WARNING"
 msgstr "ВНИМАНИЕ"
 
-#: ../timesheet.php:371 ../timesheet.php:474 ../timesheet.php:933
+#: ../timesheet.php:392 ../timesheet.php:491 ../timesheet.php:964
 msgid "The plugin works correctly only if JavaScript is enabled."
 msgstr "Плагин работает корректно только при включенном JavaScript."
 
-#: ../timesheet.php:400
+#: ../timesheet.php:417 ../timesheet.php:1745 ../timesheet.php:1910
 msgid "Please select..."
 msgstr "Пожалуста, выберите..."
 
-#: ../timesheet.php:415 ../timesheet.php:440
+#: ../timesheet.php:432 ../timesheet.php:457 ../timesheet.php:1763
+#: ../timesheet.php:1788 ../timesheet.php:1928 ../timesheet.php:1953
 msgid "Data has not been saved."
 msgstr "Данные не сохранены."
 
-#: ../timesheet.php:448
+#: ../timesheet.php:465 ../timesheet.php:1796 ../timesheet.php:1961
 msgid "Data has been saved."
 msgstr "Данные сохранены."
 
-#: ../timesheet.php:451
+#: ../timesheet.php:468 ../timesheet.php:1799
 msgid "Data has not been saved, because there was no change."
 msgstr "Данные не сохранены, поскольку изменения не вносились."
 
-#: ../timesheet.php:479
+#: ../timesheet.php:496
 msgid "Notice"
 msgstr "Внимание"
 
-#: ../timesheet.php:479
+#: ../timesheet.php:496
 msgid "Timesheet have been changed."
 msgstr "Расписание было изменено."
 
-#: ../timesheet.php:480 ../timesheet.php:630
+#: ../timesheet.php:497 ../timesheet.php:647
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: ../timesheet.php:490
+#: ../timesheet.php:507
 msgid "Date from"
 msgstr "Дата от"
 
-#: ../timesheet.php:494
+#: ../timesheet.php:511
 msgid "Date to"
 msgstr "Дата до"
 
-#: ../timesheet.php:498
+#: ../timesheet.php:515
 msgid "Change date"
 msgstr "Изменить дату"
 
-#: ../timesheet.php:503 ../timesheet.php:1000
+#: ../timesheet.php:520 ../timesheet.php:1031
 msgid "Status"
 msgstr "Статус"
 
-#: ../timesheet.php:516
+#: ../timesheet.php:533
 msgid "Transposition table"
 msgstr "Транспонирование таблицы"
 
-#: ../timesheet.php:636
+#: ../timesheet.php:653
 msgid "Edit time"
 msgstr "Изменить время"
 
-#: ../timesheet.php:636
+#: ../timesheet.php:653
 msgid "Available in PRO"
 msgstr "Доступно в ПРО"
 
-#: ../timesheet.php:640
+#: ../timesheet.php:657
 msgid "Delete status"
 msgstr "Удалить статус"
 
-#: ../timesheet.php:728
+#: ../timesheet.php:768 ../timesheet.php:2010 ../timesheet.php:2571
 msgid "Week"
 msgstr "Неделя"
 
-#: ../timesheet.php:729
+#: ../timesheet.php:769 ../timesheet.php:2011 ../timesheet.php:2572
 msgid "Month"
 msgstr "Месяц"
 
-#: ../timesheet.php:733
+#: ../timesheet.php:773 ../timesheet.php:2015 ../timesheet.php:2576
 msgctxt "Group by"
 msgid "Date"
 msgstr "Дате"
 
-#: ../timesheet.php:734
+#: ../timesheet.php:774 ../timesheet.php:2016 ../timesheet.php:2577
 msgctxt "Group by"
 msgid "User"
 msgstr "Пользователю"
 
-#: ../timesheet.php:738
+#: ../timesheet.php:778 ../timesheet.php:2020 ../timesheet.php:2581
 msgid "Hourly"
 msgstr "Почасово"
 
-#: ../timesheet.php:739
+#: ../timesheet.php:779 ../timesheet.php:2021 ../timesheet.php:2582
 msgid "Daily"
 msgstr "Посуточно"
 
-#: ../timesheet.php:746
+#: ../timesheet.php:786 ../timesheet.php:2028 ../timesheet.php:2589
 msgid "Blank"
 msgstr "Пустые"
 
-#: ../timesheet.php:747
+#: ../timesheet.php:787 ../timesheet.php:2032 ../timesheet.php:2593
 msgid "All statuses"
 msgstr "Все статусы"
 
-#: ../timesheet.php:927
+#: ../timesheet.php:958
 msgid "Select at least one user."
 msgstr "Выберите хотя бы одного пользователя."
 
-#: ../timesheet.php:942
+#: ../timesheet.php:973
 msgid "Date"
 msgstr "Дата"
 
-#: ../timesheet.php:951
+#: ../timesheet.php:982
 msgctxt "date"
 msgid "from"
 msgstr "с"
 
-#: ../timesheet.php:955
+#: ../timesheet.php:986
 msgctxt "date"
 msgid "to"
 msgstr "по"
 
-#: ../timesheet.php:982
+#: ../timesheet.php:1013
 msgid "Group by"
-msgstr "Сортировать по "
+msgstr "Сортировать по"
 
-#: ../timesheet.php:992
+#: ../timesheet.php:1023
 msgid "View"
 msgstr "Просмотр"
 
-#: ../timesheet.php:1013
+#: ../timesheet.php:1044
 msgid "Users"
 msgstr "Пользователи"
 
-#: ../timesheet.php:1018
+#: ../timesheet.php:1049
 msgctxt "Apply ts report"
 msgid "Apply"
 msgstr "Применить"
 
-#: ../timesheet.php:1023 ../timesheet.php:1109 ../timesheet.php:1174
+#: ../timesheet.php:1057 ../timesheet.php:1146 ../timesheet.php:1211
+#: ../timesheet.php:2215 ../timesheet.php:2313 ../timesheet.php:2384
 msgid "No data to view"
 msgstr "Нет доступных данных для просмотра"
 
-#: ../timesheet.php:1403
+#: ../timesheet.php:1440
 msgctxt "All users"
 msgid "All users"
 msgstr "Все пользователи"
 
-#: ../timesheet.php:1409
+#: ../timesheet.php:1446
 msgctxt "Search user"
 msgid "No results"
 msgstr "По вашему запросу ничего не найдено"
 
-#: ../timesheet.php:1416
+#: ../timesheet.php:1453
 msgctxt "Search user"
 msgid "No users to select"
 msgstr "Нет доступных пользователей для выбора"
 
-#: ../timesheet.php:1566
+#: ../timesheet.php:1623
 msgid "FAQ"
 msgstr "FAQ"
 
-#: ../timesheet.php:1567
+#: ../timesheet.php:1624
 msgid "Support"
 msgstr "Тех. Поддержка"
 
-#: ../timesheet.php:1599
+#: ../timesheet.php:1656
 msgid "Once Weekly"
 msgstr "Еженедельно"
 
@@ -488,9 +535,6 @@ msgstr "Еженедельно"
 
 #~ msgid "Include Timesheets of Specific Users"
 #~ msgstr "Включить расписания конкретных пользователей"
-
-#~ msgid "Report"
-#~ msgstr "Отчет"
 
 #~ msgid "Please, input status name"
 #~ msgstr ""
@@ -520,9 +564,6 @@ msgstr "Еженедельно"
 #~ msgctxt "Settings legend table header"
 #~ msgid "Color"
 #~ msgstr "Цвет"
-
-#~ msgid "Date format"
-#~ msgstr "Формат даты"
 
 #~ msgid "Allow to edit past days"
 #~ msgstr "Разрешить редактирование прошедших дней"
