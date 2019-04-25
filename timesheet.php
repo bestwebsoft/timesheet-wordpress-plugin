@@ -6,7 +6,7 @@ Description: Best timesheet plugin for WordPress. Track employee time, streamlin
 Author: BestWebSoft
 Text Domain: timesheet
 Domain Path: /languages
-Version: 1.0.4
+Version: 1.0.5
 Author URI: https://bestwebsoft.com/
 License: Proprietary
 */
@@ -139,6 +139,7 @@ if ( ! function_exists( 'tmsht_init' ) ) {
 
 		if ( is_admin() )
 			tmsht_register_options();
+
 	}
 }
 
@@ -532,6 +533,42 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
 					<div class="tmsht_ts_user_filter_title">&nbsp;</div>
 					<a id="tmsht_transposition_tbl" class="button-secondary hide-if-no-js tmsht_dashicons dashicons dashicons-image-rotate-right" href="#" title="<?php _e( 'Transposition table', 'timesheet' ); ?>"></a>
 				</div>
+		        <?php
+
+		        if ( isset( $_POST['bws_hide_premium_options'] ) && isset( $_GET['page'] ) && 'timesheet_ts_user' == $_GET['page'] ) {
+			       	$cur_tmsht_options = bws_hide_premium_options($tmsht_options);
+			        update_option( 'tmsht_options', $cur_tmsht_options['options'] );
+			        $bws_hide_premium_options_check = true;
+		        }
+
+                if ( ! $bws_hide_premium_options_check ) { ?>
+                    <div class="bws_pro_version_bloc">
+                        <div class="bws_pro_version_table_bloc">
+                            <form method="post" action="?page=timesheet_ts_user">
+                                <button type="submit" name="bws_hide_premium_options" class="notice-dismiss bws_hide_premium_options" title="<?php _e( 'Close', 'timesheet' ); ?>"></button>
+                            </form>
+                            <div class="bws_table_bg"></div>
+                            <div class="tmsht_ts_user_filter_item tmsht_ts_user_filter_item_user">
+                                <div style="margin-bottom: 5px;" class="tmsht_ts_user_filter_title">
+                                    <strong><?php _e( 'Users', 'timesheet-pro' ); ?></strong>
+                                </div>
+                                <div style="margin-bottom: 7px;" class="tmsht_ts_timesheet_user_list_wrap">
+                                    <div class="tmsht_ts_timesheet_user_list">
+                                        <input class="tmsht_ts_timesheet_search_user hide-if-no-js" type="text" placeholder="<?php _e( 'Search user', 'timesheet' ); ?>">
+                                    </div>
+                                </div>
+                                <div class="tmsht_ts_timesheet_selected_users_container hide-if-no-js">
+                                    <span style="padding: 3px; background-color: gainsboro;" id="tmsht_ts_timesheet_user_selected_2" class="tmsht_ts_timesheet_user_selected">
+                                        <a title="" href= "">admin</a>
+                                        <label class="tmsht_ts_timesheet_user_uncheck" for="tmsht_ts_timesheet_user_id"></label>
+                                    </span>
+                                    <div class="tmsht_clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php tmsht_bws_pro_block_links(); ?>
+                    </div>
+                <?php } ?>
 			</div>
 			<form method="post" action="">
 				<div id="tmsht_ts_user_table_area_wrap">
@@ -667,6 +704,32 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
 				</ul>
 			</form>
 		</div>
+	<?php }
+}
+
+if ( ! function_exists( 'tmsht_bws_pro_block_links' ) ) {
+	function tmsht_bws_pro_block_links() {
+		global $wp_version, $tmsht_plugin_info;
+
+		$link_key = '3bdf25984ad6aa9d95074e31c5eb9bb3';
+		$link_pn = '606';
+		$trial_days = false;
+		?>
+        <div class="bws_pro_version_tooltip">
+            <a class="bws_button"
+               href="<?php echo esc_url( $tmsht_plugin_info['PluginURI'] ); ?>?k=<?php echo $link_key; ?>&amp;pn=<?php echo $link_pn; ?>&amp;v=<?php echo $tmsht_plugin_info["Version"]; ?>&amp;wp_v=<?php echo $wp_version; ?>"
+               target="_blank"
+               title="<?php echo $tmsht_plugin_info["Name"]; ?>"><?php _e( 'Upgrade to Pro', 'bestwebsoft' ); ?></a>
+			<?php if ( $trial_days !== false ) { ?>
+                <span class="bws_trial_info">
+						<?php _e( 'or', 'bestwebsoft' ); ?>
+						<a href="<?php echo esc_url( $tmsht_plugin_info['PluginURI'] . '?k=' . $link_key . '&pn=' . $link_pn . '&v=' . $tmsht_plugin_info["Version"] . '&wp_v=' . $wp_version ); ?>"
+                           target="_blank"
+                           title="<?php echo $tmsht_plugin_info["Name"]; ?>"><?php _e( 'Start Your Free Trial', 'bestwebsoft' ); ?></a>
+					</span>
+			<?php } ?>
+            <div class="clear"></div>
+        </div>
 	<?php }
 }
 

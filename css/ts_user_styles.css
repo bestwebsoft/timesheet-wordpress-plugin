@@ -437,6 +437,54 @@
 	webkit-box-shadow: none;
 	box-shadow: none;
 }
+
+/* pro options style */
+.bws_table_bg {
+	top: 0;
+}
+.bws_pro_version_bloc {
+	display: inline-block;
+	max-width: 30%;
+}
+
+.tmsht_ts_timesheet_user_selected_single {
+	font-weight: bold;
+	background: #f6fbfd;
+	border: 1px solid #e1e1e1;
+	padding: 0px 2px;
+}
+.tmsht_ts_timesheet_user_selected label {
+	position: relative;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+}
+.tmsht_ts_timesheet_user_uncheck {
+	color: #bfbbbe;
+	padding: 0;
+	font-size: 16px;
+}
+.tmsht_ts_timesheet_user_uncheck:before {
+	content: "\f153";
+	position: absolute;
+	right: 2px;
+	font-weight: 400;
+	font-family: dashicons;
+	text-decoration: inherit;
+}
+.tmsht_ts_timesheet_user_uncheck:hover {
+	color: #c00;
+}
+
+.tmsht_ts_user_filter_item_user {
+	max-width: 240px;
+	width: 100%;
+}
+
+.bws_pro_version_table_bloc .tmsht_ts_user_filter_item_user {
+	margin-left: 10px;
+}
+
 @media screen and (max-width: 782px) {
 	.tmsht_wrap input[type=radio],
 	.tmsht_wrap input[type=checkbox] {
