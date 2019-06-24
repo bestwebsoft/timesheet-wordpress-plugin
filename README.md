@@ -40,7 +40,7 @@
 <p>All features from Free version included plus:<br />
   * Display timesheet using the shortcode<br />
   * Display timesheet user page and reports for certain users<br />
-  * Edit user timesheet [NEW]<br />
+  * Edit user timesheet<br />
   * Enable reports notifications via email<br />
   * Import and export timesheet data<br />
   * Create/edit schedules accurate to 5 min<br />

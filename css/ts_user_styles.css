@@ -518,6 +518,10 @@
 	#tmsht_ts_user_table td.tmsht_ts_user_table_td_dateline .tmsht_ts_user_formatted_date {
 		white-space: normal;
 	}
+	#tmsht_ts_user_legend,
+	#tmsht_overlay_legend{
+		display: none !important;
+	}
 }
 /* Preloader for ajax requests */
 .tmsht_ts_user_loading::after {

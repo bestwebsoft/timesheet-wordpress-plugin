@@ -545,9 +545,10 @@
 			}
 
 			if ( ! is_rtl ) {
+				var coorX_without_offset  = coorX;
 				coorX = coorX - ts_table_offset_left;
 				margin_left = (
-					$( window ).width() > coorX + width
+					$( window ).width() > coorX_without_offset + width
 				) ? 0 : - 1 * width;
 			} else {
 				margin_left = (

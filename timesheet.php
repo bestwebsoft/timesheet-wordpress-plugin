@@ -6,7 +6,7 @@ Description: Best timesheet plugin for WordPress. Track employee time, streamlin
 Author: BestWebSoft
 Text Domain: timesheet
 Domain Path: /languages
-Version: 1.0.5
+Version: 1.0.6
 Author URI: https://bestwebsoft.com/
 License: Proprietary
 */
@@ -166,7 +166,7 @@ if ( ! function_exists( 'tmsht_create_tables' ) ) {
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		/* Table with legends */
 		if ( ! $wpdb->query( "SHOW TABLES LIKE '{$wpdb->prefix}tmsht_legends';" ) ) {
-			$sql = "CREATE TABLE `{$wpdb->prefix}tmsht_legends` (
+			$sql = "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}tmsht_legends` (
 				`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 				`name` varchar(255) NOT NULL,
 				`color` char(7) NOT NULL,
@@ -217,7 +217,7 @@ if ( ! function_exists( 'tmsht_create_tables' ) ) {
 		}
 		/* Table with ts */
 		if ( ! $wpdb->query( "SHOW TABLES LIKE '{$wpdb->prefix}tmsht_ts';" ) ) {
-			$sql = "CREATE TABLE `{$wpdb->prefix}tmsht_ts` (
+			$sql = "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}tmsht_ts` (
 				`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
 				`user_id` bigint(20) NOT NULL,
 				`time_from` datetime NOT NULL,
