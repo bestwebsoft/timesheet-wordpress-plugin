@@ -6,7 +6,7 @@ Description: Best timesheet plugin for WordPress. Track employee time, streamlin
 Author: BestWebSoft
 Text Domain: timesheet
 Domain Path: /languages
-Version: 1.0.6
+Version: 1.0.7
 Author URI: https://bestwebsoft.com/
 License: Proprietary
 */
