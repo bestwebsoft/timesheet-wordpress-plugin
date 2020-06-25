@@ -6,12 +6,12 @@ Description: Best timesheet plugin for WordPress. Track employee time, streamlin
 Author: BestWebSoft
 Text Domain: timesheet
 Domain Path: /languages
-Version: 1.0.7
+Version: 1.0.8
 Author URI: https://bestwebsoft.com/
 License: Proprietary
 */
 
-/*  © Copyright 2019  BestWebSoft  ( https://support.bestwebsoft.com )
+/*  © Copyright 2020  BestWebSoft  ( https://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -31,71 +31,65 @@ if ( ! function_exists( 'tmsht_admin_menu' ) ) {
 	function tmsht_admin_menu() {
 		global $submenu, $tmsht_options, $current_user, $tmsht_plugin_info, $wp_version;
 
-		$settings_page_hook = add_menu_page( 'Timesheet', 'Timesheet', 'manage_options', 'timesheet_settings', 'tmsht_settings_page', 'dashicons-clock' );
-		add_submenu_page( 'timesheet_settings', 'Timesheet ' . __( 'Settings', 'timesheet' ), __( 'Settings', 'timesheet' ), 'manage_options', 'timesheet_settings', 'tmsht_settings_page' );
+		$tmsht_pages_display = array(
+			'ts_user' => false,
+			'ts_report'    => false
+		);
 
-		if ( isset( $tmsht_options['display_pages']['ts_user']['user_roles'] ) ) {
-			$display_timesheet_page = false;
-
-			if ( is_multisite() && is_super_admin( $current_user->ID ) ) {
-				if ( in_array( 'administrator', $tmsht_options['display_pages']['ts_user']['user_roles'] ) ) {
-					$display_timesheet_page = true;
-				}
-			} else {
-				foreach ( $current_user->caps as $role => $value ) {
-					if ( in_array( $role, $tmsht_options['display_pages']['ts_user']['user_roles'] ) ) {
-						$display_timesheet_page = true;
-						break;
+		foreach ( $tmsht_pages_display as $page => $display_page ) {
+			if ( isset( $tmsht_options['display_pages'][ $page ]['user_roles'] ) ) {
+				if ( is_multisite() && is_super_admin( $current_user->ID ) ) {
+					if ( in_array( 'administrator', $tmsht_options['display_pages'][ $page ]['user_roles'] ) ) {
+						$tmsht_pages_display[ $page ] = true;
 					}
-				}
-			}
-
-			if ( $display_timesheet_page ) {
-				if ( isset( $submenu['timesheet_settings'] ) )
-					$ts_user_page_hook = add_submenu_page( 'timesheet_settings', 'Timesheet', 'Timesheet', 'read', 'timesheet_ts_user', 'tmsht_ts_user_page' );
-				else
-					$ts_user_page_hook = add_menu_page( 'Timesheet', 'Timesheet', 'read', 'timesheet_ts_user', 'tmsht_ts_user_page', 'dashicons-clock' );
-
-				add_action( 'load-' . $ts_user_page_hook, 'tmsht_add_tabs' );
-			}
-		}
-
-		if ( isset( $tmsht_options['display_pages']['ts_report']['user_roles'] ) ) {
-			$display_report_page = false;
-
-			if ( is_multisite() && is_super_admin( $current_user->ID ) ) {
-				if ( in_array( 'administrator', $tmsht_options['display_pages']['ts_user']['user_roles'] ) ) {
-					$display_report_page = true;
-				}
-			} else {
-				foreach ( $current_user->caps as $role => $value ) {
-					if ( in_array( $role, $tmsht_options['display_pages']['ts_report']['user_roles'] ) ) {
-						$display_report_page = true;
-						break;
-					}
-				}
-			}
-
-			if ( $display_report_page ) {
-				if ( isset( $ts_user_page_hook ) || isset( $submenu['timesheet_settings'] ) ) {
-					$parent_page = isset( $submenu['timesheet_settings'] ) ? 'timesheet_settings' : 'timesheet_ts_user';
-					$ts_report_page_hook = add_submenu_page( $parent_page, __( 'Reports', 'timesheet' ), __( 'Reports', 'timesheet' ), 'read', 'timesheet_ts_report', 'tmsht_ts_report_page' );
 				} else {
-					$ts_report_page_hook = add_menu_page( 'Timesheet ' . __( 'Reports', 'timesheet' ), 'Timesheet', 'read', 'timesheet_ts_report', 'tmsht_ts_report_page', 'dashicons-clock' );
+					foreach ( $current_user->caps as $role => $value ) {
+						if ( in_array( $role, $tmsht_options['display_pages'][ $page ]['user_roles'] ) ) {
+							$tmsht_pages_display[ $page ] = true;
+							break;
+						}
+					}
 				}
-				add_action( 'load-' . $ts_report_page_hook, 'tmsht_add_tabs' );
 			}
 		}
 
-		add_submenu_page( 'timesheet_settings', 'BWS Panel', 'BWS Panel', 'manage_options', 'tmsht-bws-panel', 'bws_add_menu_render' );
+		$main_page = '';			
 
-		if ( isset( $submenu['timesheet_settings'] ) )
-			$submenu['timesheet_settings'][] = array(
+		if ( $tmsht_pages_display['ts_user'] ) {
+			$ts_user_page_hook = add_menu_page( 'Timesheet', 'Timesheet', 'read', 'timesheet_ts_user', 'tmsht_ts_user_page', 'dashicons-clock' );	
+			$main_page = 'timesheet_ts_user';
+			add_submenu_page( $main_page, __( 'My Availability', 'timesheet' ), __( 'My Availability', 'timesheet' ), 'read', 'timesheet_ts_user', 'tmsht_ts_user_page' );
+
+			add_action( 'load-' . $ts_user_page_hook, 'tmsht_add_tabs' );
+		}
+
+		if ( $tmsht_pages_display['ts_report'] ) {
+			if ( empty( $main_page ) ) {
+				add_menu_page( 'Timesheet', 'Timesheet', 'read', 'timesheet_ts_report', 'tmsht_ts_report_page', 'dashicons-clock' );	
+				$main_page = 'timesheet_ts_report';
+			}
+
+			$ts_report_page_hook = add_submenu_page( $main_page, __( 'Team', 'timesheet' ), __( 'Team', 'timesheet' ), 'read', 'timesheet_ts_report', 'tmsht_ts_report_page' );
+
+			add_action( 'load-' . $ts_report_page_hook, 'tmsht_add_tabs' );
+		} elseif ( empty( $main_page ) ) {
+			add_menu_page( 'Timesheet', 'Timesheet', 'manage_options', 'timesheet_settings', 'tmsht_settings_page', 'dashicons-clock' );	
+			$main_page = 'timesheet_settings';
+		}
+
+		if ( empty( $settings_page_hook ) ) {
+			$settings_page_hook = add_submenu_page( $main_page, 'Timesheet ' . __( 'Settings', 'timesheet' ), __( 'Settings', 'timesheet' ), 'manage_options', 'timesheet_settings', 'tmsht_settings_page' );
+		}		
+
+		add_submenu_page( $main_page, 'BWS Panel', 'BWS Panel', 'manage_options', 'tmsht-bws-panel', 'bws_add_menu_render' );
+
+		add_action( 'load-' . $settings_page_hook, 'tmsht_add_tabs' );
+
+		if ( isset( $submenu[ $main_page ] ) )
+			$submenu[ $main_page ][] = array(
 				'<span style="color:#d86463"> ' . __( 'Upgrade to Pro', 'timesheet' ) . '</span>',
 				'manage_options',
 				'https://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=3bdf25984ad6aa9d95074e31c5eb9bb3&pn=606&v=' . $tmsht_plugin_info["Version"] . '&wp_v=' . $wp_version );
-
-		add_action( 'load-' . $settings_page_hook, 'tmsht_add_tabs' );
 	}
 }
 
@@ -135,17 +129,17 @@ if ( ! function_exists( 'tmsht_init' ) ) {
 		}
 
 		/* check WordPress version */
-		bws_wp_min_version_check( $plugin_basename, $tmsht_plugin_info, '3.9' );
+		bws_wp_min_version_check( $plugin_basename, $tmsht_plugin_info, '4.5' );
 
-		if ( is_admin() )
+		if ( is_admin() ) {
 			tmsht_register_options();
-
+		}
 	}
 }
 
 if ( ! function_exists( 'tmsht_admin_init' ) ) {
 	function tmsht_admin_init() {
-		global $bws_plugin_info, $tmsht_plugin_info;
+		global $pagenow, $bws_plugin_info, $tmsht_plugin_info, $tmsht_options;
 		/* Add variable for bws_menu */
 		if ( empty( $bws_plugin_info ) )
 			$bws_plugin_info = array( 'id' => '606', 'version' => $tmsht_plugin_info["Version"] );
@@ -154,6 +148,13 @@ if ( ! function_exists( 'tmsht_admin_init' ) ) {
 		if ( isset( $_REQUEST['page'] ) && ( 'timesheet_ts_user' == $_REQUEST['page'] || 'timesheet_ts_report' == $_REQUEST['page'] ) ) {
 			if ( '' == session_id() || ! isset( $_SESSION ) ) {
 				session_start();
+			}
+		}
+
+		if ( 'plugins.php' == $pagenow ) {
+			/* Install the option defaults */
+			if ( function_exists( 'bws_plugin_banner_go_pro' ) ) {
+				bws_plugin_banner_go_pro( $tmsht_options, $tmsht_plugin_info, 'tmsht', 'timesheet', '6316f137e58adf88e055718d7cc85346', '606', 'timesheet' );
 			}
 		}
 	}
@@ -249,6 +250,9 @@ if ( ! function_exists( 'tmsht_register_options' ) ) {
 
 			$default_options = tmsht_get_options_default();
 			$tmsht_options = array_merge( $default_options, $tmsht_options );
+
+			/* show pro features */
+			$tmsht_options['hide_premium_options'] = array();
 
 			$tmsht_options['plugin_option_version'] = $tmsht_plugin_info["Version"];
 			$update_option = true;
@@ -384,6 +388,8 @@ if ( ! function_exists( 'tmsht_generate_color' ) ) {
 
 if ( ! function_exists( 'tmsht_settings_page' ) ) {
 	function tmsht_settings_page() {
+		if ( ! class_exists( 'Bws_Settings_Tabs' ) )
+            require_once( dirname( __FILE__ ) . '/bws_menu/class-bws-settings.php' );
 		require_once( dirname( __FILE__ ) . '/includes/class-tmsht-settings.php' );
 		$page = new Tmsht_Settings_Tabs( plugin_basename( __FILE__ ) ); ?>
 		<div class="wrap">
@@ -486,7 +492,7 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
 
 		$bws_hide_premium_options_check = bws_hide_premium_options_check( $tmsht_options ); ?>
 		<div class="wrap tmsht_wrap">
-			<h1>Timesheet</h1>
+			<h1><?php _e( 'My Availability', 'timesheet' ); ?></h1>
 			<noscript>
 				<div class="error below-h2">
 					<p><strong><?php _e( 'WARNING', 'timesheet' ); ?>:</strong> <?php _e( 'The plugin works correctly only if JavaScript is enabled.', 'timesheet' ); ?></p>
@@ -536,7 +542,7 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
 		        <?php
 
 		        if ( isset( $_POST['bws_hide_premium_options'] ) && isset( $_GET['page'] ) && 'timesheet_ts_user' == $_GET['page'] ) {
-			       	$cur_tmsht_options = bws_hide_premium_options($tmsht_options);
+			       	$cur_tmsht_options = bws_hide_premium_options( $tmsht_options );
 			        update_option( 'tmsht_options', $cur_tmsht_options['options'] );
 			        $bws_hide_premium_options_check = true;
 		        }
@@ -554,7 +560,7 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
                                 </div>
                                 <div style="margin-bottom: 7px;" class="tmsht_ts_timesheet_user_list_wrap">
                                     <div class="tmsht_ts_timesheet_user_list">
-                                        <input class="tmsht_ts_timesheet_search_user hide-if-no-js" type="text" placeholder="<?php _e( 'Search user', 'timesheet' ); ?>">
+                                        <input disabled="disabled" class="tmsht_ts_timesheet_search_user hide-if-no-js" type="text" placeholder="<?php _e( 'Search user', 'timesheet' ); ?>">
                                     </div>
                                 </div>
                                 <div class="tmsht_ts_timesheet_selected_users_container hide-if-no-js">
@@ -1021,7 +1027,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 			$error = __( 'Select at least one user.', 'timesheet' );
 		} ?>
 		<div class="wrap tmsht_wrap">
-			<h1>Timesheet <?php _e( 'Reports', 'timesheet' ); ?></h1>
+			<h1>Timesheet <?php _e( 'Team', 'timesheet' ); ?></h1>
 			<noscript>
 				<div class="error below-h2">
 					<p><strong><?php _e( 'WARNING', 'timesheet' ); ?>:</strong> <?php _e( 'The plugin works correctly only if JavaScript is enabled.', 'timesheet' ); ?></p>
@@ -1695,14 +1701,6 @@ if ( ! function_exists ( 'tmsht_plugin_banner' ) ) {
 		global $hook_suffix, $tmsht_plugin_info;
 
 		if ( 'plugins.php' == $hook_suffix ) {
-			global $tmsht_options;
-
-			$tmsht_options = ( empty ( $tmsht_options ) ) ? get_option( 'tmsht_options' ) : $tmsht_options;
-
-			if ( isset( $tmsht_options['first_install'] ) && strtotime( '-1 week' ) > $tmsht_options['first_install'] ) {
-				bws_plugin_banner( $tmsht_plugin_info, 'tmsht', 'timesheet', '6316f137e58adf88e055718d7cc85346', '606', 'timesheet' );
-			}
-
 			bws_plugin_banner_to_settings( $tmsht_plugin_info, 'tmsht_options', 'timesheet', 'admin.php?page=timesheet_settings' );
 		}
 

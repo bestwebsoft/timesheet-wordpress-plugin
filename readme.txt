@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
-Requires at least: 3.9
-Tested up to: 5.2.2
-Stable tag: 1.0.7
+Requires at least: 4.5
+Tested up to: 5.4.2
+Stable tag: 1.0.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -47,8 +47,9 @@ https://www.youtube.com/watch?v=zQZx06CDr1I
 > * Display timesheet user page and reports for certain users
 > * Edit user timesheet
 > * Enable reports notifications via email
-> * Import and export timesheet data
 > * Create/edit schedules accurate to 5 min
+> * View the total hours on timesheet and reports pages
+> * Import and export timesheet data
 > * Get answer to your support question within one business day ([Support Policy](https://bestwebsoft.com/support-policy/))
 >
 > [Upgrade to Pro Now](https://bestwebsoft.com/products/wordpress/plugins/timesheet/?k=4c99d58eadceab42cd2b7cdf4ddd4cab)
@@ -108,11 +109,16 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 == Screenshots ==
 
 1. Settings page.
-2. TS user page.
-3. TS user page with context menu in TS user table.
-4. TS report page.
+2. "My Availability" page.
+3. "My Availability" page with context menu.
+4. Team page.
 
 == Changelog ==
+
+= V1.0.8 - 25.06.2020 =
+* Update : Plugin settings were updated.
+* Pro : Ability to view a table with the total hours on the reports page.
+* Pro : Added a column with the total hours to the exported data.
 
 = V1.0.7 - 04.09.2019 =
 * Update: The deactivation feedback has been changed. Misleading buttons have been removed.
@@ -179,6 +185,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : The Timesheet by BestWebSoft plugin is ready for use.
 
 == Upgrade Notice ==
+
+= V1.0.8 =
+* Usability improved.
 
 = V1.0.7 =
 * Usability improved.

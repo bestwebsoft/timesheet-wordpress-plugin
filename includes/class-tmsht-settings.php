@@ -2,9 +2,6 @@
 /**
  * Displays the content on the plugin settings page
  */
-
-require_once( dirname( dirname( __FILE__ ) ) . '/bws_menu/class-bws-settings.php' );
-
 if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 	class Tmsht_Settings_Tabs extends Bws_Settings_Tabs {
 		public $days_arr, $date_formats, $all_roles;
@@ -23,6 +20,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 			$tabs = array(
 				'settings' 		=> array( 'label' => __( 'Settings', 'timesheet' ) ),
 				'display' 		=> array( 'label' => __( 'Display', 'timesheet' ) ),
+				'notifications' => array( 'label' => __( 'Reminders', 'timesheet' ) ),
 				'reports'		=> array( 'label' => __( 'Reports', 'timesheet' ), 'is_pro' => 1 ),
                 'import-export' => array( 'label' => __( 'Import / Export', 'timesheet' ), 'is_pro' => 1 ),
                 'misc' 			=> array( 'label' => __( 'Misc', 'timesheet' ) ),
@@ -37,8 +35,6 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 				'options' 			 => $tmsht_options,
 				'tabs' 				 => $tabs,
 				'wp_slug'			 => 'timesheet',
-				'pro_page' 			 => 'admin.php?page=timesheet_pro_settings',
-				'bws_license_plugin' => 'timesheet-pro/timesheet-pro.php',
 				'link_key' 			 => '3bdf25984ad6aa9d95074e31c5eb9bb3',
 				'link_pn' 			 => '606'
 			) );
@@ -53,6 +49,8 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 			ksort( $this->all_roles );
 
 			add_filter( get_parent_class( $this ) . '_additional_restore_options', array( $this, 'additional_restore_options' ) );
+
+			add_action( get_parent_class( $this ) . '_display_metabox', array( $this, 'display_metabox' ) );
 		}
 
 		/**
@@ -63,6 +61,8 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 		 */
 		public function save_options() {
 			global $wpdb;
+
+			$message = $notice = $error = '';
 
 			/* Takes all the changed settings on the plugin's admin page and saves them in array 'tmsht_options'. */
 			if ( isset( $_POST['tmsht_add_ts_legend'] ) ) {
@@ -123,13 +123,16 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 				}
 
 				/* Set weekends */
-				$tmsht_weekends = ( isset( $_POST['tmsht_weekends'] ) ) ? (array)$_POST['tmsht_weekends'] : array();
-
-				foreach ( $tmsht_weekends as $weekend ) {
-					if ( ! in_array( ucfirst( $weekend ), $this->days_arr ) ) {
-						unset( $weekend );
+				if ( ! empty( $_POST['tmsht_weekends'] ) ) {
+					$tmsht_weekends = (array)$_POST['tmsht_weekends'];
+					foreach ( $tmsht_weekends as $weekend ) {
+						if ( ! in_array( ucfirst( $weekend ), $this->days_arr ) ) {
+							unset( $weekend );
+						}
+						$this->options['weekends'] = $tmsht_weekends;
 					}
-					$this->options['weekends'] = $tmsht_weekends;
+				} else {
+					$this->options['weekends'] = array();
 				}
 
 				/* Enable/disable legends */
@@ -344,7 +347,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 								<tr>
 									<td>
 										<label>
-											<input id="tmsht_date_format_type_wp" type="radio" name="tmsht_date_format_type" data-date-format-code="<?php echo $this->date_formats['wp']; ?>" data-date-format-display="<?php echo date_i18n( $this->date_formats['wp'] ); ?>" value="wp" <?php checked( $this->options['date_format_type'], 'wp' ); ?>><?php _e( 'WordPress Settings', 'timesheet' ); ?>
+											<input id="tmsht_date_format_type_wp" type="radio" name="tmsht_date_format_type" data-date-format-code="<?php echo $this->date_formats['wp']; ?>" data-date-format-display="<?php echo date_i18n( $this->date_formats['wp'] ); ?>" value="wp" <?php checked( $this->options['date_format_type'], 'wp' ); ?>><?php _e( 'WordPress default', 'timesheet' ); ?>
 										</label>
 									</td>
 									<td>
@@ -373,9 +376,17 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 				<tr>
 					<th><?php _e( 'Edit Overdue Timesheets', 'timesheet' ); ?></th>
 					<td>
-						<input type="checkbox" name="tmsht_edit_past_days" value="1" <?php checked( $this->options['edit_past_days'], 1 ); ?> /> <span class="bws_info"><?php _e( 'Enable to activate overdue timesheets editing.', 'timesheet' ); ?></span>
+						<input type="checkbox" name="tmsht_edit_past_days" value="1" <?php checked( $this->options['edit_past_days'], 1 ); ?> /> <span class="bws_info"><?php _e( 'Enable to allow overdue timesheets editing.', 'timesheet' ); ?></span>
 					</td>
-				</tr>
+				</tr>				
+			</table>
+		<?php }
+
+		public function tab_notifications() { ?>
+			<h3 class="bws_tab_label"><?php _e( 'Reminders Settings', 'timesheet' ); ?></h3>
+			<?php $this->help_phrase(); ?>
+			<hr>
+			<table class="form-table">
 				<tr>
 					<th><?php _e( 'Email Reminder', 'timesheet' ); ?></th>
 					<td>
@@ -426,7 +437,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 			<table class="form-table">
 				<tr>
 					<th>
-						<?php _e( 'Timesheet', 'timesheet' ); ?>
+						<?php _e( 'My Availability', 'timesheet' ); ?>
 					</th>
 					<td>
 						<div id="tmsht_display_ts_user_page_for_wrap">
@@ -494,7 +505,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 				</tr>
 				<tr>
 					<th>
-						<?php _e( 'Reports', 'timesheet' ); ?>
+						<?php _e( 'Team', 'timesheet' ); ?>
 					</th>
 					<td>
 						<div id="tmsht_display_ts_report_page_for_wrap">
@@ -561,6 +572,44 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 					</td>
 				</tr>
 			</table>
+			<?php if ( ! $this->hide_pro_tabs ) { ?>
+				<div class="bws_pro_version_bloc">
+					<div class="bws_pro_version_table_bloc">
+						<button type="submit" name="bws_hide_premium_options" class="notice-dismiss bws_hide_premium_options" title="<?php _e( 'Close', 'timesheet' ); ?>"></button>
+						<div class="bws_table_bg"></div>
+						<table class="form-table bws_pro_version">
+							<tr>
+								<th><?php _e( 'Edit Team', 'timesheet' ); ?></th>
+								<td>
+									<div id="tmsht_display_ts_report_page_for_wrap">
+										<ul id="tmsht_display_ts_report_page_for">
+											<?php foreach ( $this->all_roles as $role => $details )  {
+												if ( count( $users_in_role ) > 0 ) { ?>
+													<li>
+														<label>
+															<input disabled="disabled" type="checkbox" name="tmsht_display_ts_report_page_for[]" value="<?php echo $role; ?>" > 
+															<?php echo translate_user_role( $details['name'] ); ?>
+														</label>
+														<div id="tmsht_display_ts_report_page_for_users_wrap">																
+															<ul class="tmsht_display_ts_report_page_for_users">
+																<?php foreach ( $users_in_role as $user ) { ?>
+																	<li><label><input type="checkbox" disabled="disabled"><?php echo $user->user_login; ?></label></li>
+																<?php } ?>
+																<li><label><input type="checkbox" disabled="disabled">...</label></li>
+															</ul>																
+														</div>
+													</li>
+												<?php }
+											} ?>
+										</ul>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<?php $this->bws_pro_block_links(); ?>
+				</div>
+			<?php } ?>
 		<?php }
 
 		public function tab_reports() { ?>
@@ -576,7 +625,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 					<div class="bws_table_bg"></div>
 					<table class="form-table bws_pro_version">
 						<tr>
-							<th><?php _e( 'Email Notifications', 'timesheet' ); ?></th>
+							<th><?php _e( 'Email Reports', 'timesheet' ); ?></th>
 							<td>
 								<label>
 									<input disabled="disabled" type="checkbox" name="tmsht_send_email_report" value="1" /> <span class="bws_info"><?php _e( 'Enable to receive reports by email.', 'timesheet' ); ?></span>
@@ -621,22 +670,22 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
                             <th scope="row"><?php _e( 'Export Data', 'timesheet' ); ?></th>
                             <td>
                                 <fieldset>
-                                    <label><input type="radio" name="tmsht_format_export" value="csv" checked="checked" /><?php _e( 'CSV file format', 'timesheet' ); ?></label><br />
-                                    <label><input type="radio" name="tmsht_format_export" value="xml" /><?php _e( 'XML file format', 'timesheet' ); ?></label><br />
+                                    <label><input disabled="disabled" type="radio" name="tmsht_format_export" value="csv" checked="checked" /><?php _e( 'CSV file format', 'timesheet' ); ?></label><br />
+                                    <label><input disabled="disabled" type="radio" name="tmsht_format_export" value="xml" /><?php _e( 'XML file format', 'timesheet' ); ?></label><br />
                                 </fieldset>
-                                <input type="submit" name="tmsht_export_submit" class="button" value="<?php _e( 'Export', 'timesheet' ) ?>" />
+                                <input disabled="disabled" type="submit" name="tmsht_export_submit" class="button" value="<?php _e( 'Export', 'timesheet' ) ?>" />
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row"><?php _e( 'Import Data', 'timesheet' ); ?></th>
                             <td>
                                 <fieldset>
-                                    <label><input type="radio" name="tmsht_method_insert" value="current_change" checked="checked" /><?php _e( 'Add and replace current data', 'timesheet' ); ?></label><br />
-                                    <label><input type="radio" name="tmsht_method_insert" value="clear_data" /><?php _e( 'Clear old and add new data', 'timesheet' ); ?> </label><br />
-                                    <label><input type="radio" name="tmsht_method_insert" value="missing_exists" /><?php _e( 'Add missing data', 'timesheet' ); ?></label><br />
+                                    <label><input disabled="disabled" type="radio" name="tmsht_method_insert" value="current_change" checked="checked" /><?php _e( 'Add and replace current data', 'timesheet' ); ?></label><br />
+                                    <label><input disabled="disabled" type="radio" name="tmsht_method_insert" value="clear_data" /><?php _e( 'Clear old and add new data', 'timesheet' ); ?> </label><br />
+                                    <label><input disabled="disabled" type="radio" name="tmsht_method_insert" value="missing_exists" /><?php _e( 'Add missing data', 'timesheet' ); ?></label><br />
                                 </fieldset>
                                 <label><input disabled="disabled" name="tmsht_import_file_upload" type="file" /></label><br />
-                                <input type="submit" name="tmsht_import_submit" class="button" value="<?php _e( 'Import', 'timesheet' ) ?>" />
+                                <input  disabled="disabled"type="submit" name="tmsht_import_submit" class="button" value="<?php _e( 'Import', 'timesheet' ) ?>" />
                             </td>
                         </tr>
                     </table>
@@ -644,6 +693,31 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
                 <?php $this->bws_pro_block_links(); ?>
             </div>
         <?php }
+
+        public function display_metabox() { 
+        	if ( ! $this->hide_pro_tabs ) { ?>
+        		<div class="bws_pro_version_bloc">
+					<div class="bws_pro_version_table_bloc">
+						<button type="submit" name="bws_hide_premium_options" class="notice-dismiss bws_hide_premium_options" title="<?php _e( 'Close', 'timesheet' ); ?>"></button>
+						<div class="bws_table_bg"></div>
+			            <div class="postbox">
+			                <h3 class="hndle">
+			                    <?php _e( 'Timesheet Shortcode', 'timesheet' ); ?>
+			                </h3>	                
+							<div class="inside">
+								<?php _e( 'Add the "My Availability" to your pages or posts using the following shortcode:', 'timesheet' ); ?>
+		                    	<?php bws_shortcode_output( "[bws_timesheet_user]" ); ?>
+		                    </div>
+		                    <div class="inside">
+		                    <?php _e( 'Add the "Team" to your pages or posts using the following shortcode:', 'timesheet' ); ?>
+			                    <?php bws_shortcode_output( "[bws_timesheet_report]" ); ?>
+			                </div>						                
+			            </div>
+            		</div>
+					<?php $this->bws_pro_block_links(); ?>				
+                </div>
+	        <?php }
+	    }
 
         /**
 		 * Custom functions for "Restore plugin options to defaults"
