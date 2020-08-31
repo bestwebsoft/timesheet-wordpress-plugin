@@ -3,7 +3,7 @@
 
 		/* Ajax update table */
 		function tmsht_ajax_update_timesheet_table() {
-            window.history.replaceState( '', '', location.protocol + '//' + location.host + '/wp-admin/admin.php?page=timesheet_ts_user' + '&tmsht_ts_user_date_from=' + $( '#tmsht_ts_user_date_from' ).val() + '&tmsht_ts_user_date_to=' + $( '#tmsht_ts_user_date_to' ).val() );
+            window.history.replaceState( '', '', location.origin + location.pathname + '?page=timesheet_ts_user' + '&tmsht_ts_user_date_from=' + $( '#tmsht_ts_user_date_from' ).val() + '&tmsht_ts_user_date_to=' + $( '#tmsht_ts_user_date_to' ).val() );
 			$.ajax( {
 				type: "GET",
 				url: ajaxurl,
@@ -308,7 +308,7 @@
 					select_left = $td_in_first_tr.offset().left - $tbl.offset().left,
 					select_width = 0,
 					select_height = 0,
-					isWebkit = $.browser.webkit;
+					isWebkit = /(safari|chrome)/.test( navigator.userAgent.toLowerCase() );
 
 				$tds_in_first_tr.each( function () {
 					select_width += $( this ).outerWidth();
@@ -325,9 +325,7 @@
 					'left': select_left,
 					'width': select_width + 1,
 					'height': select_height + 1,
-					'margin': (
-						! isWebkit
-					) ? '-1px 0 0 -1px' : ''
+					'margin': ( isWebkit ) ? '' : '-1px 0 0 -1px'
 				} );
 			}
 		} ).trigger( 'selection' );
@@ -351,7 +349,7 @@
 						select_left = $td_in_first_tr.offset().left - $tbl.offset().left,
 						select_width = 0,
 						select_height = 0,
-						isWebkit = $.browser.webkit;
+						isWebkit = /(safari|chrome)/.test( navigator.userAgent.toLowerCase() );
 
 					$tds_in_first_tr.each( function () {
 						select_width += $( this ).outerWidth();
@@ -368,9 +366,7 @@
 						'left': select_left,
 						'width': select_width + 1,
 						'height': select_height + 1,
-						'margin': (
-							! isWebkit
-						) ? '-1px 0 0 -1px' : ''
+						'margin': ( isWebkit ) ? '' : '-1px 0 0 -1px'
 					} );
 				}
 				$( '#tmsht_ts_user_table' ).trigger( 'check_availability' );

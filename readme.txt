@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
 Requires at least: 4.5
-Tested up to: 5.4.2
-Stable tag: 1.0.8
+Tested up to: 5.5
+Stable tag: 1.0.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -68,6 +68,7 @@ Visit our Help Center if you have any questions, our friendly Support Team is ha
 
 = Translation =
 
+* Italian (it) (thanks to [Pierpaologessa](mailto:pierpaologessa@steva.it))
 * Russian (ru_RU)
 * Ukrainian (uk)
 
@@ -114,6 +115,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 4. Team page.
 
 == Changelog ==
+
+= V1.0.9 - 31.08.2020 =
+* NEW : The Italian language file is added.
+* Update : All functionality for WordPress 5.5 has been updated.
 
 = V1.0.8 - 25.06.2020 =
 * Update : Plugin settings were updated.
@@ -185,6 +190,10 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : The Timesheet by BestWebSoft plugin is ready for use.
 
 == Upgrade Notice ==
+
+= V1.0.9 =
+* New languages added.
+* The compatibility with new WordPress version updated.
 
 = V1.0.8 =
 * Usability improved.

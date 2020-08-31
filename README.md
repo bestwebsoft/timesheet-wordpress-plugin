@@ -59,6 +59,7 @@
 <p>Visit our Help Center if you have any questions, our friendly Support Team is happy to help — <a href="https://support.bestwebsoft.com/" rel="nofollow ugc">https://support.bestwebsoft.com/</a></p>
 <h4>Translation</h4>
 <ul>
+<li>Italian (it) (thanks to <a href="mailto:&#x70;&#105;&#101;&#x72;&#x70;&#097;&#111;&#x6c;&#x6f;g&#101;&#x73;&#x73;a&#064;&#115;&#x74;&#x65;&#118;&#097;&#x2e;&#x69;&#116;" rel="nofollow ugc">Pierpaologessa</a>)</li>
 <li>Russian (ru_RU)</li>
 <li>Ukrainian (uk)</li>
 </ul>
