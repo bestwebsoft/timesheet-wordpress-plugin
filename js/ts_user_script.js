@@ -57,7 +57,8 @@
 				return {
 					'id': $ts_legend_option.val(),
 					'title': $ts_legend_option.text(),
-					'color': $ts_legend_option.attr( 'data-color' )
+					'color': $ts_legend_option.attr( 'data-color' ),
+					'all_day': $ts_legend_option.attr( 'data-all-day' )
 				}
 			},
 			is_rtl = $( 'body' ).hasClass( 'rtl' );
@@ -395,14 +396,35 @@
 					var $td = $( this ),
 						$tr = $td.parent(),
 						$ts_user_table_td_fill = $td.find( '.tmsht_ts_user_table_td_fill' ),
+						$td_all = $tr.find( '.tmsht_ts_user_table_td_fill' ),
 						legend = get_legend( legend_id );
 
-					$ts_user_table_td_fill
-						.attr( 'data-legend-id', legend.id )
-						.css( 'background-color', legend.color )
-						.removeAttr( 'data-td-group' )
-						.removeAttr( 'title' );
-
+					if ( 1 == legend[ 'all_day' ] ) {
+						$td_all
+							.attr( 'data-all-day', legend[ 'all_day' ] )
+							.attr( 'data-legend-id', legend.id )
+							.css( 'background-color', legend.color )
+							.removeAttr( 'data-td-group' )
+							.removeAttr( 'title' );
+					} else {
+						if ( 1 == $td_all.attr( 'data-all-day' ) ) {
+							$td_all
+								.removeAttr( 'data-all-day' )
+								.attr( 'data-legend-id', -1 )
+								.css( 'background-color', 'transparent' );
+							$ts_user_table_td_fill
+								.attr( 'data-legend-id', legend.id )
+								.css( 'background-color', legend.color )
+								.removeAttr( 'data-td-group' )
+								.removeAttr( 'title' );
+						} else {
+							$ts_user_table_td_fill
+								.attr( 'data-legend-id', legend.id )
+								.css( 'background-color', legend.color )
+								.removeAttr( 'data-td-group' )
+								.removeAttr( 'title' );
+						}
+					}
 					$tr.find( '.tmsht_tr_date[disabled="disabled"]' ).attr( 'disabled', false );
 				} );
 			} else if ( table.hasClass( 'tmsht_ts_user_table_head_dateline' ) ) {
@@ -410,14 +432,35 @@
 					var $td = $( this ),
 						$tr = $td.parent(),
 						$ts_user_table_td_fill = $td.find( '.tmsht_ts_user_table_td_fill' ),
+						$td_all = $tr.find( '.tmsht_ts_user_table_td_fill' ),
 						legend = get_legend( legend_id );
 
-					$ts_user_table_td_fill
-						.attr( 'data-legend-id', legend.id )
-						.css( 'background-color', legend.color )
-						.removeAttr( 'data-td-group' )
-						.removeAttr( 'title' );
-
+					if ( 1 == legend[ 'all_day' ] ) {
+						$td_all
+							.attr( 'data-all-day', legend[ 'all_day' ] )
+							.attr( 'data-legend-id', legend.id )
+							.css( 'background-color', legend.color )
+							.removeAttr( 'data-td-group' )
+							.removeAttr( 'title' );
+					} else {
+						if ( 1 == $td_all.attr( 'data-all-day' ) ) {
+							$td_all
+								.removeAttr( 'data-all-day' )
+								.attr( 'data-legend-id', -1 )
+								.css( 'background-color', 'transparent' );
+							$ts_user_table_td_fill
+								.attr( 'data-legend-id', legend.id )
+								.css( 'background-color', legend.color )
+								.removeAttr( 'data-td-group' )
+								.removeAttr( 'title' );
+						} else {
+							$ts_user_table_td_fill
+								.attr( 'data-legend-id', legend.id )
+								.css( 'background-color', legend.color )
+								.removeAttr( 'data-td-group' )
+								.removeAttr( 'title' );
+						}
+					}
 					var data_td_date = $td.attr( 'data-td-date' );
 					table.find( '.tmsht_tr_date[value="' + data_td_date + '"]' ).attr( 'disabled', false );
 				} );

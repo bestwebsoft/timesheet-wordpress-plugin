@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
 Requires at least: 4.5
-Tested up to: 5.5
-Stable tag: 1.0.9
+Tested up to: 5.5.3
+Stable tag: 1.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -26,6 +26,7 @@ https://www.youtube.com/watch?v=zQZx06CDr1I
 * Customize statuses:
 	* Name
 	* Color
+	* All Day
 * Set the timeline for your schedule
 * Set days off
 * Enable automatic email notifications from timesheet
@@ -58,7 +59,7 @@ If you have a feature suggestion or idea you'd like to see in the plugin, we'd l
 
 = Documentation & Videos =
 
-* [[Doc] How to Use](https://docs.google.com/document/d/1LO_rfSxJap2t19qJkBMGscCG7BBac7fUDbhEbQ5g8YE/)
+* [[Doc] User Guide](https://docs.google.com/document/d/1LO_rfSxJap2t19qJkBMGscCG7BBac7fUDbhEbQ5g8YE/)
 * [[Doc] Installation](https://docs.google.com/document/d/1-hvn6WRvWnOqj5v5pLUk7Awyu87lq5B_dO-Tv-MC9JQ/)
 * [[Doc] Purchase](https://docs.google.com/document/d/1EUdBVvnm7IHZ6y0DNyldZypUQKpB8UVPToSc_LdOYQI/)
 
@@ -115,6 +116,12 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 4. Team page.
 
 == Changelog ==
+
+= V1.1.0 - 03.11.2020 =
+* NEW : "All Day" status property was added.
+* NEW : Added an ability to clear old timesheets.
+* Update : All functionality for WordPress 5.5.1 has been updated.
+* Update : BWS plugins section is updated.
 
 = V1.0.9 - 31.08.2020 =
 * NEW : The Italian language file is added.
@@ -190,6 +197,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : The Timesheet by BestWebSoft plugin is ready for use.
 
 == Upgrade Notice ==
+
+= V1.1.0 =
+* Functionality expanded.
+* New features added.
+* The compatibility with new WordPress version updated.
 
 = V1.0.9 =
 * New languages added.

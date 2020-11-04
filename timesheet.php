@@ -6,7 +6,7 @@ Description: Best timesheet plugin for WordPress. Track employee time, streamlin
 Author: BestWebSoft
 Text Domain: timesheet
 Domain Path: /languages
-Version: 1.0.9
+Version: 1.1.0
 Author URI: https://bestwebsoft.com/
 License: Proprietary
 */
@@ -140,6 +140,7 @@ if ( ! function_exists( 'tmsht_init' ) ) {
 if ( ! function_exists( 'tmsht_admin_init' ) ) {
 	function tmsht_admin_init() {
 		global $pagenow, $bws_plugin_info, $tmsht_plugin_info, $tmsht_options;
+
 		/* Add variable for bws_menu */
 		if ( empty( $bws_plugin_info ) )
 			$bws_plugin_info = array( 'id' => '606', 'version' => $tmsht_plugin_info["Version"] );
@@ -165,6 +166,7 @@ if ( ! function_exists( 'tmsht_create_tables' ) ) {
 		global $wpdb;
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
 		/* Table with legends */
 		if ( ! $wpdb->query( "SHOW TABLES LIKE '{$wpdb->prefix}tmsht_legends';" ) ) {
 			$sql = "CREATE TABLE IF NOT EXISTS `{$wpdb->prefix}tmsht_legends` (
@@ -172,6 +174,7 @@ if ( ! function_exists( 'tmsht_create_tables' ) ) {
 				`name` varchar(255) NOT NULL,
 				`color` char(7) NOT NULL,
 				`disabled` BOOLEAN NOT NULL DEFAULT '0',
+				`all_day` BOOLEAN NOT NULL DEFAULT '0',
 				PRIMARY KEY  ( `id` )
 				) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 			dbDelta( $sql );
@@ -181,25 +184,29 @@ if ( ! function_exists( 'tmsht_create_tables' ) ) {
 					'id'       => 1,
 					'name'     => __( 'In Office', 'timesheet' ),
 					'color'    => '#94e091',
-					'disabled' => 0
+					'disabled' => 0,
+					'all_day'  => 0
 				),
 				array(
 					'id'       => 2,
 					'name'     => __( 'Remote', 'timesheet' ),
 					'color'    => '#eded76',
-					'disabled' => 0
+					'disabled' => 0,
+					'all_day'  => 0
 				),
 				array(
 					'id'       => 3,
 					'name'     => __( 'Absent', 'timesheet' ),
 					'color'    => '#dd8989',
-					'disabled' => 0
+					'disabled' => 0,
+					'all_day'  => 0
 				),
 				array(
 					'id'       => 4,
 					'name'     => __( 'Vacation', 'timesheet' ),
 					'color'    => '#8da6bf',
-					'disabled' => 0
+					'disabled' => 0,
+					'all_day'  => 1
 				),
 			);
 
@@ -210,9 +217,10 @@ if ( ! function_exists( 'tmsht_create_tables' ) ) {
 						'id' 		=> $legend['id'],
 						'name' 		=> $legend['name'],
 						'color' 	=> $legend['color'],
-						'disabled' 	=> $legend['disabled']
+						'disabled' 	=> $legend['disabled'],
+						'all_day' 	=> $legend['all_day']
 					),
-					array( '%d', '%s', '%s', '%d' )
+					array( '%d', '%s', '%s', '%d', '%d' )
 				);
 			}
 		}
@@ -233,10 +241,10 @@ if ( ! function_exists( 'tmsht_create_tables' ) ) {
 
 if ( ! function_exists( 'tmsht_register_options' ) ) {
 	function tmsht_register_options() {
-		global $tmsht_plugin_info, $tmsht_options;
+		global $tmsht_plugin_info, $tmsht_options, $wpdb;
 
 		$update_option = false;
-		$db_version = '0.1';
+		$db_version = '0.2';
 
 		if ( ! get_option( 'tmsht_options' ) ) {
 			$default_options = tmsht_get_options_default();
@@ -245,11 +253,30 @@ if ( ! function_exists( 'tmsht_register_options' ) ) {
 
 		$tmsht_options = get_option( 'tmsht_options' );
 
+        /* Update tables when update plugin and tables changes */
+        if ( ! isset( $tmsht_options['plugin_db_version'] ) || $tmsht_options['plugin_db_version'] != $db_version ) {
+            tmsht_create_tables();
+
+            /**
+             * @deprecated since 1.1.0
+             * @todo remove after 02.04.2021
+             */
+            if ( isset( $tmsht_options['plugin_option_version'] ) && version_compare( $tmsht_options['plugin_option_version'] , '1.1.0', '<' ) ) {
+                $prefix = $wpdb->prefix . 'tmsht_';
+                $wpdb->query( "ALTER TABLE `" . $prefix . "legends` ADD COLUMN `all_day` BOOLEAN NOT NULL DEFAULT '0'" );
+                $wpdb->query( "UPDATE `{$wpdb->prefix}tmsht_legends` SET `all_day` = 1  WHERE `id` IN ( 4 )" );
+            }
+            /* end deprecated */
+
+            /* update DB version */
+            $tmsht_options['plugin_db_version'] = $db_version;
+            $update_option                      = true;
+        }
+
 		/* Array merge incase this version has added new options */
 		if ( ! isset( $tmsht_options['plugin_option_version'] ) || $tmsht_options['plugin_option_version'] != $tmsht_plugin_info["Version"] ) {
-
 			$default_options = tmsht_get_options_default();
-			$tmsht_options = array_merge( $default_options, $tmsht_options );
+			$tmsht_options   = array_merge( $default_options, $tmsht_options );
 
 			/* show pro features */
 			$tmsht_options['hide_premium_options'] = array();
@@ -258,15 +285,6 @@ if ( ! function_exists( 'tmsht_register_options' ) ) {
 			$update_option = true;
 
 			tmsht_plugin_activate();
-		}
-
-		/* Update tables when update plugin and tables changes */
-		if ( ! isset( $tmsht_options['plugin_db_version'] ) || $tmsht_options['plugin_db_version'] != $db_version ) {
-			tmsht_create_tables();
-
-			/* update DB version */
-			$tmsht_options['plugin_db_version'] = $db_version;
-			$update_option = true;
 		}
 
 		if ( $update_option ) {
@@ -309,6 +327,7 @@ if ( ! function_exists( 'tmsht_get_options_default' ) ) {
 			'reminder_on_email'       => 0,
 			'day_reminder'            => 'fri',
 			'time_reminder'           => '18:00',
+			'clear_timesheet_period' => '',
 			'content_reminder'        => array(
 				'subject'	=> __( 'Timesheet Reminder', 'timesheet' ),
 				'message'	=> sprintf( "%s, {user_name},\n\n%s:\n\n{list_days}\n\n{{ts_page_link}%s{/ts_page_link}}\n\n%s", __( 'Hi', 'timesheet' ), __( 'Please complete your timesheet for the following days', 'timesheet' ), __( 'Complete Timesheet Now', 'timesheet' ), __( 'Do not reply to this message. This is an automatic mailing.', 'timesheet' ) )
@@ -529,7 +548,7 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
 						<?php $legend_index = 0;
 						foreach ( $tmsht_legends as $id => $legend ) {
 							if ( $legend['disabled'] == 0 ) { ?>
-								<option value="<?php echo $id; ?>" data-color="<?php echo $legend['color']; ?>" <?php selected( $legend_index, 0 ); ?>><?php echo $legend['name']; ?></option>
+								<option value="<?php echo $id; ?>" data-all-day="<?php echo ( ! empty( $legend['all_day'] ) ) ? $legend['all_day'] : ''; ?>" data-color="<?php echo $legend['color']; ?>" <?php selected( $legend_index, 0 ); ?>><?php echo $legend['name']; ?></option>
 								<?php $legend_index++;
 							}
 						} ?>
@@ -635,7 +654,14 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
 																}
 															}
 														} ?>
-														<div class="tmsht_ts_user_table_td_fill" style="background-color: <?php echo $tmsht_legends[ $td_legend_id ]['color']; ?>;" data-fill-time-from="<?php printf( "%02d:%02d", $time_value, $time_minutes ); ?>" data-fill-time-to="<?php printf( "%02d:%02d", ( $time_minutes < 55 ) ? $time_value : $time_value + 1, ( $time_minutes < 55 ) ? $time_minutes + 5 : 0 ); ?>" data-legend-id="<?php echo $td_legend_id; ?>" title="<?php echo $td_title; ?>"></div>
+														<div class="tmsht_ts_user_table_td_fill"
+                                                             style="background-color: <?php echo $tmsht_legends[ $td_legend_id ]['color']; ?>;" data-fill-time-from="<?php printf( "%02d:%02d", $time_value, $time_minutes ); ?>"
+                                                             data-fill-time-to="<?php printf( "%02d:%02d", ( $time_minutes < 55 ) ? $time_value : $time_value + 1, ( $time_minutes < 55 ) ? $time_minutes + 5 : 0 ); ?>"
+                                                             data-legend-id="<?php echo $td_legend_id; ?>"
+                                                            <?php if ( isset( $tmsht_legends[ $td_legend_id ]['all_day'] ) ) { ?>
+                                                                data-all-day="<?php echo $tmsht_legends[ $td_legend_id ]['all_day']; ?>"
+                                                            <?php } ?>
+                                                             title="<?php echo $td_title; ?>"></div>
 													<?php } ?>
 												</div>
 												<?php if ( $td_readonly ) { ?>
@@ -888,7 +914,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 					'type'   => 'preset',
 					'preset' => array(
 						'quantity' => intval( $_POST['tmsht_date_preset_quantity'] ),
-						'unit'  => $_POST['tmsht_date_preset_unit']
+						'unit'  => sanitize_text_field( $_POST['tmsht_date_preset_unit'] )
 					)
 				);
 			} else {
@@ -901,7 +927,7 @@ if ( ! function_exists( 'tmsht_ts_report_page' ) ) {
 			$ts_report_filters['group_by'] = ( array_key_exists( $_POST['tmsht_ts_report_group_by'], $ts_report_group_by_arr ) ) ? $_POST['tmsht_ts_report_group_by'] : 'date';
 			$ts_report_filters['legend'] = ( array_key_exists( $_POST['tmsht_ts_report_legend'], $tmsht_legends ) ) ? $_POST['tmsht_ts_report_legend'] : -2;
 			$ts_report_filters['view'] = ( -2 != $ts_report_filters['legend'] && array_key_exists( $_POST['tmsht_ts_report_view'], $ts_report_view ) ) ? $_POST['tmsht_ts_report_view'] : 'hourly';
-			$ts_report_filters['users'] = ( isset( $_POST['tmsht_ts_report_user'] ) && is_array( $_POST['tmsht_ts_report_user'] ) ) ? $_POST['tmsht_ts_report_user'] : array_keys( $tmsht_users );
+			$ts_report_filters['users'] = ( isset( $_POST['tmsht_ts_report_user'] ) && is_array( $_POST['tmsht_ts_report_user'] ) ) ? array_map( 'absint', $_POST['tmsht_ts_report_user'] ) : array_keys( $tmsht_users );
 			update_user_meta( $current_user->ID, '_tmsht_ts_report_filters', $ts_report_filters );
 		}
 
@@ -2128,7 +2154,7 @@ if ( ! function_exists( 'tmsht_ts_user_report_table_update' ) ) {
 					'type'   => 'preset',
 					'preset' => array(
 						'quantity' => intval( $_POST['tmsht_date_preset_quantity'] ),
-						'unit'     => $_POST['tmsht_date_preset_unit']
+						'unit'     => sanitize_text_field( $_POST['tmsht_date_preset_unit'] )
 					)
 				);
 			} else {
@@ -2141,7 +2167,7 @@ if ( ! function_exists( 'tmsht_ts_user_report_table_update' ) ) {
 			$ts_report_filters['group_by'] = ( array_key_exists( $_POST['tmsht_ts_report_group_by'], $ts_report_group_by_arr ) ) ? $_POST['tmsht_ts_report_group_by'] : 'date';
 			$ts_report_filters['legend']   = ( array_key_exists( $_POST['tmsht_ts_report_legend'], $tmsht_legends ) ) ? $_POST['tmsht_ts_report_legend'] : - 2;
 			$ts_report_filters['view']     = ( - 2 != $ts_report_filters['legend'] && array_key_exists( $_POST['tmsht_ts_report_view'], $ts_report_view ) ) ? $_POST['tmsht_ts_report_view'] : 'hourly';
-			$ts_report_filters['users']    = ( isset( $_POST['tmsht_ts_report_user'] ) && is_array( $_POST['tmsht_ts_report_user'] ) ) ? $_POST['tmsht_ts_report_user'] : array_keys( $tmsht_users );
+			$ts_report_filters['users']    = ( isset( $_POST['tmsht_ts_report_user'] ) && is_array( $_POST['tmsht_ts_report_user'] ) ) ? array_map( 'absint', $_POST['tmsht_ts_report_user'] ) : array_keys( $tmsht_users );
 			update_user_meta( $current_user->ID, '_tmsht_ts_report_filters', $ts_report_filters );
 		}
 
@@ -2620,6 +2646,25 @@ if ( ! function_exists( 'tmsht_ts_user_report_table_update' ) ) {
 	<?php }
 }
 
+if ( ! function_exists( 'tmsht_clear_ts' ) ) {
+    function tmsht_clear_ts() {
+        global $wpdb, $tmsht_options;
+
+        if ( empty( $tmsht_options ) )
+            tmsht_register_options();
+
+        $period = $tmsht_options['clear_timesheet_period'];
+
+        $interval = array(
+            'month' => date( 'Y-m-d H:i:s', strtotime( date( 'Y-m-d H:i:s' )." -1 month" ) ),
+            '6 month' => date( 'Y-m-d H:i:s', strtotime( date( 'Y-m-d H:i:s' )." -6 month" ) ),
+            'year' => date( 'Y-m-d H:i:s', strtotime( date( 'Y-m-d H:i:s' )." -1 year" ) )
+        );
+
+        $wpdb->query( "DELETE FROM `{$wpdb->prefix}tmsht_ts` WHERE `time_to` <= '{$interval[$period]}'" );
+    }
+}
+
 /* Update ajax report users */
 if ( ! function_exists( 'tmsht_ts_report_users_update' ) ) {
 	function tmsht_ts_report_users_update() {
@@ -2689,7 +2734,7 @@ if ( ! function_exists( 'tmsht_ts_report_users_update' ) ) {
 					'type'   => 'preset',
 					'preset' => array(
 						'quantity' => intval( $_POST['tmsht_date_preset_quantity'] ),
-						'unit'     => $_POST['tmsht_date_preset_unit']
+						'unit'     => sanitize_text_field( $_POST['tmsht_date_preset_unit'] )
 					)
 				);
 			} else {
@@ -2857,6 +2902,8 @@ add_action( 'init', 'tmsht_init' );
 add_action( 'admin_init', 'tmsht_admin_init' );
 /* Adding stylesheets */
 add_action( 'admin_enqueue_scripts', 'tmsht_admin_scripts_styles' );
+/*Delete Timesheet notes by times period*/
+add_action( 'tmsht_clear_period_timesheet', 'tmsht_clear_ts' );
 /* delete ts data, when user was deleted */
 add_action( 'delete_user', 'tmsht_delete_user' );
 /* Additional links on the plugin page */

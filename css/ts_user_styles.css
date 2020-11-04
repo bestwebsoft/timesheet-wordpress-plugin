@@ -486,6 +486,7 @@
 }
 
 @media screen and (max-width: 782px) {
+
 	.tmsht_wrap input[type=radio],
 	.tmsht_wrap input[type=checkbox] {
 		margin-top: 0;
@@ -539,6 +540,7 @@
 	animation: tmsht_ts_user_animate 6.0s linear infinite;
 }
 @-webkit-keyframes tmsht_ts_user_animate {
+
 	0% {
 		transform: rotate(0deg)
 	}

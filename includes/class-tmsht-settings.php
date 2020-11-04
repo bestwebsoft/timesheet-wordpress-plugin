@@ -4,7 +4,7 @@
  */
 if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 	class Tmsht_Settings_Tabs extends Bws_Settings_Tabs {
-		public $days_arr, $date_formats, $all_roles;
+		public $days_arr, $date_formats, $all_roles, $period_arr;
 		/**
 		 * Constructor.
 		 *
@@ -36,10 +36,12 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 				'tabs' 				 => $tabs,
 				'wp_slug'			 => 'timesheet',
 				'link_key' 			 => '3bdf25984ad6aa9d95074e31c5eb9bb3',
-				'link_pn' 			 => '606'
+				'link_pn' 			 => '606',
+                'doc_link'           => 'https://docs.google.com/document/d/1LO_rfSxJap2t19qJkBMGscCG7BBac7fUDbhEbQ5g8YE/'
 			) );
 
 			$this->days_arr = array( 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' );
+			$this->period_arr = array( 'month', '6 month', 'year' );
 			$this->date_formats = array(
 				'wp'     => get_option( 'date_format' ),
 				'custom' => $this->options['date_format']
@@ -51,6 +53,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 			add_filter( get_parent_class( $this ) . '_additional_restore_options', array( $this, 'additional_restore_options' ) );
 
 			add_action( get_parent_class( $this ) . '_display_metabox', array( $this, 'display_metabox' ) );
+			add_action( get_parent_class( $this ) . '_additional_misc_options_affected', array( $this, 'additional_misc_options_affected' ) );
 		}
 
 		/**
@@ -67,8 +70,8 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 			/* Takes all the changed settings on the plugin's admin page and saves them in array 'tmsht_options'. */
 			if ( isset( $_POST['tmsht_add_ts_legend'] ) ) {
 
-				$ts_legend_name = ( isset( $_POST['tmsht_add_ts_legend_name'] ) ) ? esc_html( trim( $_POST['tmsht_add_ts_legend_name'] ) ) : '';
-				$ts_legend_color = ( isset( $_POST['tmsht_add_ts_legend_color'] ) ) ? esc_html( trim( $_POST['tmsht_add_ts_legend_color'] ) ) : '';
+				$ts_legend_name = ( isset( $_POST['tmsht_add_ts_legend_name'] ) ) ? sanitize_text_field( $_POST['tmsht_add_ts_legend_name'] ) : '';
+				$ts_legend_color = ( isset( $_POST['tmsht_add_ts_legend_color'] ) ) ? sanitize_text_field( $_POST['tmsht_add_ts_legend_color'] ) : '';
 
 				if ( empty( $ts_legend_name ) ) {
 					$error = __( 'Please enter status name.', 'timesheet' );
@@ -135,30 +138,47 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 					$this->options['weekends'] = array();
 				}
 
+				/*Set clear period*/
+                if ( in_array( $_POST['tmsht_clear_timesheet_period'], $this->period_arr ) ) {
+                    $this->options['clear_timesheet_period'] = $_POST['tmsht_clear_timesheet_period'];
+                    if ( ! wp_next_scheduled( 'tmsht_clear_period_timesheet' ) ) {
+                        wp_schedule_event( time(), 'tmsht_weekly', 'tmsht_clear_period_timesheet' );
+                    }
+                } else {
+                    $this->options['clear_timesheet_period'] = '';
+                    wp_clear_scheduled_hook( 'tmsht_clear_period_timesheet' );
+                }
+
 				/* Enable/disable legends */
+
 				$ts_legend_ids = ( isset( $_POST['tmsht_ts_legend_id'] ) && is_array( $_POST['tmsht_ts_legend_id'] ) ) ? $_POST['tmsht_ts_legend_id'] : array();
+				$ts_legend_all_days = ( isset( $_POST['tmsht_ts_legend_all_day'] ) && is_array( $_POST['tmsht_ts_legend_all_day'] ) ) ? $_POST['tmsht_ts_legend_all_day'] : array();
 				$ts_legend_ids_hidden = ( isset( $_POST['tmsht_ts_legend_id_hidden'] ) && is_array( $_POST['tmsht_ts_legend_id_hidden'] ) ) ? $_POST['tmsht_ts_legend_id_hidden'] : array();
 
 				foreach ( $ts_legend_ids_hidden as $legend_id ) {
 					$color = ( isset( $_POST['tmsht_ts_legend_color'][ $legend_id ] ) && preg_match( '/^#?([a-f0-9]{6}|[a-f0-9]{3})$/', trim( $_POST['tmsht_ts_legend_color'][ $legend_id ] ) ) ) ? trim( $_POST['tmsht_ts_legend_color'][ $legend_id ] ) : false;
 					$disabled = ( ! in_array( $legend_id, $ts_legend_ids ) ) ? 1 : 0;
+				    $all_day = ( ! in_array( $legend_id, $ts_legend_all_days ) ) ? 0 : 1;
+
 
 					if ( $color ) {
 						$wpdb->update( $wpdb->prefix . "tmsht_legends",
 							array(
 								'color' 	=> $color,
-								'disabled'	=> $disabled
+								'disabled'	=> $disabled,
+								'all_day'	=> $all_day,
 							),
-							array( 'id' => $legend_id ),
-							array( '%s', '%d' )
+							array( 'id' => $legend_id ),					
+							array( '%s', '%d', '%d' )
 						);
 					} else {
 						$wpdb->update( $wpdb->prefix . "tmsht_legends",
 							array(
-								'disabled'	=> $disabled
+								'disabled'	=> $disabled,
+								'all_day'	=> $all_day,
 							),
-							array( 'id' => $legend_id ),
-							array( '%d' )
+							array( 'id' => $legend_id ),							
+							array( '%d', '%d' )
 						);
 					}
 				}
@@ -180,10 +200,9 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 				}
 
 				$this->options['edit_past_days'] = ( ! empty( $_POST['tmsht_edit_past_days'] ) ) ? 1 : 0;
-
 				$this->options['reminder_on_email'] = ( ! empty( $_POST['tmsht_reminder_on_email'] ) ) ? 1 : 0;
-				$this->options['day_reminder'] = ( isset( $_POST['tmsht_day_reminder'] ) && in_array( ucfirst( $_POST['tmsht_day_reminder'] ), $this->days_arr ) ) ? $_POST['tmsht_day_reminder'] : $this->default_options['day_reminder'];
-				$this->options['time_reminder'] = ( isset( $_POST['tmsht_time_reminder'] ) && preg_match( '/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/', $_POST['tmsht_time_reminder'] ) ) ? $_POST['tmsht_time_reminder'] : $this->default_options['time_reminder'];
+				$this->options['day_reminder'] = ( isset( $_POST['tmsht_day_reminder'] ) && in_array( ucfirst( $_POST['tmsht_day_reminder'] ), $this->days_arr ) ) ? sanitize_text_field( $_POST['tmsht_day_reminder'] ) : $this->default_options['day_reminder'];
+				$this->options['time_reminder'] = ( isset( $_POST['tmsht_time_reminder'] ) && preg_match( '/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/', $_POST['tmsht_time_reminder'] ) ) ? sanitize_text_field( $_POST['tmsht_time_reminder'] ) : $this->default_options['time_reminder'];
 
 				if ( isset( $_POST['tmsht_reminder_change_state'] ) ) {
 
@@ -262,6 +281,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 		 */
 		public function tab_settings() {
 			global $wpdb;
+
 			$legends = $wpdb->get_results( "SELECT * FROM `{$wpdb->prefix}tmsht_legends`", ARRAY_A ); ?>
 			<h3 class="bws_tab_label"><?php _e( 'Timesheet Settings', 'timesheet' ); ?></h3>
 			<?php $this->help_phrase(); ?>
@@ -303,6 +323,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 							<thead>
 								<tr>
 									<td class="tmsht_ts_legend_id_cell"><?php _e( 'Enabled', 'timesheet' ); ?></td>
+									<td class="tmsht_ts_legend_all_day_cell"><?php _e( 'All Day', 'timesheet' ); ?></td>
 									<td class="tmsht_ts_legend_name_cell"><?php _ex( 'Name', 'Settings status table header', 'timesheet' ); ?></td>
 									<td class="tmsht_ts_legend_color_cell"><?php _ex( 'Color', 'Settings status table header', 'timesheet' ); ?></td>
 								</tr>
@@ -314,6 +335,9 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 											<td class="tmsht_ts_legend_id_cell" data-column-title="<?php _e( 'Enabled', 'timesheet' ); ?>">
 												<input class="tmsht_ts_legend_id" type="checkbox" name="tmsht_ts_legend_id[<?php echo $legend['id']; ?>]" value="<?php echo $legend['id']; ?>" <?php checked( $legend['disabled'], 0 ); ?>>
 												<input type="hidden" name="tmsht_ts_legend_id_hidden[<?php echo $legend['id']; ?>]" value="<?php echo $legend['id']; ?>">
+											</td>
+											<td class="tmsht_ts_legend_all_day_cell" data-column-title="<?php _e( 'All Day', 'timesheet' ); ?>">
+												<input class="tmsht_ts_legend_all_day" type="checkbox" name="tmsht_ts_legend_all_day[<?php echo $legend['id']; ?>]" value="<?php echo $legend['id']; ?>" <?php checked( $legend['all_day'] ); ?>>
 											</td>
 											<td class="tmsht_ts_legend_name_cell" data-column-title="<?php _ex( 'Name', 'Settings legend table header', 'timesheet' ); ?>">
 												<?php echo $legend['name']; ?>
@@ -332,6 +356,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 							<tfoot>
 								<tr>
 									<td class="tmsht_ts_legend_id_cell"><?php _e( 'Enabled', 'timesheet' ); ?></td>
+									<td class="tmsht_ts_legend_all_day_cell"><?php _e( 'All Day', 'timesheet' ); ?></td>
 									<td class="tmsht_ts_legend_name_cell"><?php _ex( 'Name', 'Settings status table header', 'timesheet' ); ?></td>
 									<td class="tmsht_ts_legend_color_cell"><?php _ex( 'Color', 'Settings status table header', 'timesheet' ); ?></td>
 								</tr>
@@ -693,6 +718,21 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
                 <?php $this->bws_pro_block_links(); ?>
             </div>
         <?php }
+        public function additional_misc_options_affected() { ?>
+			<tr>
+			    <th scope="row"><?php _e( 'Clear Timesheet', 'timesheet' ); ?></th>
+			    <td>
+			    	<?php _e( 'Every', 'timesheet' ); ?>
+			    	<select name="tmsht_clear_timesheet_period">
+                        <option value=""> - </option>
+			    		<?php foreach ( $this->period_arr as $period ) { ?>
+							<option value="<?php echo $period; ?>" <?php selected( $period, $this->options['clear_timesheet_period'] ); ?>> <?php echo $period; ?></option>
+						<?php } ?>		    		
+			    	</select>		     
+			        <div class="bws_info"><?php _e( 'This will clear users timesheet.', 'timesheet' ); ?></div>			        
+			    </td>
+			</tr>
+		<?php }
 
         public function display_metabox() { 
         	if ( ! $this->hide_pro_tabs ) { ?>
@@ -720,12 +760,13 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 	    }
 
         /**
-		 * Custom functions for "Restore plugin options to defaults"
-		 * @access public
-		 */
+        * Custom functions for "Restore plugin options to defaults"
+        * @access public
+        */
 		public function additional_restore_options( $default_options ) {
 			global $wpdb;
-			$wpdb->query( "UPDATE `{$wpdb->prefix}tmsht_legends` SET `disabled` = 1 WHERE `id` NOT IN ( 1,2,3,4 )" );
+            $wpdb->query( "UPDATE `{$wpdb->prefix}tmsht_legends` SET `disabled` = 0, `all_day` = 0  WHERE `id` IN ( 1,2,3 )" );
+            $wpdb->query( "UPDATE `{$wpdb->prefix}tmsht_legends` SET `disabled` = 0, `all_day` = 1  WHERE `id` IN ( 4 )" );
 			return $default_options;
 		}
 	}
