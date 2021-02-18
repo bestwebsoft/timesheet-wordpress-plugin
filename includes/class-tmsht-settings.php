@@ -713,6 +713,12 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
                                 <input  disabled="disabled"type="submit" name="tmsht_import_submit" class="button" value="<?php _e( 'Import', 'timesheet' ) ?>" />
                             </td>
                         </tr>
+                        <tr>
+                            <th><?php _e( 'Export Button', 'timesheet' ); ?></th>
+                            <td>
+                                <input type="checkbox" disabled="disabled" name="tmsht_export_button" value="1" /> <span class="bws_info"><?php _e( 'Enable to display an export button in "My Availability".', 'timesheet' ); ?></span>
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <?php $this->bws_pro_block_links(); ?>

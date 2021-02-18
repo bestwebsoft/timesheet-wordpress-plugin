@@ -6,12 +6,12 @@ Description: Best timesheet plugin for WordPress. Track employee time, streamlin
 Author: BestWebSoft
 Text Domain: timesheet
 Domain Path: /languages
-Version: 1.1.0
+Version: 1.1.1
 Author URI: https://bestwebsoft.com/
 License: Proprietary
 */
 
-/*  © Copyright 2020  BestWebSoft  ( https://support.bestwebsoft.com )
+/*  © Copyright 2021  BestWebSoft  ( https://support.bestwebsoft.com )
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License, version 2, as
@@ -410,7 +410,9 @@ if ( ! function_exists( 'tmsht_settings_page' ) ) {
 		if ( ! class_exists( 'Bws_Settings_Tabs' ) )
             require_once( dirname( __FILE__ ) . '/bws_menu/class-bws-settings.php' );
 		require_once( dirname( __FILE__ ) . '/includes/class-tmsht-settings.php' );
-		$page = new Tmsht_Settings_Tabs( plugin_basename( __FILE__ ) ); ?>
+		$page = new Tmsht_Settings_Tabs( plugin_basename( __FILE__ ) );
+		if ( method_exists( $page,'add_request_feature' ) )
+			$page->add_request_feature(); ?>
 		<div class="wrap">
 			<h1>Timesheet <?php _e( 'Settings', 'timesheet' ); ?></h1>
 			<noscript>
@@ -509,7 +511,12 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
 			unset( $ts_data[ $key ] );
 		}
 
-		$bws_hide_premium_options_check = bws_hide_premium_options_check( $tmsht_options ); ?>
+		$bws_hide_premium_options_check = bws_hide_premium_options_check( $tmsht_options );
+		if ( isset( $_POST['bws_hide_premium_options'] ) && isset( $_GET['page'] ) && 'timesheet_ts_user' == $_GET['page'] ) {
+			$cur_tmsht_options = bws_hide_premium_options( $tmsht_options );
+			update_option( 'tmsht_options', $cur_tmsht_options['options'] );
+			$bws_hide_premium_options_check = true;
+		} ?>
 		<div class="wrap tmsht_wrap">
 			<h1><?php _e( 'My Availability', 'timesheet' ); ?></h1>
 			<noscript>
@@ -537,9 +544,20 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
 							<div class="tmsht_ts_user_filter_title"><strong><?php _e( 'Date to', 'timesheet' ); ?></strong></div>
 							<input id="tmsht_ts_user_date_to" class="tmsht_date_datepicker_input" type="text" name="tmsht_ts_user_date_to" value="<?php echo $date_to; ?>" autocomplete="off">
 						</div>
+                        <br />
 						<div class="tmsht_ts_user_change_dates">
 							<input type="submit" class="button-secondary tmsht_date_datepicker_change" value="<?php _e( 'Change date', 'timesheet' ); ?>">
 						</div>
+                        <?php if ( ! $bws_hide_premium_options_check ) { ?>
+                            <div style="margin: 4px 4px 0;" class="bws_pro_version_bloc">
+                                <div class="bws_pro_version_table_bloc">
+                                    <div class="bws_table_bg"></div>
+                                    <div class="tmsht_ts_user_filter_block tmsht_ts_user_export_data">
+                                        <input disabled="disabled" type="submit" class="button-secondary" value="<?php _e( 'Export', 'timesheet' ); ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
 					</form>
 				</div>
 				<div class="tmsht_ts_user_filter_item tmsht_ts_user_filter_item_legend">
@@ -558,15 +576,7 @@ if ( ! function_exists( 'tmsht_ts_user_page' ) ) {
 					<div class="tmsht_ts_user_filter_title">&nbsp;</div>
 					<a id="tmsht_transposition_tbl" class="button-secondary hide-if-no-js tmsht_dashicons dashicons dashicons-image-rotate-right" href="#" title="<?php _e( 'Transposition table', 'timesheet' ); ?>"></a>
 				</div>
-		        <?php
-
-		        if ( isset( $_POST['bws_hide_premium_options'] ) && isset( $_GET['page'] ) && 'timesheet_ts_user' == $_GET['page'] ) {
-			       	$cur_tmsht_options = bws_hide_premium_options( $tmsht_options );
-			        update_option( 'tmsht_options', $cur_tmsht_options['options'] );
-			        $bws_hide_premium_options_check = true;
-		        }
-
-                if ( ! $bws_hide_premium_options_check ) { ?>
+		        <?php if ( ! $bws_hide_premium_options_check ) { ?>
                     <div class="bws_pro_version_bloc">
                         <div class="bws_pro_version_table_bloc">
                             <form method="post" action="?page=timesheet_ts_user">

@@ -3,8 +3,8 @@ Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
 Requires at least: 4.5
-Tested up to: 5.5.3
-Stable tag: 1.1.0
+Tested up to: 5.6.1
+Stable tag: 1.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,6 +15,8 @@ Best timesheet plugin for WordPress. Track employee time, streamline attendance 
 Timesheet plugin is the best solution which helps to track work schedule using WordPress website. Customizable and useful tool which brings accuracy and efficiency to your accountability tracking. Use existing WordPress users, keep their working hours, streamline attendance and generate reports.
 
 Start manage your workforce effectively today!
+
+[View Demo](https://bestwebsoft.com/demo-timesheet-for-wordpress/?ref=readme)
 
 https://www.youtube.com/watch?v=zQZx06CDr1I
 
@@ -117,6 +119,11 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.1.1 - 18.02.2021 =
+* Update : BWS Panel section was updated.
+* Update : All functionality for WordPress 5.6.1 has been updated.
+* Pro : Export button in "My Availability" has been added.
+
 = V1.1.0 - 03.11.2020 =
 * NEW : "All Day" status property was added.
 * NEW : Added an ability to clear old timesheets.
@@ -197,6 +204,9 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : The Timesheet by BestWebSoft plugin is ready for use.
 
 == Upgrade Notice ==
+
+= V1.1.1 =
+* Plugin optimization completed.
 
 = V1.1.0 =
 * Functionality expanded.
