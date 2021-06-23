@@ -37,7 +37,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 				'wp_slug'			 => 'timesheet',
 				'link_key' 			 => '3bdf25984ad6aa9d95074e31c5eb9bb3',
 				'link_pn' 			 => '606',
-                'doc_link'           => 'https://docs.google.com/document/d/1LO_rfSxJap2t19qJkBMGscCG7BBac7fUDbhEbQ5g8YE/'
+                'doc_link'           => 'https://bestwebsoft.com/documentation/timesheet/timesheet-user-guide/'
 			) );
 
 			$this->days_arr = array( 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' );
@@ -716,7 +716,21 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
                         <tr>
                             <th><?php _e( 'Export Button', 'timesheet' ); ?></th>
                             <td>
-                                <input type="checkbox" disabled="disabled" name="tmsht_export_button" value="1" /> <span class="bws_info"><?php _e( 'Enable to display an export button in "My Availability".', 'timesheet' ); ?></span>
+                                <input type="checkbox" disabled="disabled" name="tmsht_export_button" value="1" checked="checked" /> <span class="bws_info"><?php _e( 'Enable to display an export button in "My Availability".', 'timesheet' ); ?></span>
+                            </td>
+                        </tr>
+                        <<tr>
+                            <th><?php _e( 'Export File Format', 'timesheet-pro' ); ?></th>
+                            <td>
+                                <fieldset>
+                                    <label>
+                                        <input type="radio" disabled="disabled" name="tmsht_file_format_type" value="csv" checked="checked"><?php _e( 'CSV', 'timesheet' ); ?>
+                                    </label>
+                                    <br />
+                                    <label>
+                                        <input type="radio" disabled="disabled" name="tmsht_file_format_type" value="pdf"><?php _e( 'PDF', 'timesheet' ); ?>
+                                    </label>
+                                </fieldset>
                             </td>
                         </tr>
                     </table>
