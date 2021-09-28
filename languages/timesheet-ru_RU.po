@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Timesheet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-04 08:26+0300\n"
-"PO-Revision-Date: 2021-06-04 08:27+0300\n"
+"POT-Creation-Date: 2021-09-20 10:52+0300\n"
+"PO-Revision-Date: 2021-09-20 10:52+0300\n"
 "Last-Translator: plugin@bestwebsoft.com <plugin@bestwebsoft.com>\n"
 "Language-Team: BestWebSoft Team <wp@bestwebsoft.com>\n"
 "Language: ru_RU\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11) ? 3 : "
 "((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: bws_menu\n"
 
@@ -47,6 +47,18 @@ msgstr "Разное"
 #: includes/class-tmsht-settings.php:27
 msgid "License Key"
 msgstr "Лицензионный ключ"
+
+#: includes/class-tmsht-settings.php:44
+msgid "month"
+msgstr "месяц"
+
+#: includes/class-tmsht-settings.php:44
+msgid "6 month"
+msgstr "6 месяцев"
+
+#: includes/class-tmsht-settings.php:44
+msgid "year"
+msgstr "год"
 
 #: includes/class-tmsht-settings.php:77
 msgid "Please enter status name."
@@ -240,7 +252,7 @@ msgstr "Моя доступность"
 
 #: includes/class-tmsht-settings.php:511 includes/class-tmsht-settings.php:579
 #: includes/class-tmsht-settings.php:603 includes/class-tmsht-settings.php:649
-#: includes/class-tmsht-settings.php:691 includes/class-tmsht-settings.php:770
+#: includes/class-tmsht-settings.php:691 includes/class-tmsht-settings.php:761
 #: timesheet.php:583
 msgid "Close"
 msgstr "Закрыть"
@@ -333,31 +345,31 @@ msgstr "Включите, чтобы отображать кнопку эксп�
 msgid "Export File Format"
 msgstr "Формат файла экспорта"
 
-#: includes/class-tmsht-settings.php:730
+#: includes/class-tmsht-settings.php:727
 msgid "CSV"
 msgstr "CSV"
 
-#: includes/class-tmsht-settings.php:737
+#: includes/class-tmsht-settings.php:731
 msgid "PDF"
 msgstr "PDF"
 
-#: includes/class-tmsht-settings.php:752
+#: includes/class-tmsht-settings.php:743
 msgid "Clear Timesheet"
 msgstr "Очистить Timesheet"
 
-#: includes/class-tmsht-settings.php:754
+#: includes/class-tmsht-settings.php:745
 msgid "Every"
 msgstr "Каждый"
 
-#: includes/class-tmsht-settings.php:761
+#: includes/class-tmsht-settings.php:752
 msgid "This will clear users timesheet."
 msgstr "Это очистит расписание пользователей."
 
-#: includes/class-tmsht-settings.php:774
+#: includes/class-tmsht-settings.php:765
 msgid "Timesheet Shortcode"
 msgstr "Шорткод Timesheet"
 
-#: includes/class-tmsht-settings.php:777
+#: includes/class-tmsht-settings.php:768
 msgid ""
 "Add the \"My Availability\" to your pages or posts using the following "
 "shortcode:"
@@ -365,7 +377,7 @@ msgstr ""
 "Добавьте блок \"Моя доступность\" на свои страницы или публикации, используя "
 "следующий шорткод:"
 
-#: includes/class-tmsht-settings.php:781
+#: includes/class-tmsht-settings.php:772
 msgid "Add the \"Team\" to your pages or posts using the following shortcode:"
 msgstr ""
 "Добавьте блок \"Команда\" на свои страницы или публикации, используя "
@@ -588,11 +600,6 @@ msgstr "Тех. Поддержка"
 #: timesheet.php:1753
 msgid "Once Weekly"
 msgstr "Еженедельно"
-
-#, fuzzy
-#~| msgid "Month"
-#~ msgid "month"
-#~ msgstr "Месяц"
 
 #~ msgid ""
 #~ "Add the reports Timesheet to your pages or posts using the following "

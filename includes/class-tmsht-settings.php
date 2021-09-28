@@ -41,7 +41,7 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
 			) );
 
 			$this->days_arr = array( 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' );
-			$this->period_arr = array( 'month', '6 month', 'year' );
+			$this->period_arr = array( __( 'month', 'timesheet' ), __( '6 month', 'timesheet' ), __( 'year', 'timesheet' ) );
 			$this->date_formats = array(
 				'wp'     => get_option( 'date_format' ),
 				'custom' => $this->options['date_format']
@@ -785,8 +785,8 @@ if ( ! class_exists( 'Tmsht_Settings_Tabs' ) ) {
         */
 		public function additional_restore_options( $default_options ) {
 			global $wpdb;
-            $wpdb->query( "UPDATE `{$wpdb->prefix}tmsht_legends` SET `disabled` = 0, `all_day` = 0  WHERE `id` IN ( 1,2,3 )" );
-            $wpdb->query( "UPDATE `{$wpdb->prefix}tmsht_legends` SET `disabled` = 0, `all_day` = 1  WHERE `id` IN ( 4 )" );
+            $wpdb->query( "DROP TABLE `{$wpdb->prefix}tmsht_legends`" );
+            tmsht_create_tables();
 			return $default_options;
 		}
 	}
