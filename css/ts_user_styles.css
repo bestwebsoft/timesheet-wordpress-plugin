@@ -25,6 +25,18 @@
 	max-width: 250px;
 	width: 100%;
 }
+.tmsht_ts_user_calculation_table_legend {
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+}
+.tmsht_ts_user_calculation_table_legend:hover {
+  overflow: inherit;
+  text-overflow: inherit;
+  white-space: inherit;
+  height: auto;
+}
 .tmsht_date_datepicker_change {
 	position: relative;
 	vertical-align: bottom !important;
