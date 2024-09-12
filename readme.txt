@@ -2,9 +2,9 @@
 Contributors: bestwebsoft
 Donate link: https://bestwebsoft.com/donate/
 Tags: timesheet, timesheet plugin, schedule, my schedule, organise schedule, planning, time management, work, work schedule, office tool, reports, timetable
-Requires at least: 4.5
-Tested up to: 6.0
-Stable tag: 1.1.4
+Requires at least: 5.6
+Tested up to: 6.6
+Stable tag: 1.1.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -123,6 +123,16 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 
 == Changelog ==
 
+= V1.1.6 - 12.09.2024 =
+* Update : All functionality for WordPress 6.6 has been updated.
+* Update : Update BWS menu
+
+= V1.1.5 - 07.08.2023 =
+* NEW : Added new option Approve Timesheet( PRO )
+* NEW : Added report confirmation buttons in the section team( PRO )
+* Update : All functionality for WordPress 6.2.2 has been updated.
+* Update : Added new BWS menu
+
 = V1.1.4 - 11.07.2022 =
 * Bugfix : The issue with display statuses availability has been fixed.
 * Update : All functionality for WordPress 6.0 has been updated.
@@ -225,6 +235,15 @@ Please make sure that the problem hasn't been discussed yet on our forum (<https
 * NEW : The Timesheet by BestWebSoft plugin is ready for use.
 
 == Upgrade Notice ==
+
+= V1.1.6 =
+* Plugin optimization completed.
+* The compatibility with new WordPress version updated.
+
+= V1.1.5 =
+* Bugs fixed.
+* Plugin optimization completed.
+* The compatibility with new WordPress version updated.
 
 = V1.1.4 =
 * Bugs fixed.

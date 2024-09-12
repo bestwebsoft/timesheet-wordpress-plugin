@@ -3,18 +3,18 @@ msgstr ""
 "Project-Id-Version: Timesheet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 14:32+0200\n"
-"PO-Revision-Date: 2021-02-11 14:32+0200\n"
+"PO-Revision-Date: 2024-09-12 14:35+0300\n"
 "Last-Translator: Pierpaolo Gessa <pier.gessagmail.com>\n"
 "Language-Team: BestWebSoft Team <wp@bestwebsoft.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c\n"
-"X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;esc_html__;esc_html_e\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.4.3\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: bws_menu\n"
 
@@ -28,10 +28,8 @@ msgid "Display"
 msgstr "Visualizza"
 
 #: includes/class-tmsht-settings.php:23
-#, fuzzy
-#| msgid "Reminder"
 msgid "Reminders"
-msgstr "Promemoria"
+msgstr "Reminder"
 
 #: includes/class-tmsht-settings.php:24
 msgid "Reports"
@@ -130,7 +128,7 @@ msgstr "Abilitato"
 #: includes/class-tmsht-settings.php:326 includes/class-tmsht-settings.php:339
 #: includes/class-tmsht-settings.php:359
 msgid "All Day"
-msgstr ""
+msgstr "Tutto il giorno"
 
 #: includes/class-tmsht-settings.php:327 includes/class-tmsht-settings.php:360
 msgctxt "Settings status table header"
@@ -157,10 +155,8 @@ msgid "Date Format"
 msgstr "Formato data"
 
 #: includes/class-tmsht-settings.php:375
-#, fuzzy
-#| msgid "WordPress Settings"
 msgid "WordPress default"
-msgstr "Impostazioni WordPress"
+msgstr "Predefinito di WordPress"
 
 #: includes/class-tmsht-settings.php:387
 msgid "Custom"
@@ -175,18 +171,12 @@ msgid "Edit Overdue Timesheets"
 msgstr "Modifica schede attività scadute"
 
 #: includes/class-tmsht-settings.php:404
-#, fuzzy
-#| msgid "Enable to activate overdue timesheets editing."
 msgid "Enable to allow overdue timesheets editing."
-msgstr ""
-"Attivare questa opzione per attivare la modifica delle schede attività "
-"scadute."
+msgstr "Abilitare per consentire la modifica dei timesheet scaduti."
 
 #: includes/class-tmsht-settings.php:411
-#, fuzzy
-#| msgid "Reports Settings"
 msgid "Reminders Settings"
-msgstr "Impostazioni dei Report"
+msgstr "Impostazioni dei promemoria"
 
 #: includes/class-tmsht-settings.php:416
 msgid "Email Reminder"
@@ -246,24 +236,22 @@ msgstr "Impostazioni di visualizzazione"
 
 #: includes/class-tmsht-settings.php:465 timesheet.php:61 timesheet.php:514
 msgid "My Availability"
-msgstr ""
+msgstr "La mia disponibilità"
 
 #: includes/class-tmsht-settings.php:511 includes/class-tmsht-settings.php:579
 #: includes/class-tmsht-settings.php:603 includes/class-tmsht-settings.php:649
 #: includes/class-tmsht-settings.php:691 includes/class-tmsht-settings.php:741
 #: timesheet.php:573
 msgid "Close"
-msgstr ""
+msgstr "Chiudere"
 
 #: includes/class-tmsht-settings.php:533 timesheet.php:72 timesheet.php:1056
 msgid "Team"
-msgstr ""
+msgstr "Team"
 
 #: includes/class-tmsht-settings.php:607
-#, fuzzy
-#| msgid "Edit time"
 msgid "Edit Team"
-msgstr "Modifica dell'ora"
+msgstr "Modifica Squadra"
 
 #: includes/class-tmsht-settings.php:641
 msgid "Reports Settings"
@@ -278,10 +266,8 @@ msgid "This is your personal reports settings."
 msgstr "Queste sono le impostazioni dei report personali."
 
 #: includes/class-tmsht-settings.php:653
-#, fuzzy
-#| msgid "Reports"
 msgid "Email Reports"
-msgstr "Report"
+msgstr "Report Email"
 
 #: includes/class-tmsht-settings.php:656
 msgid "Enable to receive reports by email."
@@ -296,10 +282,8 @@ msgid "Search user"
 msgstr "Cerca utente"
 
 #: includes/class-tmsht-settings.php:686
-#, fuzzy
-#| msgid "Import / Export"
 msgid "Import/Export"
-msgstr "Import/Export"
+msgstr "Importa/Esporta"
 
 #: includes/class-tmsht-settings.php:695
 msgid "Export Data"
@@ -327,7 +311,7 @@ msgstr "Aggiungere e sostituire i dati correnti"
 
 #: includes/class-tmsht-settings.php:709
 msgid "Clear old and add new data"
-msgstr ""
+msgstr "Cancellare i dati vecchi e aggiungerne di nuovi"
 
 #: includes/class-tmsht-settings.php:710
 msgid "Add missing data"
@@ -338,53 +322,38 @@ msgid "Import"
 msgstr "Importa"
 
 #: includes/class-tmsht-settings.php:723
-#, fuzzy
-#| msgid "Timesheet"
 msgid "Clear Timesheet"
-msgstr "Scheda di Attività"
+msgstr "Azzeramento del foglio di presenza"
 
 #: includes/class-tmsht-settings.php:725
-#, fuzzy
-#| msgctxt "email reminder"
-#| msgid "Every"
 msgid "Every"
 msgstr "Ogni"
 
 #: includes/class-tmsht-settings.php:732
 msgid "This will clear users timesheet."
-msgstr ""
+msgstr "In questo modo si cancella il timesheet dell'utente."
 
 #: includes/class-tmsht-settings.php:745
-#, fuzzy
-#| msgid "Timesheet Pro Shortcode"
 msgid "Timesheet Shortcode"
-msgstr "Timesheet Pro Shortcode"
+msgstr "Shortcode per il timesheet"
 
 #: includes/class-tmsht-settings.php:748
-#, fuzzy
-#| msgid ""
-#| "Add the user Timesheet to your pages or posts using the following "
-#| "shortcode:"
 msgid ""
 "Add the \"My Availability\" to your pages or posts using the following "
 "shortcode:"
 msgstr ""
-"Aggiungere la scheda attività utente alle pagine o ai post utilizzando lo "
-"shortcode seguente:"
+"Aggiungete la \"Mia disponibilità\" alle vostre pagine o ai vostri post "
+"utilizzando il seguente shortcode:"
 
 #: includes/class-tmsht-settings.php:752
-#, fuzzy
-#| msgid ""
-#| "Add the user Timesheet to your pages or posts using the following "
-#| "shortcode:"
 msgid "Add the \"Team\" to your pages or posts using the following shortcode:"
 msgstr ""
-"Aggiungere la scheda attività utente alle pagine o ai post utilizzando lo "
-"shortcode seguente:"
+"Aggiungete il \"Team\" alle vostre pagine o ai vostri post utilizzando il "
+"seguente shortcode:"
 
 #: timesheet.php:90 timesheet.php:754
 msgid "Upgrade to Pro"
-msgstr ""
+msgstr "Aggiornamento a Pro"
 
 #: timesheet.php:185
 msgid "In Office"
@@ -490,7 +459,7 @@ msgstr "Modifica dell'ora"
 
 #: timesheet.php:722
 msgid "Available in PRO"
-msgstr ""
+msgstr "Disponibile in PRO"
 
 #: timesheet.php:726
 msgid "Delete status"
@@ -498,11 +467,11 @@ msgstr "Elimina stato"
 
 #: timesheet.php:757
 msgid "or"
-msgstr ""
+msgstr "o"
 
 #: timesheet.php:760
 msgid "Start Your Free Trial"
-msgstr ""
+msgstr "Inizia la tua prova gratuita"
 
 #: timesheet.php:863 timesheet.php:2097 timesheet.php:2677
 msgid "Week"
